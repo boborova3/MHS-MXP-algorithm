@@ -1,0 +1,12 @@
+1;20;7,06;{{jack:SystemsStaff},{jack:Dean},{jack:UndergraduateStudent},{jack:GraduateStudent},{jack:ResearchAssistant},{jack:Professor},{jack:VisitingProfessor},{jack:AssociateProfessor},{jack:Chair},{jack:AdministrativeStaff},{jack:PostDoc},{jack:Student},{jack:FullProfessor},{jack:TeachingAssistant},{jack:Faculty},{jack:Lecturer},{jack:Employee},{jack:ClericalStaff},{jack:AssistantProfessor},{jack:Director}}
+
+ontologia: lubm
+pristup: mrozek
+model reuse: true
+
+obs: jack:Person
+abd: ziadne
+
+vysledky: ok 
+cas: 7,06 sekund
+poznamka: toto je len partial explenation, beh som zastavila po 2 hodinach

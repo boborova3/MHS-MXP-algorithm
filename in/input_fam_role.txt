@@ -1,0 +1,7 @@
+-f: C:\Users\gabli\Desktop\Diplomovka\hybrid_solver\files\family.owl
+-o: jack:Father
+-p: {
+fam: http://www.semanticweb.org/julia/ontologies/2017/8/family#
+}
+-a: fam:hasChild()
+

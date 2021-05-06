@@ -1,0 +1,12 @@
+1;2;2,84;{{jack:Grandfather},{jack:GreatGrandfather}}
+2;3;2,84;{{jack:Parent,jack:¬Mother},{jack:¬Female,jack:Parent},{jack:Male,jack:Parent}}
+
+ontologia: family
+pristup: katka
+model reuse: true
+
+obs: jack:Person
+abd: ziadne
+
+vysledky: ok
+cas: 2,84 sekund

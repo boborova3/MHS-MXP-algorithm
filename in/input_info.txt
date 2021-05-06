@@ -1,0 +1,56 @@
+MHS-MXP: ABox Abductive Algorithm for DL
+________________________________
+
+To run MHS-MXP solver, you can either run the main class 
+hybrid_solver\src\main\java\Main.java, or you can use command line. 
+Example of command:
+java -jar mhs-mxp.jar "path_to_input_file\input.txt"
+
+Each input file must contain a path to ontology file and an observation. Other arguments are optional. 
+For now, only a single observation and only atomic concepts in the parameters are allowed.
+
+-f ontology_file.owl (required)		: path to ontology file
+-o observation (required)		: observation of form A(a) (e.g. fam:Father(fam:jack))
+-r hermit|pellet|jfact			: chosen reasoner (default=hermit)
+-d tree_depth				: max depth of tree we want to consider (default=infinity)
+-t timeout_in_seconds			: max time spent solving (default=infinity)
+-p shortcut: prefix			: definition of one shortcut for IRI prefix 
+					  (e.g. -p dai: http://dai.fmph.uniba.sk/RDF#)
+-p {					: set of definitions of shortcuts for prefixes
+shortcut1: prefix1			  (e.g. -p {
+shortcut2: prefix2				dai: http://dai.fmph.uniba.sk/RDF#)
+...						fam: http://www.semanticweb.org/julia/ontologies/2017/8/family#
+shortcutN: prefixN				}
+}
+-a abducible				: definition of one abducible to use including IRI prefix or with usage of
+					  shortcut prefix defined with -p parameter (defaulf=all)
+					  (e.g. -a http://dai.fmph.uniba.sk/RDF#homola)
+-a {					: definition of set of abducibles to use
+abducible1				  (e.g. -a {
+...						dai:homola
+abducibleN					http://www.semanticweb.org/julia/ontologies/2017/8/family#Mother
+}						}
+-n true/false				: (NOT WORKING YET) negation in abductibles allowed (default=true)
+
+Note: 
+It is important to follow the stated formating for each parameter including blank spaces and new lines.
+The order of parameters is not important. 
+Parameters -p and -a may be used multiple times and will be considered as one set definition 
+(e.g. 
+
+-p shortcut1: prefix1
+-p {
+shortcut2: prefix2
+shortcut3: prefix3
+}
+-p shortcut4: prefix4
+						
+will create one set of prefix definitions {shortcut1: prefix1, shortcut2: prefix2, shortcut3: prefix3, 
+shortcut4: prefix4})	
+
+Poznamka: parametre -t, -r, -d som ešte neskúšala, -n som ešte nevytvorila (vôbec ho zatiaľ nepoužívať)
+					
+
+
+
+

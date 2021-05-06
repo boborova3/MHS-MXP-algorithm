@@ -1,0 +1,17 @@
+4;4;58,48;{{jack:C,jack:D,jack:H,jack:G},{jack:F,jack:G,jack:H,jack:C},{jack:F,jack:G,jack:E,jack:H},{jack:H,jack:E,jack:G,jack:D}}
+
+pristup: katka
+model reuse: false
+ontologia:
+E je podtrieda C
+F je podtrieda D
+C and D and H and G = I
+
+- vysledky ok, cas 58 sekund, 48 stotin
+- druhy pokus: cas 63,98
+
+- obs: jack:I
+- abd: ziadne
+
+vyznam cisel pred vypisom vysvetleni:
+hlbka;pocet_vysvetleni;cas_v_sekundach

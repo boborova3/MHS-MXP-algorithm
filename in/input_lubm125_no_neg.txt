@@ -1,0 +1,7 @@
+-f: C:\Users\gabli\Desktop\Diplomovka\hybrid_solver\files\lubm2-125.owl
+-o: ode:Added(lubm:jack)
+-p: {
+lubm: owlapi:ontology#ont24525195307693#
+ode: http://www.co-ode.org/ontologies/ont.owl#
+}
+-n: false

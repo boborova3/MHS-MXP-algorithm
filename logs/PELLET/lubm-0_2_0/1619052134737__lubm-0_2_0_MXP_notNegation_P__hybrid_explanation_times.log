@@ -1,0 +1,12 @@
+32,84;{GraduateCourse(DummyIndividual),GraduateStudent(DummyIndividual)}
+51,83;{UndergraduateStudent(DummyIndividual),Course(DummyIndividual)}
+61,28;{UndergraduateStudent(DummyIndividual),Work(DummyIndividual)}
+70,10;{UndergraduateStudent(DummyIndividual),GraduateCourse(DummyIndividual)}
+75,59;{UndergraduateStudent(DummyIndividual),Research(DummyIndividual)}
+81,26;{Work(DummyIndividual),Student(DummyIndividual)}
+100,97;{Work(DummyIndividual),GraduateStudent(DummyIndividual)}
+100,97;{GraduateCourse(DummyIndividual),Student(DummyIndividual)}
+100,97;{Course(DummyIndividual),Student(DummyIndividual)}
+100,97;{Course(DummyIndividual),GraduateStudent(DummyIndividual)}
+100,97;{Research(DummyIndividual),Student(DummyIndividual)}
+100,97;{Research(DummyIndividual),GraduateStudent(DummyIndividual)}

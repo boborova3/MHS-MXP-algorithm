@@ -1,0 +1,13 @@
+-f: C:\Users\gabli\Desktop\Diplomovka\hybrid_solver\files\lubm.owl
+-o: http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person(http://swat.cse.lehigh.edu/onto/univ-bench.owl#jack)
+-p: {
+lubm: http://swat.cse.lehigh.edu/onto/univ-bench.owl#
+}
+-a: {
+lubm:Dean
+lubm:Lecturer
+lubm:Director
+lubm:Chair
+lubm:Manual
+lubm:jack
+}

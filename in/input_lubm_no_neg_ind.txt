@@ -1,0 +1,22 @@
+-f: C:\Users\gabli\Desktop\Diplomovka\hybrid_solver\files\lubm2-125.owl
+-o: ode:Added(lubm:jack)
+-p: {
+lubm: http://swat.cse.lehigh.edu/onto/univ-bench.owl#
+uni: http://www.Department9.University0.edu/
+ode: http://www.co-ode.org/ontologies/ont.owl#
+}
+-n: false
+-aC: {
+lubm:Institute
+lubm:Schedule
+lubm:Book
+lubm:GraduateCourse
+lubm:GraduateStudent
+lubm:Course
+lubm:Work
+lubm:Research
+}
+-aI: {
+lubm:jack
+uni:Course0
+}

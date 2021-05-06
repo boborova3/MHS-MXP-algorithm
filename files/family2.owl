@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#"
+     xml:base="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#hasChild -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#hasChild"/>
+    
+
+
+    <!-- http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#hasParent -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#hasParent">
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Father -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Father">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Male"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Parent"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Parent"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Mother"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Female -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Female">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Grandfather -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Grandfather">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Father"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#hasChild"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Mother"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Grandmother -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Grandmother">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Mother"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#hasChild"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Mother"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Male -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Male">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Mother -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Mother">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Female"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Parent"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Parent"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Parent -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Parent">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Person"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#hasChild"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Person -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Person">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#hasParent"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Mother"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#hasParent"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Father"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#jane -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#jane">
+        <rdf:type rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Grandmother"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

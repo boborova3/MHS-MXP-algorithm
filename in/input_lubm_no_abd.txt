@@ -1,0 +1,5 @@
+-f: C:\Users\gabli\Desktop\Diplomovka\hybrid_solver\files\lubm.owl
+-o: lubm:Person(lubm:jack)
+-p: {
+lubm: http://swat.cse.lehigh.edu/onto/univ-bench.owl#
+}

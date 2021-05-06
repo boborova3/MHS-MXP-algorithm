@@ -1,0 +1,12 @@
+1;2;8,22;{{jack:GreatGrandfather},{jack:Grandfather}}
+2;3;8,22;{{jack:Parent,jack:Male},{jack:Parent,jack:¬Female},{jack:¬Mother,jack:Parent}}
+
+ontologia: family
+pristup: mrozek
+model reuse: false
+
+obs: jack:Person
+abd: ziadne
+
+vysledky: ok
+cas: 8,22 sekund

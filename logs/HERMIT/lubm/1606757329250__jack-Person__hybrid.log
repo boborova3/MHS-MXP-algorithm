@@ -1,0 +1,12 @@
+1;4;3,94;{{jack:Chair},{jack:Dean},{jack:Lecturer},{jack:Director}}
+
+ontologia: lubm
+pristup: katka
+model reuse: true
+
+obs: jack:Person
+abd: jack, Dean, Lecturer, Director, Chair, Manual
+
+vysledky: ok (Manual nemal byt riesenim)
+cas: 3,94 sekund
+poznamka: beh programu uspesne skoncil

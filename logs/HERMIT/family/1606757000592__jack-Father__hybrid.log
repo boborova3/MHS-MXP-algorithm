@@ -1,0 +1,12 @@
+1;1;1,08;{{jack:Grandfather}}
+2;2;1,08;{{jack:Parent,jack:¬Female},{jack:¬Mother,jack:Parent}}
+
+ontologia: family
+pristup: mrozek
+model reuse: true
+
+obs: jack:Person
+abd: jack, Parent, Mother, Female, Grandfather
+
+vysledky: ok
+cas: 1,08 sekund

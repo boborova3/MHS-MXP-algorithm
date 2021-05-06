@@ -1,0 +1,6 @@
+-f: files/lubm2.owl
+-o: lubm:Added(lubm:jack)
+-p: {
+lubm: http://swat.cse.lehigh.edu/onto/univ-bench.owl#
+}
+-n: false
