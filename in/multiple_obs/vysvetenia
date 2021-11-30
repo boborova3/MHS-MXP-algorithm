@@ -1,0 +1,68 @@
+SKUSIT, KED MAME ROVNAKE INDIVIDUALY!!!!!
+SKUSIT, KED MAME VIAC AKO 2 POZOROVANIA
+
+Vysvetlenia:
+
+
+pokus.in
+a:A
+b:C
+
+
+tom.in
+jerry:Cat
+mammy:OwnerCat
+
+tom:ChaseMouse
+
+jerry:Mouse
+mammy:OwnerCat
+tom:ChaseMouse
+
+
+family.in
+
+jack:Grandfather
+jane:Grandmother
+
+jack:Male
+jack:Parent
+jane:Female
+jane:Parent
+
+jack:Grandfather
+jane:Female
+jane:Parent
+
+jack:Male
+jack:Parent
+jane:Grandmother
+
+
+family2.in
+ {{p0:jack: p0:Grandfather, p0:jane: p0:Grandmother
+
+p0:jack: p0:Grandfather, p0:jane: p0:Father
+
+p0:jack: p0:Male, p0:jack: p0:Parent, p0:jane: p0:Father
+
+p0:jack: p0:Male, p0:jack: p0:Parent, p0:jane: p0:Grandfather
+
+p0:jack: p0:Grandfather, p0:jane: p0:Mother
+
+p0:jack: p0:Male, p0:jack: p0:Parent, p0:jane: p0:Grandmother
+
+p0:jack: p0:Male, p0:jack: p0:Parent, p0:jane: p0:Mother
+
+p0:jack: p0:Grandfather, p0:jane: p0:Grandfather}}
+
+
+family3.in
+No explanations (ASI TIEZ OK)
+
+
+lubm.in
+
+
+
+lubm2.in

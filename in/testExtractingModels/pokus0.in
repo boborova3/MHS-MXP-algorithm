@@ -1,0 +1,4 @@
+-f: files/testExtractingModel0.owl
+-o: Prefix: prefix1: <http://www.co-ode.org/ontologies/ont.owl#> Class: prefix1:A Individual: prefix1:a Types: not prefix1:A
+-t: 14400
+-n: false

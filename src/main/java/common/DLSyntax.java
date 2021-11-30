@@ -19,6 +19,7 @@ public class DLSyntax {
     public final static String RIGHT_PARENTHESES = ")";
 
     public final static String DISPLAY_NEGATION = "¬";
+    //public final static String DISPLAY_NEGATION = "not ";
 
     public final static String IRI_REGEX = "[a-z]*:[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 }

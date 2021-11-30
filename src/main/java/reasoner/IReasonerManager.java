@@ -2,6 +2,7 @@ package reasoner;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import java.util.Collection;
 import java.util.stream.Stream;
@@ -18,6 +19,6 @@ public interface IReasonerManager {
 
     boolean isOntologyConsistent();
 
-    boolean isOntologyWithLiteralsConsistent(Collection<OWLAxiom> axioms, OWLOntology ontology);
+    boolean isOntologyWithLiteralsConsistent(Collection<OWLAxiom> axioms, OWLOntology ontology) throws OWLOntologyStorageException;
 
 }

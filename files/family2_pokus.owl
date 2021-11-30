@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/julia/ontologies/2017/8/family#"
+     xml:base="http://www.semanticweb.org/julia/ontologies/2017/8/family"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/julia/ontologies/2017/8/family#hasChild -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#hasChild"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/julia/ontologies/2017/8/family#Father -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Father">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Male"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Parent"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Male"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Mother"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/julia/ontologies/2017/8/family#Female -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Female">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Person"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Male"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/julia/ontologies/2017/8/family#Grandfather -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Grandfather">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Father"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#hasChild"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/julia/ontologies/2017/8/family#Grandmother -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Grandmother">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Mother"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#hasChild"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Parent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/julia/ontologies/2017/8/family#GreatGrandfather -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#GreatGrandfather">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Grandfather"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/julia/ontologies/2017/8/family#GreatGrandmother -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#GreatGrandmother">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Grandmother"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/julia/ontologies/2017/8/family#Male -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Male">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/julia/ontologies/2017/8/family#Mother -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Mother">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Female"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Parent"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Female"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/julia/ontologies/2017/8/family#Parent -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Parent">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#hasChild"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Person"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/julia/ontologies/2017/8/family#Person"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Father"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Mother"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/julia/ontologies/2017/8/family#Person -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#Person"/>
+</rdf:RDF>
+
+
+    <!-- http://www.semanticweb.org/julia/ontologies/2017/8/family#jane -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/julia/ontologies/2017/8/family#jane"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

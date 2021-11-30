@@ -1,0 +1,8 @@
+-f: files/lubm-0.owl
+-o: Prefix: prefix1: <http://swat.cse.lehigh.edu/onto/univ-bench.owl#> Prefix: prefix2: <http://www.Department9.University0.edu/> Class: prefix1:Organization Individual: prefix2:DummyIndividual Types: prefix1:Organization
+-p: {
+prefix1: http://swat.cse.lehigh.edu/onto/univ-bench.owl#
+prefix2: http://www.Department9.University0.edu/
+} 
+-t: 14400
+-n: false

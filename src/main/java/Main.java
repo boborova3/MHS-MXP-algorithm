@@ -17,7 +17,26 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         String[] x = new String[1];
-        x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/lubm-0_2_0_MXP_notNegation_P.in";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/lubm-0_4_3_MXP_notNegation.in";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/lubm-0_4_3_MXP_notNegation_1.in";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/lubm-0_4_3_MXP_notNegation_2.in";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/input_fam_5_turtle.txt";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/nove_in/lubm-0_1_0_MXP_notNegation_without.in";
+
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/nove_in/lubm-0_5_0_MXP_notNegation_J.in";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/pokus.in";
+        /*skusam*/
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/input_fam_2.txt";
+        x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/divideSets.in";
+
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/multiple_obs/tom.in";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/multiple_obs/lubm3.in";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/multiple_obs/lubm.in";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/complex_obs/pokus.in";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/multiple_obs/pokus_rovnakyIndividual.in";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/testExtractingModels/pokus9.in";
+
+
 
         Logger.getRootLogger().setLevel(Level.OFF);
         BasicConfigurator.configure();

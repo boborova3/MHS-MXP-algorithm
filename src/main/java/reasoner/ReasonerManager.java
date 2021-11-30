@@ -1,9 +1,13 @@
 package reasoner;
 
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.model.*;
 
+import java.lang.annotation.Target;
 import java.util.Collection;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class ReasonerManager implements IReasonerManager {
@@ -42,8 +46,13 @@ public class ReasonerManager implements IReasonerManager {
 
     @Override
     public boolean isOntologyConsistent() {
+        System.out.println("TAKATO JE ONTOLOGIA TERAZ");
         loader.initializeReasoner();
-        return loader.getReasoner().isConsistent();
+        System.out.println(loader.getReasoner().getRootOntology().getAxioms());
+        //System.out.println("JEJ KONZISTENTNOST " + loader.getReasoner().isConsistent());
+        boolean temp = loader.getReasoner().isConsistent();
+        return temp;
+        //return loader.getReasoner().isConsistent();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package reasoner;
 
+import java.util.*;
 import models.Abducibles;
 import models.Individuals;
 import models.Observation;
@@ -43,4 +44,10 @@ public interface ILoader {
     OWLOntology getOriginalOntology();
 
     Abducibles getAbducibles();
+
+    List<OWLAxiom> getMultipleObservations();
+
+    OWLNamedIndividual getReductionIndividual();
+
+    boolean isMultipleObservationOnInput();
 }

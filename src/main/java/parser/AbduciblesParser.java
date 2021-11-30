@@ -28,7 +28,6 @@ public class AbduciblesParser {
     }
 
     public Abducibles parse(){
-
         Set<OWLClass> classes = new HashSet<>();
         Set<OWLNamedIndividual> individuals = new HashSet<>();
         Set<OWLObjectProperty> roles = new HashSet<>();

@@ -1,0 +1,4 @@
+-f: files/tomandjerry.owl
+-o: Prefix: prefix1: <http://www.co-ode.org/ontologies/ont.owl#> Class: prefix1:CatLover Class: prefix1:HappyCat Class: prefix1:Animal Individual: prefix1:jerry Types: prefix1:Animal Individual: prefix1:tom Types: prefix1:HappyCat Individual: prefix1:mammy Types: prefix1:CatLover
+-t: 14400
+-n: false

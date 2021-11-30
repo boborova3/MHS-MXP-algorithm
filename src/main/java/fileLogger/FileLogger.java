@@ -51,6 +51,7 @@ public class FileLogger {
         if (inputFileParts.length > 0) {
             inputFileName = inputFileParts[0];
         }
+
         String directoryPath;
         directoryPath = FILE_DIRECTORY.concat(File.separator).concat(Configuration.REASONER.name()).concat(File.separator).concat(inputFileName);
         File directory = new File(directoryPath);

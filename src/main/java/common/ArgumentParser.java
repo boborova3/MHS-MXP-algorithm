@@ -42,20 +42,6 @@ public class ArgumentParser {
             }
             String next = line[1];
             switch(new_line) {
-                case "-s:":
-                    if(Syntax.TURTLE.equals(next)){
-                        Syntax.actualSyntax = Syntax.TURTLE;
-                    } else if(Syntax.MANCHESTER.equals(next)){
-                        Syntax.actualSyntax = Syntax.MANCHESTER;
-                    } else if(Syntax.FUNCTIONAL.equals(next)){
-                        Syntax.actualSyntax = Syntax.FUNCTIONAL;
-                    } else if(Syntax.DL.equals(next)){
-                        Syntax.actualSyntax = Syntax.DL;
-                    } else {
-                        System.err.println("Syntax type -s " + next + " is unknown, the only allowed syntaxes are turtle|manchester|functional|dl");
-                        Application.finish(ExitCode.ERROR);
-                    }
-                    break;
                 case "-f:":
                     if (!(new File(next).exists())){
                         System.err.println("Could not open -f file " + next);
@@ -108,14 +94,14 @@ public class ArgumentParser {
                         add_abd(next, true);
                     }
                     break;
-                case "-p:":
+                /*case "-p:":
                     if (next.equals("{")) {
                         read_prefixes = true;
                     } else {
                         String last = (line.length == 3) ? line[2] : "";
                         add_prefix(next + " " + last);
                     }
-                    break;
+                    break;*/
                 case "-n:":
                     if (next.equals("false")) {
                         Configuration.NEGATION_ALLOWED = false;

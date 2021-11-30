@@ -21,6 +21,8 @@ import parser.AbduciblesParser;
 import uk.ac.manchester.cs.jfact.JFactFactory;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,12 +41,17 @@ public class Loader implements ILoader {
     private Individuals namedIndividuals;
     private OWLOntology originalOntology;
     private Abducibles abducibles;
+    private OWLDocumentFormat observationOntologyFormat;
+    private List<OWLAxiom> multipleObservations;
+
+    private OWLNamedIndividual reductionIndividual;
+    private boolean isMultipleObservationOnInput = false;
 
     @Override
     public void initialize(ReasonerType reasonerType) throws Exception {
         loadReasoner(reasonerType);
-        loadPrefixes();
         loadObservation();
+        loadPrefixes();
         loadAbductibles();
     }
 
@@ -70,13 +77,16 @@ public class Loader implements ILoader {
             logger.log(Level.WARNING, LogMessage.ERROR_CREATING_ONTOLOGY, exception);
             Application.finish(ExitCode.ERROR);
         }
+        System.out.println("TU JE POVODNA ONTOLOGIA");
+        System.out.println(reasoner.getRootOntology());
     }
 
     @Override
     public void changeReasoner(ReasonerType reasonerType) {
         switch (reasonerType) {
             case PELLET:
-                setOWLReasonerFactory(OpenlletReasonerFactory.getInstance());
+//                setOWLReasonerFactory(OpenlletReasonerFactory.getInstance());
+                setOWLReasonerFactory(new OpenlletReasonerFactory());
                 break;
 
             case HERMIT:
@@ -105,7 +115,7 @@ public class Loader implements ILoader {
     }
 
     private void loadPrefixes(){
-        PrefixesParser prefixesParser = new PrefixesParser();
+        PrefixesParser prefixesParser = new PrefixesParser(observationOntologyFormat);
         prefixesParser.parse();
     }
 
@@ -163,7 +173,6 @@ public class Loader implements ILoader {
         if (ontologyIRI == null) {
             ontologyIRI = ontology.getOntologyID().getOntologyIRI().get().toString();
         }
-
         return ontologyIRI;
     }
 
@@ -185,5 +194,34 @@ public class Loader implements ILoader {
     @Override
     public OWLOntology getOriginalOntology() {
         return originalOntology;
+    }
+
+
+    public void setObservationOntologyFormat(OWLDocumentFormat observationOntologyFormat) {
+        this.observationOntologyFormat = observationOntologyFormat;
+    }
+
+    public OWLNamedIndividual getReductionIndividual() {
+        return reductionIndividual;
+    }
+
+    public void setReductionIndividual(OWLNamedIndividual reductionIndividual) {
+        this.reductionIndividual = reductionIndividual;
+    }
+
+    public List<OWLAxiom> getMultipleObservations() {
+        return multipleObservations;
+    }
+
+    public void setMultipleObservations(List<OWLAxiom> multipleObservations) {
+        this.multipleObservations = multipleObservations;
+    }
+
+    public boolean isMultipleObservationOnInput() {
+        return isMultipleObservationOnInput;
+    }
+
+    public void setMultipleObservationOnInput(boolean multipleObservationOnInput) {
+        isMultipleObservationOnInput = multipleObservationOnInput;
     }
 }

@@ -1,0 +1,15 @@
+0,68;{PostDoc(DummyIndividual)}
+0,78;{Professor(DummyIndividual)}
+1,10;{SystemsStaff(DummyIndividual)}
+1,39;{FullProfessor(DummyIndividual)}
+1,50;{Director(DummyIndividual)}
+1,60;{VisitingProfessor(DummyIndividual)}
+1,80;{ClericalStaff(DummyIndividual)}
+1,90;{Dean(DummyIndividual)}
+2,21;{Lecturer(DummyIndividual)}
+2,42;{AdministrativeStaff(DummyIndividual)}
+2,52;{Chair(DummyIndividual)}
+2,84;{AssistantProfessor(DummyIndividual)}
+2,93;{ResearchAssistant(DummyIndividual)}
+3,03;{Faculty(DummyIndividual)}
+3,21;{AssociateProfessor(DummyIndividual)}

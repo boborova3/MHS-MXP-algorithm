@@ -187,7 +187,8 @@
     <!-- http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#jane -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#jane">
-        <rdf:type rdf:resource="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#Grandmother"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#jack">
     </owl:NamedIndividual>
 </rdf:RDF>
 

@@ -1,0 +1,854 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#"
+     xml:base="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase -->
+
+    <owl:ObjectProperty rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase">
+        <rdfs:subPropertyOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#hasIngredient"/>
+        <owl:inverseOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#isBaseOf"/>
+        <rdfs:domain rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:range rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Base"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping -->
+
+    <owl:ObjectProperty rdf:about="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping">
+        <rdfs:subPropertyOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#hasIngredient"/>
+        <owl:inverseOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#isToppingOf"/>
+        <rdfs:domain rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:range rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Topping"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#hasIngredient -->
+
+    <owl:ObjectProperty rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#hasIngredient">
+        <owl:inverseOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#isIngredientOf"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#isBaseOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#isBaseOf">
+        <rdfs:domain rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Base"/>
+        <rdfs:range rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#isIngredientOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#isIngredientOf">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#isToppingOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#isToppingOf">
+        <rdfs:domain rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Topping"/>
+        <rdfs:range rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Base -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Base"/>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Bonbon -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Bonbon">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#CondensedMilk"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#CafeComHielo -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#CafeComHielo">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#IceCube"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#CafeConLeche -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#CafeConLeche">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#SteamedMilk"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#FilteredCoffee"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#CafeLatte -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#CafeLatte">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#SteamedMilk"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#MilkFoam"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Chocolate -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Chocolate">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Base"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Coffee -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Coffee">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Base"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ColdCoffee -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ColdCoffee">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ColdWater"/>
+                            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#IceCream"/>
+                            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#IceCube"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ColdWater -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ColdWater">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Water"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#CondensedMilk -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#CondensedMilk">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Milk"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ContainsChocolate -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ContainsChocolate">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                        <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Chocolate"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping"/>
+                        <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#PowderedChocolate"/>
+                    </owl:Restriction>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ContainsMilk -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ContainsMilk">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                        <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Milk"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping"/>
+                        <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#MilkFoam"/>
+                    </owl:Restriction>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Doppio -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Doppio">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Pure"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HotWater"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Base"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Coffee"/>
+        <owl:disjointWith rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#FilteredCoffee"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#FilteredCoffee -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#FilteredCoffee">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Coffee"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#FlatWhite -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#FlatWhite">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#SteamedMilk"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#MilkFoam"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Frappe -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Frappe">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ColdWater"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Sugar"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">3</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#IceCube"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HeavyCoffee -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HeavyCoffee">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Coffee"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HotChocolate -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HotChocolate">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#CondensedMilk"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#SteamedMilk"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">3</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Chocolate"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HotWater -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HotWater">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Water"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#IceCream -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#IceCream">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Base"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#IceCube -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#IceCube">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Water"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#LongBlack -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#LongBlack">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HotWater"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">3</owl:maxQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HotWater"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#LongMacchiato -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#LongMacchiato">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Macchiato"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ShortMacchiato"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Macchiato -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Macchiato">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HotWater"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#SteamedMilk"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#MilkFoam"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Milk -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Milk">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Base"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#MilkFoam -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#MilkFoam">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Topping"/>
+        <owl:disjointWith rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#PowderedChocolate"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#PiccoloLatte -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#PiccoloLatte">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#SteamedMilk"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#MilkFoam"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#PowderedChocolate -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#PowderedChocolate">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Topping"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Pure -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Pure">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ShortBlack -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ShortBlack">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Pure"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HotWater"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ShortMacchiato -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ShortMacchiato">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Macchiato"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#SteamedMilk -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#SteamedMilk">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Milk"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Sugar -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Sugar">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Base"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Topping -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Topping"/>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Water -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Water">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Base"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/coffee#Affogato -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/coffee#Affogato">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#IceCream"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#SteamedMilk"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">3</owl:maxQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/coffee#Cappuccino -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/coffee#Cappuccino">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#SteamedMilk"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#PowderedChocolate"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#MilkFoam"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">3</owl:maxQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#MilkFoam"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/coffee#Mocha -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/coffee#Mocha">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#SteamedMilk"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#MilkFoam"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">3</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#MilkFoam"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#PowderedChocolate"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unifor.br/ppgia/coffee#Ristretto -->
+
+    <owl:Class rdf:about="http://www.unifor.br/ppgia/coffee#Ristretto">
+        <rdfs:subClassOf rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Pure"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Espresso"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase"/>
+                <owl:someValuesFrom rdf:resource="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HotWater"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Base"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Drink"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Topping"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Bonbon"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#CafeLatte"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#FlatWhite"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Frappe"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HotChocolate"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#LongBlack"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Macchiato"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#PiccoloLatte"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Pure"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/coffee#Affogato"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/coffee#Cappuccino"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/coffee#Mocha"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Chocolate"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Coffee"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#IceCream"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Milk"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Sugar"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Water"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ColdWater"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#HotWater"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#IceCube"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#Doppio"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/carlosmendes/espresso-based-drinks#ShortBlack"/>
+            <rdf:Description rdf:about="http://www.unifor.br/ppgia/coffee#Ristretto"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.1.3.20151118-2017) https://github.com/owlcs/owlapi -->
+

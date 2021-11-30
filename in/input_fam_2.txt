@@ -1,8 +1,5 @@
--f: files/family.owl
--o: Class: fam:Father Individual: <http://www.semanticweb.org/julia/ontologies/2017/8/family#jack> Types: fam:Father
--r: jfact
--p: {
-fam: http://www.semanticweb.org/julia/ontologies/2017/8/family#
-}
--p: dai: http://dai.fmph.uniba.sk/RDF#
+-f: files/family2.owl
+-o: Prefix: prefix1: <http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#> Class: prefix1:Father Individual: prefix1:jack Types: prefix1:Father
+-t: 14400
+-n: false
 

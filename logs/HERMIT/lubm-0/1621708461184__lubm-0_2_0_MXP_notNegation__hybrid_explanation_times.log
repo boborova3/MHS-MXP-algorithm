@@ -1,0 +1,11 @@
+1,47;{UndergraduateStudent(DummyIndividual),Course(DummyIndividual)}
+1,77;{UndergraduateStudent(DummyIndividual),Work(DummyIndividual)}
+2,06;{UndergraduateStudent(DummyIndividual),GraduateCourse(DummyIndividual)}
+2,38;{UndergraduateStudent(DummyIndividual),Research(DummyIndividual)}
+2,59;{Work(DummyIndividual),Student(DummyIndividual)}
+3,97;{Work(DummyIndividual),GraduateStudent(DummyIndividual)}
+4,17;{GraduateCourse(DummyIndividual),Student(DummyIndividual)}
+4,55;{Course(DummyIndividual),Student(DummyIndividual)}
+4,87;{Course(DummyIndividual),GraduateStudent(DummyIndividual)}
+5,07;{Research(DummyIndividual),Student(DummyIndividual)}
+5,33;{Research(DummyIndividual),GraduateStudent(DummyIndividual)}

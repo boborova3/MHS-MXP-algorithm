@@ -1,0 +1,4 @@
+-f: files/LUBM.owl
+-o: Prefix: prefix1: <http://swat.cse.lehigh.edu/onto/univ-bench.owl#> Class: prefix1:Employee Class: prefix1:Publication Individual: prefix1:jack Types: prefix1:Employee Individual: prefix1:a Types: prefix1:Publication
+-t: 14400
+-n: false

@@ -1,13 +1,9 @@
 package parser;
 
 import common.Configuration;
-import common.Prefixes;
-import common.Syntax;
+import common.DLSyntax;
+import models.Individuals;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
@@ -15,24 +11,25 @@ import reasoner.Loader;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 
 public class ObservationParser implements IObservationParser {
 
     private Logger logger = Logger.getLogger(ObservationParser.class.getSimpleName());
     private Loader loader;
-    private OWLOntology smallOntology;
+    private OWLOntology observationOntology;
+    private boolean processMultipleObservation = false;
+    private List<OWLAxiom> multipleObservations = new ArrayList<>();
 
-    public ObservationParser(Loader loader) {
+    public ObservationParser(Loader loader){
         this.loader = loader;
     }
 
     @Override
     public void parse() throws Exception {
-        String prefixes = createPrefixesInOntology();
         try{
-            createOntologyFromObservation(prefixes);
-            processAxiomsFromObservation();
+            createOntologyFromObservation();
         } catch (OWLOntologyCreationException e){
             throw new OWLOntologyCreationException("Invalid format of observation");
         } catch (OWLOntologyStorageException e){
@@ -41,63 +38,141 @@ public class ObservationParser implements IObservationParser {
         logger.log(Level.INFO, "Observation: ".concat(Configuration.OBSERVATION));
     }
 
-    private String createPrefixesInOntology(){
-        StringBuffer prefixes = new StringBuffer();
-        for(String prefix: Prefixes.prefixes.keySet()){
-            if(Syntax.MANCHESTER.equals(Syntax.actualSyntax)){
-                prefixes.append("Prefix: " + prefix + ": <" + Prefixes.prefixes.get(prefix) + "> ");
-            } else if(Syntax.FUNCTIONAL.equals(Syntax.actualSyntax)){
-                prefixes.append("Prefix(" + prefix + "=<" + Prefixes.prefixes.get(prefix) + ">) ");
-            } else if(Syntax.TURTLE.equals(Syntax.actualSyntax)){
-                prefixes.append("@prefix " + prefix + ": <" + Prefixes.prefixes.get(prefix) + ">. ");            } else {
-            }
-        }
-        return prefixes.toString();
-    }
-
-    private OWLDocumentFormat chooseObservationSyntax(){
-        if(Syntax.MANCHESTER.equals(Syntax.actualSyntax)){
-            return new ManchesterSyntaxDocumentFormat();
-        } else if(Syntax.FUNCTIONAL.equals(Syntax.actualSyntax)){
-            return new FunctionalSyntaxDocumentFormat();
-        } else if(Syntax.TURTLE.equals(Syntax.actualSyntax)){
-            return new TurtleDocumentFormat();
-        } else {
-            return new DLSyntaxDocumentFormat();
-        }
-    }
-
-    private void createOntologyFromObservation(String prefixes) throws OWLOntologyCreationException, OWLOntologyStorageException {
+    private void createOntologyFromObservation() throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        smallOntology = manager.loadOntologyFromOntologyDocument(new StringDocumentSource(prefixes + Configuration.OBSERVATION));
-
+        observationOntology = manager.loadOntologyFromOntologyDocument(new StringDocumentSource(Configuration.OBSERVATION));
         StringDocumentTarget documentTarget = new StringDocumentTarget();
-        OWLDocumentFormat ontologyFormat = chooseObservationSyntax();
-        //ontologyFormat.asPrefixOWLDocumentFormat().copyPrefixesFrom(smallOntology.getFormat().asPrefixOWLDocumentFormat());
-        smallOntology.saveOntology(ontologyFormat, documentTarget);
+        observationOntology.saveOntology(documentTarget);
+        OWLDocumentFormat format = manager.getOntologyFormat(observationOntology);
+        loader.setObservationOntologyFormat(format);
+        processAxiomsFromObservation();
     }
 
     private void processAxiomsFromObservation(){
-        Set<OWLAxiom> set = smallOntology.getAxioms();
+        Set<OWLAxiom> set = observationOntology.getAxioms();
+        System.out.println(set);
+        List<OWLAxiom> resultingObservation = new ArrayList<>();
         for (OWLAxiom axiom : set){
-            if(AxiomType.CLASS_ASSERTION == axiom.getAxiomType()){
-                loader.setObservation(axiom);
-                processClassAssertionAxiom(axiom);
+            //Ak by to bola negacia, platilo by to?? - PLATILO
+            if(AxiomType.CLASS_ASSERTION == axiom.getAxiomType()) {
+                resultingObservation.add(axiom);
+                //System.out.println("ANO");
             }
         }
+        if(resultingObservation.size() == 1){
+            loader.setObservation(resultingObservation.get(0));
+            processClassAssertionAxiom(resultingObservation.get(0));
+        } else {
+            processMultipleObservation = true;
+            loader.setMultipleObservationOnInput(true);
+            //System.out.println(resultingObservation);
+            multipleObservations.addAll(resultingObservation);
+            loader.setMultipleObservations(multipleObservations);
+            OWLNamedIndividual reductionIndividual = loader.getDataFactory().getOWLNamedIndividual("http://www.co-ode.org/ontologies/ont.owl#" + DLSyntax.DELIMITER_ONTOLOGY + "s" + System.currentTimeMillis());
+            loader.setReductionIndividual(reductionIndividual);
+            //System.out.println(reductionIndividual);
+
+
+            OWLClassExpression reductionClass = processMultipleObservations(resultingObservation);
+            OWLAxiom observationAfterReduction = loader.getDataFactory().getOWLClassAssertionAxiom(reductionClass, reductionIndividual);
+            loader.setObservation(observationAfterReduction);
+
+            processClassAssertionAxiom(observationAfterReduction);
+            //System.out.println(observationAfterReduction);
+        }
+        //differentiateIndividualsInOntology();
+        //System.out.println(loader.getOntology());
+        loader.initializeReasoner();
+        //System.out.println("ONTOLOGY CONSISTENT " + loader.getReasoner().isConsistent());
+        //OWLObjectOneOf individualFromAxiom = loader.getDataFactory().getOWLObjectOneOf(res.getIndividual());
+        //OWLClassExpression differentIndividuals = individualFromAxiom.getObjectComplementOf();
+    }
+
+/*    private void differentiateIndividualsInOntology(){
+        List<OWLNamedIndividual> individuals = loader.getIndividuals().getNamedIndividuals();
+        List<OWLNamedIndividual> individuals2 = loader.getIndividuals().getNamedIndividuals();
+
+        OWLAxiom a = loader.getDataFactory().getOWLDifferentIndividualsAxiom(individuals);
+        loader.getOntologyManager().addAxiom(loader.getOntology(), a);
+        loader.getOntologyManager().addAxiom(loader.getOriginalOntology(), a);
+
+        for(int i = 0; i < individuals.size(); i++){
+            for(int j = i + 1; j < individuals.size(); j++){
+                if(individuals.get(i) != loader.getReductionIndividual() && individuals.get(j) != loader.getReductionIndividual()){
+                    OWLAxiom a = loader.getDataFactory().getOWLDifferentIndividualsAxiom(individuals.get(i), individuals.get(j));
+                    loader.getOntologyManager().addAxiom(loader.getOntology(), a);
+                    loader.getOntologyManager().addAxiom(loader.getOriginalOntology(), a);
+                }
+            }
+        }
+    }*/
+
+    private OWLClassExpression processMultipleObservations(List<OWLAxiom> resultingObservation){
+        //vyberiem prvy
+        OWLClassAssertionAxiom res = (OWLClassAssertionAxiom) resultingObservation.get(0);
+        //urcim ze to nie je rovnaky individual
+        OWLObjectOneOf individualFromAxiom = loader.getDataFactory().getOWLObjectOneOf(res.getIndividual());
+        OWLClassExpression differentIndividuals = individualFromAxiom.getObjectComplementOf();
+        //urcim ze to nie je rovnaky individual zjednoteny s rovnakou triedou
+        OWLClassExpression union = loader.getDataFactory().getOWLObjectUnionOf(res.getClassExpression(), differentIndividuals);
+
+        Set<OWLNamedIndividual> allInd = new HashSet<>();
+        Set<OWLAxiom> axioms = loader.getOriginalOntology().getAxioms();
+
+        for(OWLAxiom axiom : resultingObservation.subList(1, resultingObservation.size())){
+
+            OWLClassAssertionAxiom temp = (OWLClassAssertionAxiom) axiom;
+            OWLClassExpression axiomClass = temp.getClassExpression();
+
+            OWLObjectOneOf individualFromAxiom2 = loader.getDataFactory().getOWLObjectOneOf(temp.getIndividual());
+            //OWLSameIndividualAxiom individualFromAxiom2 = loader.getDataFactory().getOWLDifferentIndividualsAxiom();
+
+            OWLClassExpression differentIndividuals2 = individualFromAxiom2.getObjectComplementOf();
+            OWLObjectUnionOf union2 = loader.getDataFactory().getOWLObjectUnionOf(axiomClass, differentIndividuals2);
+
+            union = loader.getDataFactory().getOWLObjectIntersectionOf(union, union2);
+        }
+        //System.out.println("UNION");
+        //System.out.println(union);
+        return union;
     }
 
     private void processClassAssertionAxiom(OWLAxiom axiom){
-        OWLClassAssertionAxiom temp = (OWLClassAssertionAxiom)axiom;
+        OWLClassAssertionAxiom temp = (OWLClassAssertionAxiom) axiom;
 
         OWLClassExpression axiomClass = temp.getClassExpression();
         OWLNamedIndividual axiomIndividual = temp.getIndividual().asOWLNamedIndividual();
+        List<OWLNamedIndividual> axiomIndividuals = temp.individualsInSignature().collect(Collectors.toList());
 
-        loader.addNamedIndividual(axiomIndividual);
+        for (OWLNamedIndividual i : axiomIndividuals){
+            //System.out.println("NAMED INDIVIDUAL:");
+            //System.out.println(i);
+
+            /**RIESENIE PRE TO? ABY s0 nemobolo zahrnute vo vysvetleniach**/
+            /*if(i != loader.getReductionIndividual() || !i.equals(loader.getReductionIndividual())){
+                loader.addNamedIndividual(i);
+            }*/
+
+            loader.addNamedIndividual(i);
+
+            if(processMultipleObservation && i != loader.getReductionIndividual()){
+                //OWLAxiom a = loader.getDataFactory().getOWLDifferentIndividualsAxiom(i, loader.getReductionIndividual());
+                //loader.getOntologyManager().addAxiom(loader.getOntology(), a);
+                //loader.getOntologyManager().addAxiom(loader.getOriginalOntology(), a);
+                //loader.initializeReasoner();
+                //System.out.println(a);
+                /*loader.getOntologyManager().addAxiom(loader.getOntology(), a);
+                loader.getOntologyManager().addAxiom(loader.getOriginalOntology(), a);*/
+            }
+        }
+        //loader.addNamedIndividual(axiomIndividual);
         loader.getOntologyManager().addAxiom(loader.getOntology(), loader.getDataFactory().getOWLDeclarationAxiom(axiomIndividual));
         loader.getOntologyManager().addAxiom(loader.getOriginalOntology(), loader.getDataFactory().getOWLDeclarationAxiom(axiomIndividual));
 
-        OWLAxiom negAxiom = loader.getDataFactory().getOWLClassAssertionAxiom(axiomClass.getObjectComplementOf(), axiomIndividual);
+
+        System.out.println("AXIOM CLASS " + axiomClass);
+        //OWLAxiom negAxiom = loader.getDataFactory().getOWLClassAssertionAxiom(axiomClass.getObjectComplementOf(), axiomIndividual);
+        OWLAxiom negAxiom = loader.getDataFactory().getOWLClassAssertionAxiom(axiomClass.getComplementNNF(), axiomIndividual);
         loader.setNegObservation(negAxiom);
     }
 

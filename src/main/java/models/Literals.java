@@ -12,10 +12,12 @@ public class Literals {
     private Set<OWLAxiom> owlAxioms;
 
     public Literals() {
+        System.out.println("KONSTRUKTOR ");
         this.owlAxioms = new HashSet<>();
     }
 
     public Literals(Set<OWLAxiom> owlAxioms) {
+        System.out.println("KONSTRUKTOR 2");
         this.owlAxioms = owlAxioms;
     }
 
@@ -43,7 +45,14 @@ public class Literals {
     public void removeLiteral(OWLAxiom literal) {owlAxioms.remove(literal); }
 
     public void addLiterals(List<OWLAxiom> literals){
-        owlAxioms.addAll(literals);
+        System.out.println("ZAVOLANE " + literals.size());
+        System.out.println(owlAxioms);
+        System.out.println("OWL AXIOMS " + owlAxioms.size());
+        for(OWLAxiom axiom : literals){
+            owlAxioms.add(axiom);
+        }
+        System.out.println("OWL AXIOMS " + owlAxioms.size());
+        //owlAxioms.addAll(literals);
     }
 
     public boolean contains(OWLAxiom axiom) { return owlAxioms.contains(axiom); }
