@@ -44,17 +44,14 @@ public class CheckRules implements ICheckRules {
     //10.riadok algroitmu??
     public boolean isMinimal(List<Explanation> explanationList, Explanation explanation) {
         if (explanation == null || !(explanation.getOwlAxioms() instanceof List)) {
-            //System.out.println("VRACIAM false");
             return false;
         }
 
         for (Explanation minimalExplanation : explanationList) {
             if (explanation.getOwlAxioms().containsAll(minimalExplanation.getOwlAxioms())) {
-                //System.out.println("VRACIAM false");
                 return false;
             }
         }
-        //System.out.println("VRACIAM true");
         return true;
     }
 

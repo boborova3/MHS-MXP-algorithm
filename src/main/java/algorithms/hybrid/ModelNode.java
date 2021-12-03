@@ -21,21 +21,6 @@ public class ModelNode extends TreeNode {
     }
 
     public void add_to_explanations(List<OWLAxiom> explanations){
-        /*System.out.println("TADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa");
-        for(OWLAxiom a : lenght_one_explanations){
-            System.out.println(a);
-        }
-        System.out.println("KONIEEEEEEEEEEEEEEEEEEEEEEEEEEEEC");
-        System.out.println("TADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa    DATA");
-        for(OWLAxiom a : data){
-            System.out.println(a);
-        }
-        System.out.println("KONIEEEEEEEEEEEEEEEEEEEEEEEEEEEEC");
-        System.out.println("TADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa    LABEL");
-        for(OWLAxiom a : label){
-            System.out.println(a);
-        }
-        System.out.println("KONIEEEEEEEEEEEEEEEEEEEEEEEEEEEEC");*/
         lenght_one_explanations.addAll(explanations);
     }
 

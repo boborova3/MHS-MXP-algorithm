@@ -77,8 +77,6 @@ public class Loader implements ILoader {
             logger.log(Level.WARNING, LogMessage.ERROR_CREATING_ONTOLOGY, exception);
             Application.finish(ExitCode.ERROR);
         }
-        System.out.println("TU JE POVODNA ONTOLOGIA");
-        System.out.println(reasoner.getRootOntology());
     }
 
     @Override

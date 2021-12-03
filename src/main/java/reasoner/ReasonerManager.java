@@ -46,13 +46,8 @@ public class ReasonerManager implements IReasonerManager {
 
     @Override
     public boolean isOntologyConsistent() {
-        System.out.println("TAKATO JE ONTOLOGIA TERAZ");
         loader.initializeReasoner();
-        System.out.println(loader.getReasoner().getRootOntology().getAxioms());
-        //System.out.println("JEJ KONZISTENTNOST " + loader.getReasoner().isConsistent());
-        boolean temp = loader.getReasoner().isConsistent();
-        return temp;
-        //return loader.getReasoner().isConsistent();
+        return loader.getReasoner().isConsistent();
     }
 
     @Override
