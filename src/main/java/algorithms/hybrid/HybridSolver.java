@@ -64,7 +64,8 @@ public class HybridSolver implements ISolver {
 
     private boolean REUSE_OF_MODELS = true;
     private boolean GET_MODELS_BY_REASONER = false;
-    private boolean CHECKING_MINIMALITY_BY_QXP = true;
+    private boolean CHECKING_MINIMALITY_BY_QXP = false;
+    private boolean MHS_MODE = true;
 
     private Map<Integer, Double> level_times = new HashMap<>();
 
@@ -191,11 +192,17 @@ public class HybridSolver implements ISolver {
 
         //path = new ArrayList<>();
 
-        Conflict conflict = getMergeConflict();
-        for (Explanation e: conflict.getExplanations()){
-            e.setDepth(e.getOwlAxioms().size());
+        if(MHS_MODE){
+            isOntologyConsistent();
+        } else {
+            Conflict conflict = getMergeConflict();
+            for (Explanation e: conflict.getExplanations()){
+                e.setDepth(e.getOwlAxioms().size());
+            }
+            explanations = conflict.getExplanations();
         }
-        explanations = conflict.getExplanations();
+
+
 
         ModelNode root = new ModelNode();
         if (usableModelInModels()){
@@ -253,6 +260,10 @@ public class HybridSolver implements ISolver {
                         continue;
                     }
 
+                    if(MHS_MODE && model.label.contains(child)){
+                        continue;
+                    }
+
                     Explanation explanation = new Explanation();
 
                     explanation.addAxioms(model.label);
@@ -289,9 +300,18 @@ public class HybridSolver implements ISolver {
                             currentDepth = null;
                             return;
                         }
-                        if (!addNewExplanations()){
-                            path.clear();
-                            continue;
+                        if(MHS_MODE){
+                            //problem, ak zisti nieco?? ci asi ani nie... ?
+                            isOntologyConsistent();
+                            /*if(!isOntologyConsistent()){
+                                path.clear();
+                                continue;
+                            }*/
+                        }else {
+                            if (!addNewExplanations()){
+                                path.clear();
+                                continue;
+                            }
                         }
                     }
                     else{
@@ -329,6 +349,9 @@ public class HybridSolver implements ISolver {
         if (reasonerManager.isOntologyWithLiteralsConsistent(literals.getOwlAxioms(), ontology)) {
             return new Conflict();
         }
+        if(MHS_MODE){
+
+        }
         return findConflicts(abd_literals);
     }
 
@@ -342,6 +365,7 @@ public class HybridSolver implements ISolver {
     }
 
     private Conflict findConflicts(Literals literals) {
+        System.out.println("FIND CONFLICT");
         path.remove(negObservation);
         reasonerManager.addAxiomsToOntology(path);
         if (isOntologyWithLiteralsConsistent(literals.getOwlAxioms())) {
@@ -397,6 +421,7 @@ public class HybridSolver implements ISolver {
     }
 
     private Explanation getConflict(Collection<OWLAxiom> axioms, Literals literals) {
+        System.out.println("GET CONFLICT");
         if (!axioms.isEmpty() && !isOntologyConsistent()) {
             return new Explanation();
         }

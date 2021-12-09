@@ -34,9 +34,9 @@ public class Main {
         //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/multiple_obs/lubm.in";
         //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/complex_obs/pokus.in";
         //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/multiple_obs/pokus_rovnakyIndividual.in";
-        x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/testExtractingModels/pokus9.in";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/testExtractingModels/pokus9.in";
 
-        x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/nove_in/lubm-0_2_4_MXP_notNegation.in";
+        x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/nove_in/lubm-0_2_0+_MXP_notNegation.in";
 
 
         Logger.getRootLogger().setLevel(Level.OFF);
