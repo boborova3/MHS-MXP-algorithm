@@ -1,0 +1,4 @@
+0;0;3,17;{}
+1;0;6,59;{}
+2;0;11,36;{}
+3;4;13,46;{{ClericalStaff(DummyIndividual),PostDoc(DummyIndividual),TechnicalReport(DummyIndividual)},{ClericalStaff(DummyIndividual),PostDoc(DummyIndividual),Article(DummyIndividual)},{ClericalStaff(DummyIndividual),PostDoc(DummyIndividual),JournalArticle(DummyIndividual)},{ClericalStaff(DummyIndividual),PostDoc(DummyIndividual),ConferencePaper(DummyIndividual)}}

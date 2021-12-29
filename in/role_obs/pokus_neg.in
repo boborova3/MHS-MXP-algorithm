@@ -1,0 +1,5 @@
+-f: files/family2.owl
+-o: Prefix: prefix1: <http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#> ObjectProperty: prefix1:hasChild Individual: prefix1:jane Individual: prefix1:jack Facts: not prefix1:hasChild prefix1:jane 
+-t: 14400
+-n: false
+

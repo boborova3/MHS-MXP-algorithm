@@ -21,6 +21,8 @@ public interface ILoader {
 
     void setObservation(OWLAxiom observation);
 
+    void setObservation(OWLAxiom observation, List<OWLAxiom> axiomsInMultipleObservations, OWLNamedIndividual reductionIndividual);
+
     Observation getNegObservation();
 
     void setNegObservation(OWLAxiom negObservation);
@@ -44,10 +46,6 @@ public interface ILoader {
     OWLOntology getOriginalOntology();
 
     Abducibles getAbducibles();
-
-    List<OWLAxiom> getMultipleObservations();
-
-    OWLNamedIndividual getReductionIndividual();
 
     boolean isMultipleObservationOnInput();
 }

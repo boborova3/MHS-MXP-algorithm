@@ -1,0 +1,3 @@
+4;2;58,41;{{Chair(DummyIndividual),UndergraduateStudent(DummyIndividual),ClericalStaff(DummyIndividual),Software(DummyIndividual)},{ClericalStaff(DummyIndividual),Chair(DummyIndividual),GraduateStudent(DummyIndividual),Software(DummyIndividual)}}
+5;1;76,66;{{Student(DummyIndividual),ClericalStaff(DummyIndividual),ConferencePaper(DummyIndividual),Chair(DummyIndividual),Software(DummyIndividual)}}
+77,24

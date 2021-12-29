@@ -1,0 +1,3 @@
+3;3;14,13;{{Book(DummyIndividual),Course(DummyIndividual),TeachingAssistant(DummyIndividual)},{TeachingAssistant(DummyIndividual),GraduateCourse(DummyIndividual),Book(DummyIndividual)},{TeachingAssistant(DummyIndividual),Research(DummyIndividual),Book(DummyIndividual)}}
+4;1;5,05;{{Work(DummyIndividual),TeachingAssistant(DummyIndividual),ConferencePaper(DummyIndividual),Book(DummyIndividual)}}
+14,62

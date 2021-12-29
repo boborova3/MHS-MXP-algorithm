@@ -15,7 +15,8 @@ public class FileLogger {
     public static final String HYBRID_EXP_TIMES_LOG_FILE__PREFIX = "hybrid_explanation_times";
     public static final String HYBRID_PARTIAL_EXPLANATIONS_LOG_FILE__PREFIX = "hybrid_partial_explanations";
     public static final String LOG_FILE__POSTFIX = ".log";
-    private static final String FILE_DIRECTORY = "logs";
+    //private static final String FILE_DIRECTORY = "logs";
+    private static final String FILE_DIRECTORY = "logs_mhs";
 
     public static void appendToFile(String fileName, long currentTimeMillis, String log) {
         createFileIfNotExists(fileName, currentTimeMillis);

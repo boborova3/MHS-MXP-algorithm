@@ -21,7 +21,6 @@ import parser.AbduciblesParser;
 import uk.ac.manchester.cs.jfact.JFactFactory;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,10 +40,8 @@ public class Loader implements ILoader {
     private Individuals namedIndividuals;
     private OWLOntology originalOntology;
     private Abducibles abducibles;
-    private OWLDocumentFormat observationOntologyFormat;
-    private List<OWLAxiom> multipleObservations;
 
-    private OWLNamedIndividual reductionIndividual;
+    private OWLDocumentFormat observationOntologyFormat;
     private boolean isMultipleObservationOnInput = false;
 
     @Override
@@ -137,6 +134,11 @@ public class Loader implements ILoader {
     }
 
     @Override
+    public void setObservation(OWLAxiom observation, List<OWLAxiom> axiomsInMultipleObservations, OWLNamedIndividual reductionIndividual){
+        this.observation = new Observation(observation, axiomsInMultipleObservations, reductionIndividual);
+    }
+
+    @Override
     public Observation getNegObservation() {
         return negObservation;
     }
@@ -197,22 +199,6 @@ public class Loader implements ILoader {
 
     public void setObservationOntologyFormat(OWLDocumentFormat observationOntologyFormat) {
         this.observationOntologyFormat = observationOntologyFormat;
-    }
-
-    public OWLNamedIndividual getReductionIndividual() {
-        return reductionIndividual;
-    }
-
-    public void setReductionIndividual(OWLNamedIndividual reductionIndividual) {
-        this.reductionIndividual = reductionIndividual;
-    }
-
-    public List<OWLAxiom> getMultipleObservations() {
-        return multipleObservations;
-    }
-
-    public void setMultipleObservations(List<OWLAxiom> multipleObservations) {
-        this.multipleObservations = multipleObservations;
     }
 
     public boolean isMultipleObservationOnInput() {

@@ -9,7 +9,7 @@ a:A
 b:C
 
 
-tom.in
+tom.in - nevieme
 jerry:Cat
 mammy:OwnerCat
 
@@ -18,6 +18,36 @@ tom:ChaseMouse
 jerry:Mouse
 mammy:OwnerCat
 tom:ChaseMouse
+
+
+
+tom.in
+jerry: Mouse, 
+mammy: OwnerCat,
+tom: ChaseMouse 
+
+jerry: Cat, 
+mammy: OwnerCat, 
+tom: ChaseMouse
+
+
+
+
+tom1.in
+{http://www.co-ode.org/ontologies/ont.owl#mammy: http://www.co-ode.org/ontologies/ont.owl#OwnerCat, http://www.co-ode.org/ontologies/ont.owl#tom: http://www.co-ode.org/ontologies/ont.owl#ChaseMouse}}
+
+
+
+tom2.in
+{http://www.co-ode.org/ontologies/ont.owl#jerry: http://www.co-ode.org/ontologies/ont.owl#Cat, http://www.co-ode.org/ontologies/ont.owl#tom: http://www.co-ode.org/ontologies/ont.owl#ChaseMouse}, 
+{http://www.co-ode.org/ontologies/ont.owl#jerry: http://www.co-ode.org/ontologies/ont.owl#Mouse, http://www.co-ode.org/ontologies/ont.owl#tom: http://www.co-ode.org/ontologies/ont.owl#ChaseMouse}}
+
+
+
+tom3.in
+{http://www.co-ode.org/ontologies/ont.owl#jerry: http://www.co-ode.org/ontologies/ont.owl#Cat, http://www.co-ode.org/ontologies/ont.owl#mammy: http://www.co-ode.org/ontologies/ont.owl#OwnerCat}, 
+{http://www.co-ode.org/ontologies/ont.owl#jerry: http://www.co-ode.org/ontologies/ont.owl#Mouse, http://www.co-ode.org/ontologies/ont.owl#mammy: http://www.co-ode.org/ontologies/ont.owl#OwnerCat}}
+
 
 
 family.in

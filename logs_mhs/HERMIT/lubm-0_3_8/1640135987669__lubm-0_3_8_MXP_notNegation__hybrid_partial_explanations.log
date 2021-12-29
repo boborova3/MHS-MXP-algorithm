@@ -1,0 +1,5 @@
+0;0;1,40;{}
+1;0;4,94;{}
+2;0;9,43;{}
+3;4;17,75;{{Article(DummyIndividual),PostDoc(DummyIndividual),ClericalStaff(DummyIndividual)},{ClericalStaff(DummyIndividual),ConferencePaper(DummyIndividual),PostDoc(DummyIndividual)},{ClericalStaff(DummyIndividual),TechnicalReport(DummyIndividual),PostDoc(DummyIndividual)},{ClericalStaff(DummyIndividual),JournalArticle(DummyIndividual),PostDoc(DummyIndividual)}}
+4;3;18,75;{{PostDoc(DummyIndividual),TechnicalReport(DummyIndividual),ClericalStaff(DummyIndividual),UnofficialPublication(DummyIndividual)},{PostDoc(DummyIndividual),JournalArticle(DummyIndividual),ClericalStaff(DummyIndividual),UnofficialPublication(DummyIndividual)},{PostDoc(DummyIndividual),ConferencePaper(DummyIndividual),ClericalStaff(DummyIndividual),UnofficialPublication(DummyIndividual)}}

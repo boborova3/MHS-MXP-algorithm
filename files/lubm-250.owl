@@ -1,0 +1,4016 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="owlapi:ontology#ont24035733859897"
+     xml:base="owlapi:ontology#ont24035733859897"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:univ-bench="http://swat.cse.lehigh.edu/onto/univ-bench.owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="owlapi:ontology#ont24035733859897"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#advisor -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#advisor">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#affiliateOf -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#affiliateOf">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is affiliated with</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#affiliatedOrganizationOf -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#affiliatedOrganizationOf">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is affiliated with</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#degreeFrom -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#degreeFrom">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#University"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has a degree from</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom">
+        <rdfs:subPropertyOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#degreeFrom"/>
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#University"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has a doctoral degree from</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#hasAlumnus -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#hasAlumnus">
+        <owl:inverseOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#degreeFrom"/>
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#University"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has as an alumnus</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#headOf -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#headOf">
+        <rdfs:subPropertyOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#worksFor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#listedCourse -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#listedCourse">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Schedule"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">lists as a course</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#mastersDegreeFrom -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#mastersDegreeFrom">
+        <rdfs:subPropertyOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#degreeFrom"/>
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#University"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has a masters degree from</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#member -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#member">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has as a member</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf">
+        <owl:inverseOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#member"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#orgPublication -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#orgPublication">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">publishes</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">was written by</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationDate -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationDate">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">was written on</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationResearch -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationResearch">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Research"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is about</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#researchProject -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#researchProject">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchGroup"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Research"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has as a research project</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#softwareDocumentation -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#softwareDocumentation">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Software"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is documented in</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#softwareVersion -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#softwareVersion">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Software"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is version</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#subOrganizationOf -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#subOrganizationOf">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#takesCourse -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#takesCourse"/>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#teachingAssistantOf -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#teachingAssistantOf">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#tenured -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#tenured">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is tenured:</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#undergraduateDegreeFrom -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#undergraduateDegreeFrom">
+        <rdfs:subPropertyOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#degreeFrom"/>
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:range rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#University"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#worksFor -->
+
+
+    <owl:ObjectProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#worksFor">
+        <rdfs:subPropertyOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#age -->
+
+
+    <owl:DatatypeProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#age">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is age</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#emailAddress -->
+
+
+    <owl:DatatypeProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#emailAddress">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">can be reached at</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#name -->
+
+
+    <owl:DatatypeProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#name">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">name</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#officeNumber -->
+
+
+    <owl:DatatypeProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#officeNumber">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">office room No.</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#researchInterest -->
+
+
+    <owl:DatatypeProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#researchInterest">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is researching</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#telephone -->
+
+
+    <owl:DatatypeProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#telephone">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">telephone number</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#title -->
+
+
+    <owl:DatatypeProperty rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#title">
+        <rdfs:domain rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">title</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#AdministrativeStaff -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AdministrativeStaff">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">administrative staff worker</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Article -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Article">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">article</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">assistant professor</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">associate professor</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Book -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Book">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">book</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Chair -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Chair">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#headOf"/>
+                        <owl:someValuesFrom rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chair</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#ClericalStaff -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ClericalStaff">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AdministrativeStaff"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">clerical staff worker</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#College -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#College">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">school</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#ConferencePaper -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ConferencePaper">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Article"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">conference paper</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">teaching course</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Dean -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Dean">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#headOf"/>
+                        <owl:someValuesFrom rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#College"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dean</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">university department</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Director -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Director">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#headOf"/>
+                        <owl:someValuesFrom rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Program"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">director</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#worksFor"/>
+                        <owl:someValuesFrom rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Employee</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Employee"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">faculty member</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">full professor</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateCourse -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateCourse">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Graduate Level Courses</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#takesCourse"/>
+                <owl:someValuesFrom rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateCourse"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">graduate student</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Institute -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Institute">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">institute</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#JournalArticle -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#JournalArticle">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Article"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">journal article</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Lecturer -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Lecturer">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">lecturer</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Manual -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Manual">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">manual</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">organization</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">person</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#PostDoc -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#PostDoc">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">post doctorate</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Faculty"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">professor</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Program -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Program">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">program</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">publication</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Research -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Research">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">research work</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchAssistant -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchAssistant">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#worksFor"/>
+                <owl:someValuesFrom rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchGroup"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">university research assistant</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchGroup -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchGroup">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">research group</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Schedule -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Schedule">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">schedule</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Software -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Software">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">software program</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Specification -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Specification">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">published specification</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Student -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Student">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#takesCourse"/>
+                        <owl:someValuesFrom rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">student</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#SystemsStaff -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#SystemsStaff">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AdministrativeStaff"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">systems staff worker</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#teachingAssistantOf"/>
+                        <owl:someValuesFrom rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">university teaching assistant</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#TechnicalReport -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TechnicalReport">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Article"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">technical report</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Student"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">undergraduate student</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#University -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#University">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Organization"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">university</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#UnofficialPublication -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UnofficialPublication">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Publication"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unnoficial publication</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#VisitingProfessor -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#VisitingProfessor">
+        <rdfs:subClassOf rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Professor"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">visiting professor</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work -->
+
+
+    <owl:Class rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Work">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Work</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://www.Department1.University0.edu -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department1.University0.edu">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department"/>
+        <univ-bench:subOrganizationOf rdf:resource="http://www.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department13.University0.edu -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department13.University0.edu">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department"/>
+        <univ-bench:subOrganizationOf rdf:resource="http://www.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department2.University0.edu -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department2.University0.edu">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department"/>
+        <univ-bench:subOrganizationOf rdf:resource="http://www.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department3.University0.edu -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department3.University0.edu">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department"/>
+        <univ-bench:subOrganizationOf rdf:resource="http://www.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department4.University0.edu -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department4.University0.edu">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department"/>
+        <univ-bench:subOrganizationOf rdf:resource="http://www.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department6.University0.edu -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department6.University0.edu">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department"/>
+        <univ-bench:subOrganizationOf rdf:resource="http://www.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department7.University0.edu -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department7.University0.edu">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department"/>
+        <univ-bench:subOrganizationOf rdf:resource="http://www.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department"/>
+        <univ-bench:subOrganizationOf rdf:resource="http://www.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Department"/>
+        <univ-bench:subOrganizationOf rdf:resource="http://www.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.University0.edu -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.University0.edu">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#University"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.University774.edu -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.University774.edu">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#University"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department4.University0.edu/AssociateProfessor9 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department4.University0.edu/AssociateProfessor9">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department4.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department4.University0.edu/GraduateStudent118 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department4.University0.edu/GraduateStudent118">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchAssistant"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department4.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department4.University0.edu/GraduateStudent34 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department4.University0.edu/GraduateStudent34">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchAssistant"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department4.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department4.University0.edu/GraduateStudent95 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department4.University0.edu/GraduateStudent95">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:advisor rdf:resource="http://www.Department4.University0.edu/AssociateProfessor9"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department4.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department7.University0.edu/UndergraduateStudent246 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department7.University0.edu/UndergraduateStudent246">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department7.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/AssistantProfessor2 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/AssistantProfessor2">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department8.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/AssistantProfessor3 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/AssistantProfessor3">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department8.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/AssociateProfessor6 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/AssociateProfessor6">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department8.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/Course29 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/Course29">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/FullProfessor4 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/FullProfessor4">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department8.University0.edu/GraduateCourse7"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department8.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/GraduateCourse13 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/GraduateCourse13">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateCourse"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/GraduateCourse7 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/GraduateCourse7">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateCourse"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/GraduateStudent121 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/GraduateStudent121">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department8.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/GraduateStudent122 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/GraduateStudent122">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department8.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/GraduateStudent142 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/GraduateStudent142">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchAssistant"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department8.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/GraduateStudent23 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/GraduateStudent23">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department8.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/GraduateStudent25 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/GraduateStudent25">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department8.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department8.University0.edu/GraduateCourse7"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/GraduateStudent33 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/GraduateStudent33">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:advisor rdf:resource="http://www.Department8.University0.edu/AssistantProfessor2"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department8.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department8.University0.edu/GraduateCourse13"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/UndergraduateStudent131 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/UndergraduateStudent131">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department8.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/UndergraduateStudent299 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/UndergraduateStudent299">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department8.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department8.University0.edu/Course29"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department8.University0.edu/UndergraduateStudent368 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department8.University0.edu/UndergraduateStudent368">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department8.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department8.University0.edu/Course29"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssistantProfessor0 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssistantProfessor0">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course22"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course23"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssistantProfessor10 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssistantProfessor10">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course37"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssistantProfessor2 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssistantProfessor2">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course25"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course26"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssistantProfessor4 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssistantProfessor4">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssistantProfessor5 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssistantProfessor5">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course30"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssistantProfessor6 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssistantProfessor6">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course31"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssistantProfessor7 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssistantProfessor7">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course32"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course33"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssistantProfessor8 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssistantProfessor8">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course34"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssistantProfessor9 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssistantProfessor9">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssistantProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course35"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course36"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssociateProfessor0 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssociateProfessor0">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course10"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course11"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssociateProfessor1 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssociateProfessor1">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course12"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssociateProfessor2 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssociateProfessor2">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course13"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssociateProfessor4 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssociateProfessor4">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course15"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course16"/>
+        <univ-bench:undergraduateDegreeFrom rdf:resource="http://www.University774.edu"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssociateProfessor6 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssociateProfessor6">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course18"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssociateProfessor7 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssociateProfessor7">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course19"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/AssociateProfessor9 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/AssociateProfessor9">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#AssociateProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course21"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course0 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course0">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course1 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course1">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course10 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course10">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course11 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course11">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course12 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course12">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course13 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course13">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course14 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course14">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course15 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course15">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course16 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course16">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course17 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course17">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course18 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course18">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course19 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course19">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course2 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course2">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course20 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course20">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course21 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course21">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course22 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course22">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course23 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course23">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course24 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course24">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course25 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course25">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course26 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course26">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course27 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course27">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course28 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course28">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course29 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course29">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course3 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course3">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course30 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course30">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course31 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course31">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course32 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course32">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course33 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course33">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course34 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course34">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course35 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course35">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course36 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course36">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course37 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course37">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course38 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course38">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course39 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course39">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course4 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course4">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course40 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course40">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course41 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course41">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course42 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course42">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course43 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course43">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course44 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course44">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course45 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course45">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course46 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course46">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course47 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course47">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course5 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course5">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course6 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course6">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course7 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course7">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course8 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course8">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Course9 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Course9">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Course"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/FullProfessor0 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/FullProfessor0">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor"/>
+        <univ-bench:headOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/FullProfessor1 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/FullProfessor1">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course1"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course2"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/FullProfessor2 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/FullProfessor2">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course3"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/GraduateCourse3"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/FullProfessor3 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/FullProfessor3">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course4"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/FullProfessor5 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/FullProfessor5">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course6"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course7"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/FullProfessor6 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/FullProfessor6">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course8"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course9"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateCourse3 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateCourse3">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateCourse"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateCourse50 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateCourse50">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateCourse"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateCourse53 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateCourse53">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateCourse"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateStudent22 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateStudent22">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchAssistant"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/GraduateCourse3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateStudent25 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateStudent25">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchAssistant"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor10"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateStudent26 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateStudent26">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchAssistant"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor8"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/GraduateCourse50"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/GraduateCourse53"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateStudent51 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateStudent51">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor5"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/GraduateCourse50"/>
+        <univ-bench:teachingAssistantOf rdf:resource="http://www.Department9.University0.edu/Course16"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateStudent52 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateStudent52">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor0"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:teachingAssistantOf rdf:resource="http://www.Department9.University0.edu/Course24"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateStudent53 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateStudent53">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchAssistant"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor5"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateStudent65 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateStudent65">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor4"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/GraduateCourse53"/>
+        <univ-bench:teachingAssistantOf rdf:resource="http://www.Department9.University0.edu/Course13"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateStudent7 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateStudent7">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#ResearchAssistant"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor2"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/GraduateCourse53"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateStudent76 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateStudent76">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor4"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:teachingAssistantOf rdf:resource="http://www.Department9.University0.edu/Course25"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateStudent79 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateStudent79">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/GraduateCourse53"/>
+        <univ-bench:teachingAssistantOf rdf:resource="http://www.Department9.University0.edu/Course34"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateStudent85 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateStudent85">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor10"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/GraduateCourse50"/>
+        <univ-bench:teachingAssistantOf rdf:resource="http://www.Department9.University0.edu/Course37"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateStudent86 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateStudent86">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor1"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/GraduateCourse50"/>
+        <univ-bench:teachingAssistantOf rdf:resource="http://www.Department9.University0.edu/Course3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/GraduateStudent92 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/GraduateStudent92">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#GraduateStudent"/>
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#TeachingAssistant"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor2"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/GraduateCourse3"/>
+        <univ-bench:teachingAssistantOf rdf:resource="http://www.Department9.University0.edu/Course35"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/Lecturer2 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/Lecturer2">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#Lecturer"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course41"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/Course42"/>
+        <univ-bench:teacherOf rdf:resource="http://www.Department9.University0.edu/GraduateCourse50"/>
+        <univ-bench:worksFor rdf:resource="http://www.Department9.University0.edu"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent102 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent102">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor8"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course26"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course34"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course38"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent109 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent109">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor4"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course2"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course23"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course40"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent126 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent126">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course12"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course36"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course37"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent127 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent127">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course11"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course32"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course47"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent129 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent129">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course28"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course32"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course5"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent13 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent13">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor2"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course2"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course39"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent130 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent130">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course3"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course32"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course46"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent135 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent135">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor0"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course21"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course25"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent138 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent138">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course23"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course33"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course40"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent139 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent139">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor1"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course12"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent140 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent140">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course16"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course33"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course37"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course38"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent150 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent150">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course30"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course39"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent152 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent152">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course25"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course30"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent153 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent153">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor8"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course1"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course13"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent158 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent158">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor1"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course15"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course37"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course7"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent159 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent159">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course2"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course3"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course7"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent161 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent161">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course16"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course35"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course38"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course41"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent162 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent162">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course13"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course25"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course28"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course45"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent164 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent164">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor3"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course23"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course26"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course34"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course40"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent167 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent167">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course10"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course27"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course40"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course45"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent170 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent170">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course2"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course32"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course7"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent171 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent171">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course19"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course23"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course36"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent172 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent172">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor9"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course16"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course37"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent173 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent173">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course16"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course25"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course38"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course43"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent175 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent175">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course24"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course30"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course43"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent176 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent176">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course17"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course41"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course5"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent178 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent178">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor2"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course11"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course20"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course21"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent179 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent179">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course17"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course23"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course38"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent18 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent18">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course13"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course15"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course7"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent183 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent183">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course1"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course32"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course33"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course43"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent187 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent187">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course13"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course17"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course6"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent188 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent188">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor2"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course5"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent190 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent190">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course16"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course26"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course40"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course5"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent192 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent192">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course20"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course24"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course30"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course34"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent198 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent198">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course25"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course31"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course4"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent203 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent203">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course1"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course16"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course19"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent206 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent206">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course26"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course32"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course42"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent207 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent207">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course30"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course36"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course40"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course46"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent208 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent208">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course2"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course22"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course36"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course44"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent21 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent21">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor2"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course27"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course44"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course45"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent210 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent210">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor1"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course27"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course31"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course41"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent212 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent212">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor0"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course12"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course19"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course28"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent218 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent218">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course12"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course16"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course2"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course41"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent219 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent219">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor4"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course24"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course47"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent224 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent224">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course1"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent227 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent227">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course11"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course22"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course33"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course6"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent230 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent230">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course10"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course23"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course41"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent232 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent232">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course22"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course3"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course7"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent234 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent234">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course3"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course40"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course43"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course47"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent235 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent235">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course2"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course20"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course44"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent239 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent239">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor7"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course15"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course16"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course20"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course44"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent240 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent240">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor4"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course20"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course26"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course37"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent241 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent241">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course15"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course20"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course35"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course37"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent244 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent244">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor4"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course3"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course44"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent245 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent245">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course12"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course16"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course25"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course38"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent246 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent246">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor6"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course26"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course4"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course7"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent247 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent247">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course17"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course23"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course31"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course5"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent25 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent25">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course21"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course22"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course37"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course47"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent250 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent250">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course24"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent251 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent251">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor5"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course12"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course21"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course7"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent255 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent255">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course21"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course23"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent257 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent257">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course11"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course31"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course43"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent259 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent259">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor5"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course4"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent26 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent26">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor7"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course1"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course23"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course38"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course39"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent260 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent260">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course26"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course32"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent263 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent263">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor0"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course10"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course33"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course46"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent264 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent264">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor9"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course1"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course28"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course35"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent265 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent265">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course12"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course25"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course5"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent267 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent267">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course10"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course19"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course38"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course39"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent27 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent27">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor1"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course13"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course42"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course46"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent272 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent272">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course1"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course23"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course24"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course31"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent276 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent276">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor0"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course20"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course32"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course42"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent277 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent277">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor0"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course34"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course38"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent278 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent278">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor2"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course15"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course25"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course39"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent279 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent279">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor7"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course17"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course41"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course45"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent283 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent283">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course12"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course2"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course22"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course37"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent285 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent285">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor0"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course41"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course46"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course47"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent287 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent287">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor6"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course20"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course25"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course33"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent289 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent289">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor6"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course10"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course3"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course47"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent29 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent29">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course17"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course22"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course4"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent290 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent290">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course26"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course33"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course40"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent291 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent291">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course2"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course26"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course39"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent292 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent292">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course16"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course19"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course3"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course44"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent294 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent294">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course27"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course42"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course46"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent295 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent295">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor10"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course13"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course22"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course44"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent296 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent296">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor5"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course1"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course35"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course44"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent299 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent299">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor2"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course15"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course37"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course5"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent3 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent3">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor0"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course32"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course37"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course4"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent30 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent30">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course31"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course4"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course44"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent307 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent307">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor0"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course16"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course40"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course44"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent31 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent31">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor5"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course17"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course33"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course47"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent310 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent310">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course10"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course20"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course47"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent311 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent311">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course1"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course21"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course25"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course42"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent313 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent313">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course19"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course2"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course3"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course34"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent315 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent315">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor3"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course5"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course6"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent316 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent316">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course11"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course19"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course34"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course47"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent321 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent321">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course10"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course27"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent35 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent35">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course28"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course35"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course36"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent36 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent36">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course13"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course27"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course47"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent37 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent37">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course17"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course37"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course41"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent39 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent39">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course11"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course42"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course7"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent41 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent41">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course37"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course43"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course8"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent42 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent42">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course10"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course2"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course32"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course46"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent43 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent43">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor5"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course31"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course36"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course44"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent47 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent47">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor3"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course45"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent48 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent48">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor1"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course16"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course17"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course42"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course5"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent5 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent5">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course10"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course15"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course4"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent50 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent50">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor2"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course42"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course6"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent54 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent54">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor1"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course2"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course24"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course35"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course43"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent56 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent56">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor6"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course10"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course28"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course31"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course46"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent59 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent59">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course15"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course3"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course42"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course46"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent61 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent61">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course20"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course21"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course24"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course32"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent64 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent64">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course13"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course23"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course38"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent66 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent66">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor5"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course20"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course43"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course6"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent67 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent67">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course11"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course23"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course26"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course7"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent7 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent7">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor0"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course23"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course26"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course31"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course41"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent70 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent70">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor7"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course27"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course6"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent71 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent71">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course14"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course15"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course31"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course46"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent78 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent78">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssociateProfessor9"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course12"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course20"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course34"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent8 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent8">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course38"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course40"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course45"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent80 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent80">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course21"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course27"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course3"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course39"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent81 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent81">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course25"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course27"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent84 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent84">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course19"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course3"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course31"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course45"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent85 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent85">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor7"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course21"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course6"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course7"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent86 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent86">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course1"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course15"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course31"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course45"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent87 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent87">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course39"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course41"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course5"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course7"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent9 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent9">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor4"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course12"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course13"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course18"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent90 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent90">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/FullProfessor6"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course27"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course47"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course9"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent94 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent94">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:advisor rdf:resource="http://www.Department9.University0.edu/AssistantProfessor4"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course10"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course35"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course38"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent96 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent96">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course29"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course36"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course44"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course7"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.Department9.University0.edu/UndergraduateStudent97 -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.Department9.University0.edu/UndergraduateStudent97">
+        <rdf:type rdf:resource="http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent"/>
+        <univ-bench:memberOf rdf:resource="http://www.Department9.University0.edu"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course0"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course1"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course12"/>
+        <univ-bench:takesCourse rdf:resource="http://www.Department9.University0.edu/Course2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#advisor">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is being advised by</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#headOf">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is the head of</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">member of</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#subOrganizationOf">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is part of</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#takesCourse">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is taking</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">teaches</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#teachingAssistantOf">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">is a teaching assistant for</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#undergraduateDegreeFrom">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has an undergraduate degree from</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://swat.cse.lehigh.edu/onto/univ-bench.owl#worksFor">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Works For</rdfs:label>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 5.0.5) https://github.com/owlcs/owlapi/ -->
+
+
