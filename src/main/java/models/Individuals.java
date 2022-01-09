@@ -1,12 +1,8 @@
 package models;
 
 import common.DLSyntax;
-import common.Prefixes;
 import org.apache.commons.lang3.StringUtils;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLOntology;
 
 import java.util.LinkedList;
 import java.util.List;

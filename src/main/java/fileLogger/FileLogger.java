@@ -15,10 +15,14 @@ public class FileLogger {
     public static final String HYBRID_EXP_TIMES_LOG_FILE__PREFIX = "hybrid_explanation_times";
     public static final String HYBRID_PARTIAL_EXPLANATIONS_LOG_FILE__PREFIX = "hybrid_partial_explanations";
     public static final String LOG_FILE__POSTFIX = ".log";
-    //private static final String FILE_DIRECTORY = "logs";
-    private static final String FILE_DIRECTORY = "logs_mhs";
+    private static String FILE_DIRECTORY = "";
 
     public static void appendToFile(String fileName, long currentTimeMillis, String log) {
+        if(Configuration.MHS_MODE){
+            FILE_DIRECTORY = "logs_mhs";
+        } else {
+            FILE_DIRECTORY = "logs";
+        }
         createFileIfNotExists(fileName, currentTimeMillis);
         try {
             String file_path = getFilePath(fileName, currentTimeMillis);

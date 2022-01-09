@@ -1,0 +1,3 @@
+3;3;7,11;{{Book(DummyIndividual),Course(DummyIndividual),TeachingAssistant(DummyIndividual)},{TeachingAssistant(DummyIndividual),GraduateCourse(DummyIndividual),Book(DummyIndividual)},{TeachingAssistant(DummyIndividual),Research(DummyIndividual),Book(DummyIndividual)}}
+4;1;3,42;{{Work(DummyIndividual),TeachingAssistant(DummyIndividual),AdministrativeStaff(DummyIndividual),Book(DummyIndividual)}}
+7,71

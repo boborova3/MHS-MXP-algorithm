@@ -1,0 +1,4 @@
+0,89;{Book(DummyIndividual),Course(DummyIndividual),TeachingAssistant(DummyIndividual)}
+2,15;{Book(DummyIndividual),TeachingAssistant(DummyIndividual),Work(DummyIndividual)}
+5,06;{Book(DummyIndividual),TeachingAssistant(DummyIndividual),Research(DummyIndividual)}
+5,15;{Book(DummyIndividual),TeachingAssistant(DummyIndividual),GraduateCourse(DummyIndividual)}

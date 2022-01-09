@@ -17,7 +17,6 @@ import parser.IObservationParser;
 import parser.ObservationParser;
 import parser.PrefixesParser;
 import parser.AbduciblesParser;
-//import common.Prefixes;
 import uk.ac.manchester.cs.jfact.JFactFactory;
 
 import java.io.File;
@@ -80,7 +79,6 @@ public class Loader implements ILoader {
     public void changeReasoner(ReasonerType reasonerType) {
         switch (reasonerType) {
             case PELLET:
-//                setOWLReasonerFactory(OpenlletReasonerFactory.getInstance());
                 setOWLReasonerFactory(new OpenlletReasonerFactory());
                 break;
 
@@ -92,7 +90,6 @@ public class Loader implements ILoader {
                 setOWLReasonerFactory(new JFactFactory());
                 break;
         }
-
         reasoner = reasonerFactory.createReasoner(ontology);
         logger.log(Level.INFO, LogMessage.INFO_ONTOLOGY_LOADED);
     }

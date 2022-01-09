@@ -196,7 +196,7 @@ public class ObservationParser implements IObservationParser {
             addIndividualToLoader(i);
         }
 
-        //mozno to tu nemusi byt
+        //asi to tu nemusi byt
         addIndividualToLoader(reductionIndividual);
 
         OWLAxiom negAxiom = loader.getDataFactory().getOWLClassAssertionAxiom(reductionClass.getComplementNNF(), reductionIndividual);

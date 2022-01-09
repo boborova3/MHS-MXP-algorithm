@@ -22,18 +22,22 @@ public class ArgumentParser {
         boolean read_concepts = false;
         boolean read_individuals = false;
         boolean read_prefixes= false;
+        boolean read_roles = false;
 
         for (String[] line: lines){
             String new_line = line[0].trim();
-            if (read_concepts || read_individuals || read_prefixes){
+            if (read_concepts || read_individuals || read_prefixes || read_roles){
                 if (new_line.equals("}")){
                     read_prefixes = false;
                     read_concepts = false;
                     read_individuals = false;
+                    read_roles = false;
                 } else if (read_concepts) {
-                    add_abd(new_line, true);
+                    add_abd(new_line, true, false);
                 } else if (read_individuals) {
-                    add_abd(new_line, false);
+                    add_abd(new_line, false, false);
+                } else if (read_roles) {
+                    add_abd(new_line, false, true);
                 } else{
                     String last = (line.length == 2) ? line[1] : "";
                     add_prefix(new_line + " " + last);
@@ -84,24 +88,44 @@ public class ArgumentParser {
                     if (next.equals("{")){
                         read_individuals = true;
                     } else {
-                        add_abd(next, false);
+                        add_abd(next, false, false);
                     }
                     break;
                 case "-aC:":
                     if (next.equals("{")){
                         read_concepts = true;
                     } else {
-                        add_abd(next, true);
+                        add_abd(next, true, false);
                     }
                     break;
-                /*case "-p:":
-                    if (next.equals("{")) {
-                        read_prefixes = true;
+                case "-aR:":
+                    if (next.equals("{")){
+                        read_roles = true;
                     } else {
-                        String last = (line.length == 3) ? line[2] : "";
-                        add_prefix(next + " " + last);
+                        add_abd(next, false, true);
                     }
-                    break;*/
+                    break;
+                case "-mhs:":
+                    if (next.equals("true")) {
+                        Configuration.MHS_MODE = true;
+                    } else if (!next.equals("false")) {
+                        System.err.println("Wrong MHS mode value -mhs" + next + ", allowed values are 'true' and 'false'");
+                    }
+                    break;
+                case "-l:":
+                    if (next.equals("false")) {
+                        Configuration.LOOPING_ALLOWED = false;
+                    } else if (!next.equals("true")) {
+                        System.err.println("Wrong looping allowed value -l" + next + ", allowed values are 'true' and 'false'");
+                    }
+                    break;
+                case "-eR:":
+                    if (next.equals("false")) {
+                        Configuration.ROLES_IN_EXPLANATIONS_ALLOWED = false;
+                    } else if (!next.equals("true")) {
+                        System.err.println("Wrong roles in explanations allowed value -eR" + next + ", allowed values are 'true' and 'false'");
+                    }
+                    break;
                 case "-n:":
                     if (next.equals("false")) {
                         Configuration.NEGATION_ALLOWED = false;
@@ -134,13 +158,11 @@ public class ArgumentParser {
         Configuration.PREFIXES.add(prefix);
     }
 
-    private void add_abd(String abd, boolean isConcept){
-//        if (!abd.matches("[a-zA-Z0-9]+:[a-zA-Z0-9]+")){
-//            System.err.println("Abductible '" + abd + "' does not match the form 'prefix_shortcut:individual/concept/property'");
-//            Application.finish(ExitCode.ERROR);
-//        }
+    private void add_abd(String abd, boolean isConcept, boolean isRole){
         if (isConcept)
             Configuration.ABDUCIBLES_CONCEPTS.add(abd);
+        else if (isRole)
+            Configuration.ABDUCIBLES_ROLES.add(abd);
         else
             Configuration.ABDUCIBLES_INDIVIDUALS.add(abd);
     }

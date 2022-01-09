@@ -13,6 +13,10 @@ public class Configuration {
     public static Long TIMEOUT;
     public static ArrayList<String> ABDUCIBLES_CONCEPTS = new ArrayList<>();
     public static ArrayList<String> ABDUCIBLES_INDIVIDUALS = new ArrayList<>();
+    public static ArrayList<String> ABDUCIBLES_ROLES = new ArrayList<>();
     public static ArrayList<String> PREFIXES = new ArrayList<>();
     public static boolean NEGATION_ALLOWED = true;
+    public static boolean LOOPING_ALLOWED = true;
+    public static boolean MHS_MODE = false;
+    public static boolean ROLES_IN_EXPLANATIONS_ALLOWED = true;
 }

@@ -1,11 +1,8 @@
 package reasoner;
 
+import common.Configuration;
 import common.DLSyntax;
-import common.Printer;
-import models.Individuals;
 import org.semanticweb.owlapi.model.*;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -13,50 +10,15 @@ import java.util.stream.Collectors;
 
 public class AxiomManager {
 
-    public static List<OWLAxiom> createClassAssertionAxiom(ILoader loader, OWLAxiom axiom, boolean preserveObservation) {
+    //odstranene preserveObservation, kedze v kode sa to volalo iba raz s nastavenym na true
+    //preserveObservation iba rozhodovalo, ci priradit individual aj do triedy z pozorovania, to sa ale aj tak odstranovalo neskor v kode, takze to nemalo vyznam
+    public static List<OWLAxiom> createClassAssertionAxiom(ILoader loader, OWLAxiom axiom) {
         List<OWLAxiom> owlAxioms = new LinkedList<>();
 
         if (OWLDeclarationAxiom.class.isAssignableFrom(axiom.getClass()) && OWLClass.class.isAssignableFrom(((OWLDeclarationAxiom) axiom).getEntity().getClass())) {
-            String name = ((OWLDeclarationAxiom) axiom).getEntity().getIRI().getFragment();
             OWLClass owlClass = loader.getDataFactory().getOWLClass(((OWLDeclarationAxiom) axiom).getEntity().getIRI());
-
-            /**Toto este treba skontrolovat, lebo asi containsNegation sa bude musiet urcit inak + skontrolovat aj to className pomocou Printeru z observation - SKONTROLOVANE**/
-            String className = Printer.getClassAssertionAxiom(loader.getObservation().getOwlAxiom());
-            boolean containsNegation = className.contains(DLSyntax.DISPLAY_NEGATION);
-
-            if (containsNegation) {
-                className = className.substring(1);
-            }
-
-            List<OWLNamedIndividual> individuals = new ArrayList<>();
-            if(loader.isMultipleObservationOnInput()){
-
-                for(OWLNamedIndividual namedIndividual : loader.getIndividuals().getNamedIndividuals()){
-                    if(namedIndividual != loader.getObservation().getReductionIndividual()){
-                        individuals.add(namedIndividual);
-                    }
-                }
-
-            } else {
-                individuals.addAll(loader.getIndividuals().getNamedIndividuals());
-            }
-
-
-            //for (OWLNamedIndividual namedIndividual : loader.getIndividuals().getNamedIndividuals()) {
-            for (OWLNamedIndividual namedIndividual : individuals) {
-            //for (OWLNamedIndividual namedIndividual : loader.getOriginalOntology().getIndividualsInSignature()) {
-                    if (!preserveObservation) {
-                    if (!name.equals(className)) {
-                        owlAxioms.add(loader.getDataFactory().getOWLClassAssertionAxiom(owlClass, namedIndividual));
-                        owlAxioms.add(loader.getDataFactory().getOWLClassAssertionAxiom(owlClass.getComplementNNF(), namedIndividual));
-                    } else {
-                        if (containsNegation) {
-                            owlAxioms.add(loader.getDataFactory().getOWLClassAssertionAxiom(owlClass, namedIndividual));
-                        } else {
-                            owlAxioms.add(loader.getDataFactory().getOWLClassAssertionAxiom(owlClass.getComplementNNF(), namedIndividual));
-                        }
-                    }
-                } else {
+            for (OWLNamedIndividual namedIndividual : loader.getAbducibles().getIndividuals()) {
+                if(!loader.isMultipleObservationOnInput() || loader.getObservation().getReductionIndividual() != namedIndividual){
                     owlAxioms.add(loader.getDataFactory().getOWLClassAssertionAxiom(owlClass, namedIndividual));
                     owlAxioms.add(loader.getDataFactory().getOWLClassAssertionAxiom(owlClass.getComplementNNF(), namedIndividual));
                 }
@@ -68,70 +30,48 @@ public class AxiomManager {
     public static List<OWLAxiom> createObjectPropertyAssertionAxiom(ILoader loader, OWLAxiom axiom) {
         List<OWLAxiom> owlAxioms = new LinkedList<>();
 
-        //System.out.println("ROLE " + axiom);
-
         if (OWLDeclarationAxiom.class.isAssignableFrom(axiom.getClass()) && OWLObjectProperty.class.isAssignableFrom(((OWLDeclarationAxiom) axiom).getEntity().getClass())) {
-            String name = ((OWLDeclarationAxiom) axiom).getEntity().getIRI().getFragment();
-            //OWLObjectProperty objectProperty = loader.getDataFactory().getOWLObjectProperty(IRI.create(loader.getOntologyIRI().concat(DLSyntax.DELIMITER_ONTOLOGY).concat(name)));
             OWLObjectProperty objectProperty = loader.getDataFactory().getOWLObjectProperty(((OWLDeclarationAxiom) axiom).getEntity().getIRI());
-
-            for (OWLNamedIndividual subject : loader.getIndividuals().getNamedIndividuals()) {
-                //System.out.println("SUBJECT " + subject);
-                for (OWLNamedIndividual object : /*loader.getIndividuals().getNamedIndividuals()*/ loader.getOriginalOntology().getIndividualsInSignature()) {
-                    //System.out.println("OBJECT " + subject);
-                    if (!subject.equals(object)) {
-                        owlAxioms.add(loader.getDataFactory().getOWLObjectPropertyAssertionAxiom(objectProperty, subject, object));
-                        owlAxioms.add(loader.getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(objectProperty, subject, object));
-
-                        owlAxioms.add(loader.getDataFactory().getOWLObjectPropertyAssertionAxiom(objectProperty, object, subject));
-                        owlAxioms.add(loader.getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(objectProperty, object, subject));
+            for (OWLNamedIndividual subject : loader.getAbducibles().getIndividuals()) {
+                if(!loader.isMultipleObservationOnInput() || subject != loader.getObservation().getReductionIndividual()){
+                    for (OWLNamedIndividual object : loader.getAbducibles().getIndividuals()) {
+                        if (Configuration.LOOPING_ALLOWED || !subject.equals(object)) {
+                            if(!loader.isMultipleObservationOnInput() || object != loader.getObservation().getReductionIndividual()){
+                                owlAxioms.add(loader.getDataFactory().getOWLObjectPropertyAssertionAxiom(objectProperty, subject, object));
+                                owlAxioms.add(loader.getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(objectProperty, subject, object));
+                            }
+                        }
                     }
                 }
             }
         }
-        //System.out.println(owlAxioms);
         return owlAxioms;
     }
 
-    /**TOTO JE MOJA UPRAVENA FUNKCIA???**/
+    /**UPRAVENA FUNKCIA - vrati skutocny komplement**/
     public static OWLAxiom getComplementOfOWLAxiom(ILoader loader, OWLAxiom owlAxiom) {
-        Set<OWLClass> names = owlAxiom.classesInSignature().collect(Collectors.toSet());
         OWLAxiom complement = null;
-
-        /**!!!!!!!!!!!!KED BUDE VIAC TRIED V AXIOME tak to treba skontrolovat**/
-        if (names.size() == 1) {
-            /**nevieme, ci toto realne bude fungovat, s tymto delimetrom - OK , ALE CO AK BY TRIEDA NEMALA PREFIX ONTOLOGIE ALE INY??? NESTACI IBA z names vybrat prislusne a to bude to IRI - names.iterator().next().getIRI()?**/
+        if(owlAxiom.getAxiomType() == AxiomType.CLASS_ASSERTION){
             OWLClassExpression owlClassExpression = ((OWLClassAssertionAxiom) owlAxiom).getClassExpression();
             complement = loader.getDataFactory().getOWLClassAssertionAxiom(owlClassExpression.getComplementNNF(), ((OWLClassAssertionAxiom) owlAxiom).getIndividual());
-
-        } else {
-            //System.out.println("HLADAM NEG: ");
-            //System.out.println(names);
-            if (OWLObjectPropertyAssertionAxiom.class.isAssignableFrom(owlAxiom.getClass())) {
-                OWLObjectPropertyExpression owlObjectProperty = ((OWLObjectPropertyAssertionAxiom) owlAxiom).getProperty();
-                complement = loader.getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(owlObjectProperty, ((OWLObjectPropertyAssertionAxiom) owlAxiom).getSubject(), ((OWLObjectPropertyAssertionAxiom) owlAxiom).getObject());
-
-            } else if (OWLNegativeObjectPropertyAssertionAxiom.class.isAssignableFrom(owlAxiom.getClass())) {
-                OWLObjectPropertyExpression owlObjectProperty = ((OWLNegativeObjectPropertyAssertionAxiom) owlAxiom).getProperty();
-                complement = loader.getDataFactory().getOWLObjectPropertyAssertionAxiom(owlObjectProperty, ((OWLNegativeObjectPropertyAssertionAxiom) owlAxiom).getSubject(), ((OWLNegativeObjectPropertyAssertionAxiom) owlAxiom).getObject());
-            }
+        } else if (owlAxiom.getAxiomType() == AxiomType.OBJECT_PROPERTY_ASSERTION){
+            OWLObjectPropertyExpression owlObjectProperty = ((OWLObjectPropertyAssertionAxiom) owlAxiom).getProperty();
+            complement = loader.getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(owlObjectProperty, ((OWLObjectPropertyAssertionAxiom) owlAxiom).getSubject(), ((OWLObjectPropertyAssertionAxiom) owlAxiom).getObject());
+        } else if (owlAxiom.getAxiomType() == AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION){
+            OWLObjectPropertyExpression owlObjectProperty = ((OWLNegativeObjectPropertyAssertionAxiom) owlAxiom).getProperty();
+            complement = loader.getDataFactory().getOWLObjectPropertyAssertionAxiom(owlObjectProperty, ((OWLNegativeObjectPropertyAssertionAxiom) owlAxiom).getSubject(), ((OWLNegativeObjectPropertyAssertionAxiom) owlAxiom).getObject());
         }
         return complement;
     }
 
+    //stara funkcia - vracala komplement v pripade, ak v owlAxiom bola trieda, ale ak tam bol OWLObjectComplementOf, tak to vratilo to iste
     public static OWLAxiom getComplementOfOWLAxiom2(ILoader loader, OWLAxiom owlAxiom) {
         Set<OWLClass> names = owlAxiom.classesInSignature().collect(Collectors.toSet());
         String name = "";
         OWLAxiom complement = null;
 
-        //System.out.println("POVODNY OWL AXIOM");
-        //System.out.println(owlAxiom);
-        //System.out.println("NOVY");
-        /**!!!!!!!!!!!!KED BUDE VIAC TRIED V AXIOME tak to treba skontrolovat**/
         if (names.size() == 1) {
-            //System.out.println("SOM TU NAOZAJ");
             name = names.iterator().next().getIRI().getFragment();
-            /**nevieme, ci toto realne bude fungovat, s tymto delimetrom - OK , ALE CO AK BY TRIEDA NEMALA PREFIX ONTOLOGIE ALE INY??? NESTACI IBA z names vybrat prislusne a to bude to IRI - names.iterator().next().getIRI()?**/
             OWLClass owlClass = loader.getDataFactory().getOWLClass(IRI.create(loader.getOntologyIRI().concat(DLSyntax.DELIMITER_ONTOLOGY).concat(name)));
             OWLClassExpression owlClassExpression = ((OWLClassAssertionAxiom) owlAxiom).getClassExpression();
 
@@ -142,7 +82,6 @@ public class AxiomManager {
             }
 
         } else {
-
             if (OWLObjectPropertyAssertionAxiom.class.isAssignableFrom(owlAxiom.getClass())) {
                 OWLObjectPropertyExpression owlObjectProperty = ((OWLObjectPropertyAssertionAxiom) owlAxiom).getProperty();
                 complement = loader.getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(owlObjectProperty, ((OWLObjectPropertyAssertionAxiom) owlAxiom).getSubject(), ((OWLObjectPropertyAssertionAxiom) owlAxiom).getObject());
@@ -152,7 +91,6 @@ public class AxiomManager {
                 complement = loader.getDataFactory().getOWLObjectPropertyAssertionAxiom(owlObjectProperty, ((OWLNegativeObjectPropertyAssertionAxiom) owlAxiom).getSubject(), ((OWLNegativeObjectPropertyAssertionAxiom) owlAxiom).getObject());
             }
         }
-        //System.out.println(complement);
         return complement;
     }
 

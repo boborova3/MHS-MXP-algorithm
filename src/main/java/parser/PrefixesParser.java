@@ -1,15 +1,7 @@
 package parser;
 
-import common.Configuration;
-import common.DLSyntax;
 import common.Prefixes;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
-import reasoner.Loader;
-
-import java.util.Map;
 import java.util.logging.Logger;
 
 public class

@@ -2,35 +2,18 @@ package algorithms.hybrid;
 
 import algorithms.ISolver;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Multimap;
 import common.Configuration;
-import common.DLSyntax;
 import common.Printer;
-import fileLogger.FileLogger;
 import models.Abducibles;
 import models.Explanation;
 import models.Literals;
-import openllet.owlapi.OpenlletReasonerFactory;
-import openllet.owlapi.PelletReasonerFactory;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.search.EntitySearcher;
 import reasoner.AxiomManager;
 import reasoner.ILoader;
 import reasoner.IReasonerManager;
 import timer.ThreadTimes;
-import org.semanticweb.owlapi.reasoner.Node;
-
-import java.beans.Expression;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toSet;
 
 /**
  * Base = knowledgeBase + negObservation
@@ -39,50 +22,66 @@ import static java.util.stream.Collectors.toSet;
 
 public class HybridSolver implements ISolver {
 
-    private ILoader loader;
-    private IReasonerManager reasonerManager;
-    private OWLOntology ontology;
-
-    private List<ModelNode> models;
-    private List<ModelNode> negModels;
-    private List<OWLAxiom> assertionsAxioms;
-    private List<OWLAxiom> negAssertionsAxioms;
-    private Literals literals;
-    private Literals abd_literals;
-    private List<Explanation> explanations;
-    private List<Explanation> minimalExplanations;
-    private List<OWLAxiom> path;
-    private List<OWLAxiom> pathDuringCheckingMinimality;
-    private Abducibles abducibles;
-
-    List<OWLAxiom> lenghtOneExplanations = new ArrayList<>();
-
-    private int lastUsableModelIndex;
-    private OWLAxiom negObservation;
-
-    private ThreadTimes threadTimes;
-    private long currentTimeMillis;
-
     private boolean REUSE_OF_MODELS = true;
     private boolean GET_MODELS_BY_REASONER = false;
-    /**Ak je MHS mod zapnuty, tak CHECKING MINIMALITY BY QXP musi byt vypnute**/
-    private boolean CHECKING_MINIMALITY_BY_QXP = false;
-    private boolean MHS_MODE = false;
+    private boolean CHECKING_MINIMALITY_BY_QXP;
+    private boolean MHS_MODE;
+    private boolean ROLES_IN_EXPLANATIONS;
+    private boolean CACHED_CONFLICTS_LONGEST_CONFLICT = true;
+    private boolean CACHED_CONFLICTS_TABLE_OF_OCCURRENCE = false;
 
-    private Map<Integer, Double> level_times = new HashMap<>();
+    private ILoader loader;
+    private IReasonerManager reasonerManager;
+    public OWLOntology ontology;
 
-    private boolean checkingMinimalityWithQXP = false;
+    public List<ModelNode> models;
+    public List<ModelNode> negModels;
+    public List<OWLAxiom> assertionsAxioms;
+    public List<OWLAxiom> negAssertionsAxioms;
+    private Literals literals;
+    private Literals abd_literals;
+    public List<Explanation> explanations;
+    public List<OWLAxiom> path;
+    public List<OWLAxiom> pathDuringCheckingMinimality;
+    public Abducibles abducibles;
+    private ModelExtractor modelExtractor;
+    private ExplanationsFilter explanationsFilter;
+
+    List<OWLAxiom> lenghtOneExplanations = new ArrayList<>();
+    List<Set<OWLAxiom>> pathsInCertainDepth = new ArrayList<>();
+
+    public int lastUsableModelIndex;
+    public OWLAxiom negObservation;
+
+    public ThreadTimes threadTimes;
+    public long currentTimeMillis;
+
+    public Map<Integer, Double> level_times = new HashMap<>();
+
+    public boolean checkingMinimalityWithQXP = false;
+    private Explanation foundedExplanation;
 
     public HybridSolver(ThreadTimes threadTimes, long currentTimeMillis) {
         this.threadTimes = threadTimes;
         this.currentTimeMillis = currentTimeMillis;
+        if(Configuration.MHS_MODE){
+            MHS_MODE = true;
+            CHECKING_MINIMALITY_BY_QXP = false;
+        } else {
+            MHS_MODE = false;
+            CHECKING_MINIMALITY_BY_QXP = true;
+        }
+        ROLES_IN_EXPLANATIONS = false;
     }
 
     @Override
-    public void solve(ILoader loader, IReasonerManager reasonerManager) throws OWLOntologyStorageException {
+    public void solve(ILoader loader, IReasonerManager reasonerManager) throws OWLOntologyStorageException, OWLOntologyCreationException {
         this.loader = loader;
         this.reasonerManager = reasonerManager;
         this.ontology = this.loader.getOriginalOntology();
+        this.modelExtractor = new ModelExtractor(loader, reasonerManager, this);
+        this.explanationsFilter = new ExplanationsFilter(loader, reasonerManager, this);
+
         negObservation = loader.getNegObservation().getOwlAxiom();
         this.abducibles = loader.getAbducibles();
         if (!reasonerManager.isOntologyConsistent())
@@ -91,7 +90,7 @@ public class HybridSolver implements ISolver {
         if (reasonerManager.isOntologyWithLiteralsConsistent(literals.getOwlAxioms(), ontology))
             return;
         startSolving();
-        showExplanations();
+        explanationsFilter.showExplanations(MHS_MODE);
     }
 
     private void initialize() {
@@ -105,10 +104,7 @@ public class HybridSolver implements ISolver {
         reasonerManager.addAxiomToOntology(loader.getNegObservation().getOwlAxiom());
 
         loader.getOntology().axioms(AxiomType.DECLARATION).forEach(axiom -> {
-            /**SKONTROLOVAT CO ROBI PREMENNA preserveObservation**/
-            List<OWLAxiom> classAssertionAxiom = AxiomManager.createClassAssertionAxiom(loader, axiom, true);
-            List<OWLAxiom> objectPropertyAssertionAxiom = AxiomManager.createObjectPropertyAssertionAxiom(loader, axiom);
-
+            List<OWLAxiom> classAssertionAxiom = AxiomManager.createClassAssertionAxiom(loader, axiom);
             for (int i = 0; i < classAssertionAxiom.size(); i++) {
                 if (i % 2 == 0) {
                     assertionsAxioms.add(classAssertionAxiom.get(i));
@@ -116,93 +112,68 @@ public class HybridSolver implements ISolver {
                     negAssertionsAxioms.add(classAssertionAxiom.get(i));
                 }
             }
-            /*for (int i = 0; i < objectPropertyAssertionAxiom.size(); i++) {
-                if (i % 2 == 0) {
-                    assertionsAxioms.add(objectPropertyAssertionAxiom.get(i));
-                } else {
-                    negAssertionsAxioms.add(objectPropertyAssertionAxiom.get(i));
+            if(ROLES_IN_EXPLANATIONS){
+                List<OWLAxiom> objectPropertyAssertionAxiom = AxiomManager.createObjectPropertyAssertionAxiom(loader, axiom);
+                for (int i = 0; i < objectPropertyAssertionAxiom.size(); i++) {
+                    if (i % 2 == 0) {
+                        assertionsAxioms.add(objectPropertyAssertionAxiom.get(i));
+                    } else {
+                        negAssertionsAxioms.add(objectPropertyAssertionAxiom.get(i));
+                    }
                 }
-            }*/
+            }
         });
 
-        System.out.println("ASS ");
-        System.out.println(assertionsAxioms);
-
-        /*System.out.println("assertion axioms");
-        System.out.println(assertionsAxioms);
-        System.out.println("neg assertion axioms");
-        System.out.println(negAssertionsAxioms);*/
+        if (loader.isMultipleObservationOnInput()){
+            assertionsAxioms.removeAll(loader.getObservation().getAxiomsInMultipleObservations());
+            negAssertionsAxioms.removeAll(loader.getObservation().getAxiomsInMultipleObservations());
+        } else {
+            assertionsAxioms.remove(loader.getObservation().getOwlAxiom());
+            negAssertionsAxioms.remove(loader.getObservation().getOwlAxiom());
+        }
 
         Set<OWLAxiom> allLiterals = new HashSet<>();
         allLiterals.addAll(assertionsAxioms);
         allLiterals.addAll(negAssertionsAxioms);
 
-        if (loader.isMultipleObservationOnInput()){
-            allLiterals.remove(loader.getObservation().getOwlAxiom());
-            for (int i = 0; i < loader.getObservation().getAxiomsInMultipleObservations().size(); i++){
-                allLiterals.remove(loader.getObservation().getAxiomsInMultipleObservations().get(i));
-            }
-        } else {
-            allLiterals.remove(loader.getObservation().getOwlAxiom());
-        }
-
         literals = new Literals(allLiterals);
         Set<OWLAxiom> to_abd = new HashSet<>();
+
         if (Configuration.NEGATION_ALLOWED){
             for (OWLAxiom ax : allLiterals){
-                /**TU ESTE V PRIPADE, ZE PRIDAVAME ROLY**/
                 if (abducibles.getIndividuals().containsAll(ax.getIndividualsInSignature()) &&
-                        abducibles.getClasses().containsAll(ax.getClassesInSignature())){
+                        abducibles.getClasses().containsAll(ax.getClassesInSignature()) &&
+                        abducibles.getRoles().containsAll(ax.getObjectPropertiesInSignature())){
                     to_abd.add(ax);
                 }
             }
         }
         else {
-            List<OWLAxiom> temp = new ArrayList<>(assertionsAxioms);
-            if(loader.isMultipleObservationOnInput()){
-                temp.removeAll(loader.getObservation().getAxiomsInMultipleObservations());
-            }
-
-            //for (OWLAxiom ax : assertionsAxioms){
-            for (OWLAxiom ax : temp){
-                if (ax.equals(loader.getObservation().getOwlAxiom())){
-                    continue;
-                }
-                /**TU ESTE V PRIPADE, ZE PRIDAVAME ROLY**/
+            for (OWLAxiom ax : assertionsAxioms){
                 if (abducibles.getIndividuals().containsAll(ax.getIndividualsInSignature()) &&
-                        abducibles.getClasses().containsAll(ax.getClassesInSignature())){
+                        abducibles.getClasses().containsAll(ax.getClassesInSignature()) &&
+                        abducibles.getRoles().containsAll(ax.getObjectPropertiesInSignature())){
                     to_abd.add(ax);
                 }
             }
         }
 
-        /**CO TO PRESNE JE???? preco ak je to prazdne tak sa tam naplnaju veci - AK NIE SU URCENE ABDUCIBLES????**/
         abd_literals = new Literals(to_abd);
         if (abd_literals.getOwlAxioms().isEmpty()){
             if (Configuration.NEGATION_ALLOWED){
                 abd_literals = literals;
             }
             else{
-                List<OWLAxiom> temp1 = new ArrayList<>(assertionsAxioms);
-                if(loader.isMultipleObservationOnInput()){
-                    temp1.removeAll(loader.getObservation().getAxiomsInMultipleObservations());
-                }
-                //abd_literals.addLiterals(assertionsAxioms);
-                abd_literals.addLiterals(temp1);
-                abd_literals.removeLiteral(loader.getObservation().getOwlAxiom());
+                abd_literals.addLiterals(assertionsAxioms);
             }
         }
-        System.out.println("abd literals");
-        System.out.println(abd_literals);
     }
 
-    private void startSolving() throws OWLOntologyStorageException {
+    private void startSolving() throws OWLOntologyStorageException, OWLOntologyCreationException {
         explanations = new LinkedList<>();
         path = new ArrayList<>();
         ICheckRules checkRules = new CheckRules(loader, reasonerManager);
         Integer currentDepth = 0;
-
-        //path = new ArrayList<>();
 
         if(MHS_MODE){
             isOntologyConsistent();
@@ -227,30 +198,54 @@ public class HybridSolver implements ISolver {
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
 
+        /*System.out.println("BERIEME PRVY MODEL ");
+        for(OWLAxiom a : root.data){
+            System.out.print(Printer.print(a) + " ");
+        }
+        System.out.println();*/
+
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
 
             if (node.depth > currentDepth){
-                showExplanationsWithDepth(currentDepth, false);
+                explanationsFilter.showExplanationsWithDepth(currentDepth, false);
                 currentDepth++;
+                if(MHS_MODE){
+                    /*System.out.println("MHS MOD CESTY "+pathsInCertainDepth.size());
+                    for(List<OWLAxiom> a: pathsInCertainDepth){
+                        System.out.println(a);
+                    }*/
+                    pathsInCertainDepth = new ArrayList<>();
+                }
             }
 
             if (Configuration.TIMEOUT != null && threadTimes.getTotalUserTimeInSec() > Configuration.TIMEOUT) {
                 System.out.println("timeout");
-                showExplanationsWithDepth(currentDepth + 1, true);
+                explanationsFilter.showExplanationsWithDepth(currentDepth + 1, true);
                 currentDepth = null;
                 break;
             }
 
             if (ModelNode.class.isAssignableFrom(node.getClass())) {
                 ModelNode model = (ModelNode) node;
-                /*System.out.println("Model data");
-                System.out.println(model.data);
-                System.out.println("Model label");
-                System.out.println(model.label);*/
+
                 if (model.depth.equals(Configuration.DEPTH)) {
                     break;
                 }
+
+                /*System.out.print("MODEL LABEL ");
+                System.out.println(model.label);
+                for(OWLAxiom a : model.label){
+                    System.out.print(Printer.print(a) + " ");
+                }
+                System.out.println();
+
+                System.out.print("BERIEME MODEL ");
+                System.out.println(model.data);
+                for(OWLAxiom a : model.data){
+                    System.out.print(Printer.print(a) + " ");
+                }
+                System.out.println();*/
 
                 for (OWLAxiom child : model.data){
 
@@ -258,21 +253,13 @@ public class HybridSolver implements ISolver {
                         break;
                     }
 
-                    /**ROLY - ZREJME KONTROLOVAT TIEZ, MINIMALNE SKUSIT SPRAVNE UPRAVIT/SKONTROLOVAT getComplementOfOWLAxiom2**/
                     if (model.label.contains(AxiomManager.getComplementOfOWLAxiom(loader, child)) ||
-                            child.equals(loader.getObservation().getOwlAxiom())){
-                        //System.out.println("CHILD: " + child);
-                        // System.out.println("MODEL LABEL " + model.label);
-                        //System.out.println("OBSERVATION: " + loader.getObservation().getOwlAxiom());
+                            child.equals(loader.getObservation().getOwlAxiom()) ||
+                            (loader.isMultipleObservationOnInput() && loader.getObservation().getAxiomsInMultipleObservations().contains(child))){
                         continue;
                     }
 
                     if (!abd_literals.contains(child)){
-                        continue;
-                    }
-
-                    /**JE TO OK PRE MHS??? aby sa nevytvarali nekonecne vetvy**/
-                    if(MHS_MODE && model.label.contains(child)){
                         continue;
                     }
 
@@ -283,23 +270,77 @@ public class HybridSolver implements ISolver {
                     explanation.setAcquireTime(threadTimes.getTotalUserTimeInSec());
 
                     path = new ArrayList<>(explanation.getOwlAxioms());
-                    /*for(OWLAxiom a : ontology.getAxioms()){
-                        reasonerManager.removeAxiomFromOntology(a);
+
+                    System.out.print("PATH ");
+                    for(OWLAxiom a : path){
+                        System.out.print(Printer.print(a) + " ");
                     }
-                    reasonerManager.isOntologyWithLiteralsConsistent(explanation.getOwlAxioms(), ontology);*/
+                    System.out.print(" - ");
 
                     boolean isMinimal = checkRules.isMinimal(explanations, explanation);
                     if (!isMinimal){
+                        System.out.println("NOT MINIMAL");
                         path.clear();
                         continue;
                     }
 
-                    if (checkRules.isExplanation(explanation)){ // zmenila som
+                    if(MHS_MODE){
+                        //check
+                        boolean ch = false;
+                        for(Set s : pathsInCertainDepth){
+                            if(s.containsAll(path)){
+                                /*for(OWLAxiom a : path){
+                                    System.out.print(Printer.print(a));
+                                }
+                                System.out.println();*/
+                                ch = true;
+                                break;
+                            }
+                        }
+                        if (ch){
+                            //System.out.println("FILTRUJEM ");
+                            System.out.println("EQUAL WITH OTHER PATH");
+                            path.clear();
+                            continue;
+                        }
+                        /*if (pathsInCertainDepth.contains(path)){
+                            System.out.println("FILTRUJEM");
+                            path.clear();
+                            continue;
+                        }*/
+                        pathsInCertainDepth.add(new HashSet<>(path));
+                    }
+
+                    if (checkRules.isExplanation(explanation)){// zmenila som
+                        //System.out.println("JE EXPL " + explanation.getOwlAxioms());
                         explanation.setDepth(explanation.getOwlAxioms().size());
-                        if(CHECKING_MINIMALITY_BY_QXP && isMinimalByCallingQXP(explanation)){
-                            explanations.add(explanation);
+                        //System.out.println("CHECKING " + CHECKING_MINIMALITY_BY_QXP);
+                        if(CHECKING_MINIMALITY_BY_QXP){
+                            if(isMinimalByCallingQXP(explanation)){
+                                explanations.add(explanation);
+                            } else {
+                                explanations.add(foundedExplanation);
+                                foundedExplanation = null;
+                            }
                         } else {
-                            explanations.add(explanation);
+                            if(MHS_MODE){
+                                /*System.out.print("SEM PRISLO ");
+                                for(OWLAxiom i : explanation.getOwlAxioms()){
+                                    System.out.print(Printer.print(i) + " ");
+                                }*/
+                                System.out.println();
+                                if(checkRules.isConsistent(explanation) && checkRules.isRelevant(explanation)){
+                                    System.out.println("PRESLO");
+                                    explanations.add(explanation);
+                                } else {
+                                    //System.out.println("NEPRESLO");
+                                    System.out.println("NOT RELEVANT OR CONSISTENT");
+                                    path.clear();
+                                    continue;
+                                }
+                            } else {
+                                explanations.add(explanation);
+                            }
                         }
                         path.clear();
                         continue;
@@ -308,17 +349,28 @@ public class HybridSolver implements ISolver {
                     if (!REUSE_OF_MODELS || !usableModelInModels()) {
                         if (Configuration.TIMEOUT != null && threadTimes.getTotalUserTimeInSec() > Configuration.TIMEOUT) {
                             System.out.println("timeout");
-                            showExplanationsWithDepth(currentDepth + 1, true);
+                            explanationsFilter.showExplanationsWithDepth(currentDepth + 1, true);
                             currentDepth = null;
                             return;
                         }
                         if(MHS_MODE){
-                            //problem, ak zisti nieco?? ci asi ani nie... ?
-                            //isOntologyConsistent();
                             if(!isOntologyConsistent()){
+                                //System.out.println("KONTROLUJE CI JE CONSISTENT A RELEVANT");
+                                if(checkRules.isConsistent(explanation) && checkRules.isRelevant(explanation)){
+                                    //System.out.println("preslo");
+                                    System.out.println("PRESLO");
+                                    explanations.add(explanation);
+                                }
+                                System.out.println("UZ NETREBALO POKRACOVAT");
                                 path.clear();
                                 continue;
                             }
+                            //problem, ak zisti nieco?? ci asi ani nie... ?
+                            //isOntologyConsistent();
+                            /*if(!isOntologyConsistent()){
+                                path.clear();
+                                continue;
+                            }*/
                         }else {
                             if (!addNewExplanations()){
                                 path.clear();
@@ -332,153 +384,50 @@ public class HybridSolver implements ISolver {
 
                     ModelNode modelNode = new ModelNode();
                     modelNode.label = explanation.getOwlAxioms();
+                    //System.out.println("VELKOST MODELOV " + negModels.size());
                     if (usableModelInModels()){
                         modelNode.data = negModels.get(lastUsableModelIndex).data;
+                        /*System.out.println("NEG MODEL DATA: ");
+                        for(OWLAxiom c : model.data){
+                            System.out.print(Printer.print(c) + " ");
+                        }*/
                         modelNode.data.removeAll(path);
+                        /*System.out.println("   REMOVED NEG MODEL DATA: ");
+                        for(OWLAxiom c : model.data){
+                            System.out.print(Printer.print(c) + " ");
+                        }
+                        System.out.println();*/
                         if (modelNode.data.isEmpty()){
+                            System.out.println("NOT MODEL IN ABD");
                             path.clear();
                             continue;
                         }
                     }
                     modelNode.depth = model.depth + 1;
                     modelNode.add_node_explanations(model);
-                    modelNode.add_to_explanations(lenghtOneExplanations);       // TU JE CHYBA?
+                    if(!MHS_MODE){
+                        modelNode.add_to_explanations(lenghtOneExplanations);       // TU JE CHYBA?
+                    }
+                    /*System.out.print("MODEL NODE NA KONCI ");
+                    for(OWLAxiom a : modelNode.data){
+                        System.out.print(Printer.print(a) + " ");
+                    }
+                    System.out.println();*/
+
                     queue.add(modelNode);
+                    System.out.println();
                     path.clear();
                 }
             }
         }
         path.clear();
     }
-
-    private void startSolvingMHS() throws OWLOntologyStorageException {
-        explanations = new LinkedList<>();
-        path = new ArrayList<>();
-        ICheckRules checkRules = new CheckRules(loader, reasonerManager);
-        Integer currentDepth = 0;
-
-        if(!isOntologyConsistent()){
-            return;
-        }
-        ModelNode root = new ModelNode();
-        if (usableModelInModels()){
-            root.data = negModels.get(lastUsableModelIndex).data;
-            root.label = new LinkedList<>();
-            root.depth = 0;
-        }
-        if (root.data == null || root.data.isEmpty()){
-            return;
-        }
-
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
-
-        while (!queue.isEmpty()) {
-            TreeNode node = queue.poll();
-
-            if (node.depth > currentDepth){
-                showExplanationsWithDepth(currentDepth, false);
-                currentDepth++;
-            }
-
-            if (Configuration.TIMEOUT != null && threadTimes.getTotalUserTimeInSec() > Configuration.TIMEOUT) {
-                System.out.println("timeout");
-                showExplanationsWithDepth(currentDepth + 1, true);
-                currentDepth = null;
-                break;
-            }
-
-            if (ModelNode.class.isAssignableFrom(node.getClass())) {
-                ModelNode model = (ModelNode) node;
-
-                if (model.depth.equals(Configuration.DEPTH)) {
-                    break;
-                }
-
-                for (OWLAxiom child : model.data){
-
-                    if (Configuration.TIMEOUT != null && threadTimes.getTotalUserTimeInSec() > Configuration.TIMEOUT) {
-                        break;
-                    }
-
-                    /**ROLY - ZREJME KONTROLOVAT TIEZ, MINIMALNE SKUSIT SPRAVNE UPRAVIT/SKONTROLOVAT getComplementOfOWLAxiom2**/
-                    if (model.label.contains(AxiomManager.getComplementOfOWLAxiom(loader, child)) ||
-                            child.equals(loader.getObservation().getOwlAxiom())){
-                       continue;
-                    }
-
-                    if (!abd_literals.contains(child)){
-                        continue;
-                    }
-
-                    /**JE TO OK PRE MHS??? aby sa nevytvarali nekonecne vetvy**/
-                    if(model.label.contains(child)){
-                        continue;
-                    }
-
-                    Explanation explanation = new Explanation();
-
-                    explanation.addAxioms(model.label);
-                    explanation.addAxiom(child);
-                    explanation.setAcquireTime(threadTimes.getTotalUserTimeInSec());
-
-                    path = new ArrayList<>(explanation.getOwlAxioms());
-
-                    boolean isMinimal = checkRules.isMinimal(explanations, explanation);
-                    if (!isMinimal){
-                        path.clear();
-                        continue;
-                    }
-
-                    if (checkRules.isExplanation(explanation)){ // zmenila som
-                        explanation.setDepth(explanation.getOwlAxioms().size());
-                        explanations.add(explanation);
-                        path.clear();
-                        continue;
-                    }
-
-                    if (!REUSE_OF_MODELS || !usableModelInModels()) {
-                        if (Configuration.TIMEOUT != null && threadTimes.getTotalUserTimeInSec() > Configuration.TIMEOUT) {
-                            System.out.println("timeout");
-                            showExplanationsWithDepth(currentDepth + 1, true);
-                            currentDepth = null;
-                            return;
-                        }
-                        //problem, ak zisti nieco?? ci asi ani nie... ?
-                        //isOntologyConsistent();
-                        if(!isOntologyConsistent()){
-                            path.clear();
-                            continue;
-                        }
-                    }
-
-                    ModelNode modelNode = new ModelNode();
-                    modelNode.label = explanation.getOwlAxioms();
-                    if (usableModelInModels()){
-                        modelNode.data = negModels.get(lastUsableModelIndex).data;
-                        modelNode.data.removeAll(path);
-                        if (modelNode.data.isEmpty()){
-                            path.clear();
-                            continue;
-                        }
-                    }
-                    modelNode.depth = model.depth + 1;
-                    modelNode.add_node_explanations(model);
-                    queue.add(modelNode);
-                    path.clear();
-                }
-            }
-        }
-        path.clear();
-    }
-
 
     private Conflict getMergeConflict() throws OWLOntologyStorageException {
         if (!reasonerManager.isOntologyConsistent()) {
             return new Conflict();
         }
 
-        //ak by bola so vsetkymi konzistetna, tzn. nema v literaloch ziadne vysvetlenie
         if (reasonerManager.isOntologyWithLiteralsConsistent(literals.getOwlAxioms(), ontology)) {
             return new Conflict();
         }
@@ -495,8 +444,6 @@ public class HybridSolver implements ISolver {
     }
 
     private Conflict findConflicts(Literals literals) {
-        //System.out.println("FIND CONFLICT");
-        /**NETREBA TU AJ KONTROLOVAT MULTIPLE OBS???**/
         path.remove(negObservation);
         reasonerManager.addAxiomsToOntology(path);
         if (isOntologyWithLiteralsConsistent(literals.getOwlAxioms())) {
@@ -537,12 +484,17 @@ public class HybridSolver implements ISolver {
             X.getOwlAxioms().stream().findFirst().ifPresent(axiom -> conflictC1.getLiterals().getOwlAxioms().remove(axiom));
             conflictLiterals.getOwlAxioms().addAll(conflictC1.getLiterals().getOwlAxioms());
 
-            /**PRECO ROVNO BREAK???**/
             if (explanations.contains(CS)) {
                 break;
             }
-            if(CHECKING_MINIMALITY_BY_QXP && isMinimalByCallingQXP(CS)){
-                explanations.add(CS);
+
+            if(CHECKING_MINIMALITY_BY_QXP){
+                if(isMinimalByCallingQXP(CS)){
+                    explanations.add(CS);
+                } else {
+                    explanations.add(foundedExplanation);
+                    foundedExplanation = null;
+                }
             } else {
                 explanations.add(CS);
             }
@@ -552,7 +504,6 @@ public class HybridSolver implements ISolver {
     }
 
     private Explanation getConflict(Collection<OWLAxiom> axioms, Literals literals) {
-        //System.out.println("GET CONFLICT");
         if (!axioms.isEmpty() && !isOntologyConsistent()) {
             return new Explanation();
         }
@@ -562,33 +513,22 @@ public class HybridSolver implements ISolver {
         }
         List<Literals> sets = divideIntoSets(literals);
 
-        if(checkingMinimalityWithQXP){
-            pathDuringCheckingMinimality.addAll(sets.get(0).getOwlAxioms());
-        } else {
-            path.addAll(sets.get(0).getOwlAxioms());
-        }
+        if(checkingMinimalityWithQXP) pathDuringCheckingMinimality.addAll(sets.get(0).getOwlAxioms());
+        else path.addAll(sets.get(0).getOwlAxioms());
+
         Explanation D2 = getConflict(sets.get(0).getOwlAxioms(), sets.get(1));
-        if(checkingMinimalityWithQXP){
-            pathDuringCheckingMinimality.removeAll(sets.get(0).getOwlAxioms());
-        } else {
-            path.removeAll(sets.get(0).getOwlAxioms());
-        }
 
-        if(checkingMinimalityWithQXP){
-            pathDuringCheckingMinimality.addAll(D2.getOwlAxioms());
-        } else {
-            path.addAll(D2.getOwlAxioms());
-        }
-        Explanation D1 = getConflict(D2.getOwlAxioms(), sets.get(0));
-        if(checkingMinimalityWithQXP){
-            pathDuringCheckingMinimality.removeAll(D2.getOwlAxioms());
-        } else {
-            path.removeAll(D2.getOwlAxioms());
-        }
+        if(checkingMinimalityWithQXP) pathDuringCheckingMinimality.removeAll(sets.get(0).getOwlAxioms());
+        else path.removeAll(sets.get(0).getOwlAxioms());
 
-        /*path.addAll(D2.getOwlAxioms());
+
+        if(checkingMinimalityWithQXP) pathDuringCheckingMinimality.addAll(D2.getOwlAxioms());
+        else path.addAll(D2.getOwlAxioms());
+
         Explanation D1 = getConflict(D2.getOwlAxioms(), sets.get(0));
-        path.removeAll(D2.getOwlAxioms());*/
+
+        if(checkingMinimalityWithQXP) pathDuringCheckingMinimality.removeAll(D2.getOwlAxioms());
+        else path.removeAll(D2.getOwlAxioms());
 
         Set<OWLAxiom> conflicts = new HashSet<>();
         conflicts.addAll(D1.getOwlAxioms());
@@ -597,8 +537,66 @@ public class HybridSolver implements ISolver {
         return new Explanation(conflicts, conflicts.size(), threadTimes.getTotalUserTimeInSec());
     }
 
-
     private List<Literals> divideIntoSets(Literals literals) {
+        if(CACHED_CONFLICTS_LONGEST_CONFLICT && explanations.size() > 0){
+            return divideIntoSetsAccordingTheLongestConflict(literals);
+        } else if (CACHED_CONFLICTS_TABLE_OF_OCCURRENCE){
+            return divideIntoSetsAccordingTableOfLiteralsPairOccurrence(literals);
+        }
+        return divideIntoSetsWithoutCondition(literals);
+    }
+
+    private List<Literals> divideIntoSetsAccordingTheLongestConflict(Literals literals){
+        Explanation theLongestExplanation = getTheLongestExplanation();
+        Set<OWLAxiom> axiomsFromExplanation = new HashSet<>(theLongestExplanation.getOwlAxioms());
+
+        List<Literals> dividedLiterals = new ArrayList<>();
+        dividedLiterals.add(new Literals());
+        dividedLiterals.add(new Literals());
+
+        int count = 0;
+        for(OWLAxiom owlAxiom : axiomsFromExplanation){
+            if(literals.getOwlAxioms().contains(owlAxiom)){
+                dividedLiterals.get(count % 2).getOwlAxioms().add(owlAxiom);
+                count++;
+            }
+        }
+
+        for(OWLAxiom owlAxiom : literals.getOwlAxioms()) {
+            if(!axiomsFromExplanation.contains(owlAxiom)){
+                dividedLiterals.get(count % 2).getOwlAxioms().add(owlAxiom);
+                count++;
+            }
+        }
+        return dividedLiterals;
+    }
+
+    private Explanation getTheLongestExplanation(){
+        int index = 0;
+        int length = 0;
+        for(int i = 0; i < explanations.size(); i++){
+            if(explanations.get(i).getDepth() > length){
+                index = i;
+            }
+        }
+        return explanations.get(index);
+    }
+
+    private List<Literals> divideIntoSetsAccordingTableOfLiteralsPairOccurrence(Literals literals){
+        List<Literals> dividedLiterals = new ArrayList<>();
+        dividedLiterals.add(new Literals());
+        dividedLiterals.add(new Literals());
+
+        int count = 0;
+
+        for (OWLAxiom owlAxiom : literals.getOwlAxioms()) {
+            dividedLiterals.get(count % 2).getOwlAxioms().add(owlAxiom);
+            count++;
+        }
+        return dividedLiterals;
+    }
+
+    private List<Literals> divideIntoSetsWithoutCondition(Literals literals){
         List<Literals> dividedLiterals = new ArrayList<>();
 
         dividedLiterals.add(new Literals());
@@ -610,261 +608,7 @@ public class HybridSolver implements ISolver {
             dividedLiterals.get(count % 2).getOwlAxioms().add(owlAxiom);
             count++;
         }
-
-        //System.out.println("\n\nPRVA MNOZINA " + dividedLiterals.get(0).getOwlAxioms());
-        //System.out.println("DRUHA MNOZINA " + dividedLiterals.get(1).getOwlAxioms() + "\n\n");
-
         return dividedLiterals;
-    }
-
-    private String getClassName(OWLAxiom axiom) {
-        return Printer.print(axiom).split("\\" + DLSyntax.LEFT_PARENTHESES)[0];
-    }
-
-    private boolean containsNegation(String name) {
-        return name.contains(DLSyntax.DISPLAY_NEGATION);
-    }
-
-    private ModelNode getNegModelByReasoner() {
-        ModelNode modelNode = new ModelNode();
-        List<OWLAxiom> model = new LinkedList<>();
-
-        if (path != null) {
-            path.remove(negObservation);
-            reasonerManager.addAxiomsToOntology(path);
-            if (!reasonerManager.isOntologyConsistent()){
-                removeAxiomsFromOntology(path);
-                modelNode.data = model;
-                return modelNode;
-            }
-        }
-
-        for (int i = 0; i < assertionsAxioms.size(); i++) {
-            OWLAxiom axiom = assertionsAxioms.get(i);
-            OWLAxiom complementOfAxiom = negAssertionsAxioms.get(i);
-            if (loader.getOntology().containsAxiom(axiom)){
-                model.add(axiom);
-            }
-            else if (loader.getOntology().containsAxiom(complementOfAxiom)){
-                model.add(complementOfAxiom);
-            }
-            else if (!model.contains(axiom) && !model.contains(complementOfAxiom)){
-                reasonerManager.addAxiomToOntology(axiom);
-                boolean isConsistent = reasonerManager.isOntologyConsistent();
-                reasonerManager.removeAxiomFromOntology(axiom);
-
-                reasonerManager.addAxiomToOntology(complementOfAxiom);
-                boolean isComplementConsistent = reasonerManager.isOntologyConsistent();
-                reasonerManager.removeAxiomFromOntology(complementOfAxiom);
-
-                if (!isComplementConsistent && isConsistent) {
-                    model.add(axiom);
-                    reasonerManager.addAxiomToOntology(axiom);
-                } else if (isComplementConsistent){
-                    model.add(complementOfAxiom);
-                    reasonerManager.addAxiomToOntology(complementOfAxiom);
-                }
-                else {
-                    modelNode.data.clear();
-                    removeAxiomsFromOntology(path);
-                    return modelNode;
-                }
-            }
-        }
-        removeAxiomsFromOntology(path);
-        modelNode.data = new LinkedList<>();
-        for (OWLAxiom axiom: model){
-            if (abducibles.getIndividuals().containsAll(axiom.individualsInSignature().collect(Collectors.toList())) &&
-                    abducibles.getClasses().containsAll( axiom.classesInSignature().collect(Collectors.toList()))){
-                modelNode.data.add(axiom);
-            }
-        }
-        addModel(modelNode, getComplementOfModel(modelNode.data));
-        return negModels.get(lastUsableModelIndex);
-    }
-
-    private ModelNode getComplementOfModel(List<OWLAxiom> model) {
-        ModelNode negModelNode = new ModelNode();
-        List<OWLAxiom> negModel = new LinkedList<>();
-        for (OWLAxiom axiom : model) {
-            /**bude treba volat asi getComplementOfOWLAxiom2 -> ale vyuziva sa to iba v getNegModelByReasoner**/
-            OWLAxiom complement = AxiomManager.getComplementOfOWLAxiom(loader, axiom);
-            negModel.add(complement);
-        }
-        negModelNode.data = negModel;
-        return negModelNode;
-    }
-
-    private ModelNode getNegModelByOntology(){  // mrozek
-        ModelNode negModelNode = new ModelNode();
-        ModelNode modelNode = new ModelNode();
-        modelNode.data = new LinkedList<>();
-
-        if(checkingMinimalityWithQXP){
-            if(loader.isMultipleObservationOnInput()){
-                for(OWLAxiom axiom : loader.getObservation().getAxiomsInMultipleObservations()){
-                    pathDuringCheckingMinimality.remove(AxiomManager.getComplementOfOWLAxiom(loader, axiom));
-                }
-            } else {
-                pathDuringCheckingMinimality.remove(negObservation);
-            }
-
-            reasonerManager.addAxiomsToOntology(pathDuringCheckingMinimality);
-            if (!reasonerManager.isOntologyConsistent()){
-                removeAxiomsFromOntology(pathDuringCheckingMinimality);
-                return modelNode;
-            }
-        } else {
-            if (path != null) {
-                /**Je potrebne robit tieto remove veci, ak sa to tam realne uz nema ako dostat???**/
-                if(loader.isMultipleObservationOnInput()){
-                    for(OWLAxiom axiom : loader.getObservation().getAxiomsInMultipleObservations()){
-                        //axiom
-                        path.remove(AxiomManager.getComplementOfOWLAxiom(loader, axiom));
-                    }
-                } else {
-                    path.remove(negObservation);
-                }
-                //path.remove(negObservation);
-                reasonerManager.addAxiomsToOntology(path);
-                if (!reasonerManager.isOntologyConsistent()){
-                    removeAxiomsFromOntology(path);
-                    return modelNode;
-                }
-            }
-        }
-
-
-        /**TOTO BUDEME MUSIET ZREJME SPRACOVAVAT AJ PRE ROLY NEJAKO, KEDZE TOTO ASI VRACIA NAOZAJ IBA TYPY? TEDA TRIEDY**/
-        //System.out.println("PATH " + path);
-
-        OWLDataFactory dfactory = OWLManager.createOWLOntologyManager().getOWLDataFactory();
-
-        ArrayList<OWLNamedIndividual> individualArray = new ArrayList<>(ontology.getIndividualsInSignature());
-        Set<OWLAxiom> negModelSet = new HashSet<>();
-        Set<OWLAxiom> modelSet = new HashSet<>();
-
-        for (OWLNamedIndividual ind : individualArray) {
-            //System.out.println("INDIVIDUAL " + ind);;
-            if (!abducibles.getIndividuals().contains(ind)){
-                continue;
-            }
-
-            Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, ontology).collect(toSet());
-            Multimap<OWLObjectPropertyExpression, OWLIndividual> ontologyObjectProperty = EntitySearcher.getObjectPropertyValues(ind, ontology);
-            Multimap<OWLObjectPropertyExpression, OWLIndividual> ontologyNegativeObjectProperty = EntitySearcher.getNegativeObjectPropertyValues(ind, ontology);
-
-            //System.out.println("ONTOLOGY TYPES " + ontologyTypes);
-            Set<OWLClassExpression> knownTypes = new HashSet<>();
-            Set<OWLClassExpression> knownNotTypes = new HashSet<>();
-
-            Set<OWLObjectPropertyExpression> knownProperties = new HashSet<>();
-            Set<OWLObjectPropertyExpression> knownNotProperties = new HashSet<>();
-
-            //System.out.println();
-            //System.out.println("FOR CYKLUS CEZ VSETKY ONONTOLOGY TYPES");
-            for (OWLClassExpression exp : ontologyTypes) {
-                //System.out.println("CLASS " + exp);
-                //System.out.println("EXPR TYPE " + exp.getClassExpressionType());
-                assert (exp.isClassExpressionLiteral());
-                if (exp.isOWLClass()) {
-                    //System.out.println("IS OWL CLASS");
-                    knownTypes.add((exp));
-                } else {
-                    //System.out.println("IS NOT OWL CLASS " + exp.getComplementNNF());
-                    knownNotTypes.add(exp.getComplementNNF());
-                }
-            }
-
-            //System.out.println("KNOWN TYPES " + knownTypes);
-            //System.out.println("KNOWN NOT TYPES " + knownNotTypes);
-
-            Set<OWLClassExpression> newNotTypes = classSet2classExpSet(ontology.classesInSignature().collect(toSet()));
-            //System.out.println("NEW NOT TYPES " + newNotTypes);
-
-            newNotTypes.remove(dfactory.getOWLThing());
-            newNotTypes.removeAll(knownNotTypes);
-            //System.out.println("NEW NOT TYPES AFTER REMOVING KNOWN NOT TYPES " + newNotTypes);
-
-            Set<OWLClassExpression> foundTypes = nodeClassSet2classExpSet(loader.getReasoner().getTypes(ind, false).getNodes());
-            //System.out.println("FOUND TYPES " + foundTypes);
-
-            newNotTypes.removeAll(foundTypes);
-            //System.out.println("NEW NOT TYPES AFTER REMOVING FOUND TYPES " + newNotTypes);
-
-            foundTypes.removeAll(knownTypes);
-            //System.out.println("FOUND TYPES AFTER REMOVING KNOWN TYPES " + foundTypes);
-
-            /*-------PROPERTIES-------*/
-            Set<OWLObjectPropertyExpression> newNotProperties = ontology.objectPropertiesInSignature().collect(toSet());
-            newNotProperties.removeAll(knownNotProperties);
-
-           /* Set<OWLObjectPropertyExpression> foundProperties = loader.getReasoner();
-                    nodeClassSet2classExpSet(loader.getReasoner().getTypes(ind, false).getNodes());
-            newNotProperties.removeAll(foundProperties);
-            foundProperties.removeAll(knownProperties);*/
-
-
-            for (OWLClassExpression classExpression : foundTypes) {
-                if (!abducibles.getClasses().contains(classExpression)){
-                    continue;
-                }
-                OWLClassExpression negClassExp = classExpression.getComplementNNF();
-                OWLAxiom axiom = dfactory.getOWLClassAssertionAxiom(negClassExp, ind);
-                negModelSet.add(axiom);
-                modelSet.add(dfactory.getOWLClassAssertionAxiom(classExpression, ind));
-            }
-            for (OWLClassExpression classExpression : newNotTypes) {
-                if (!abducibles.getClasses().contains(classExpression)){
-                    continue;
-                }
-                OWLClassExpression negClassExp = classExpression.getComplementNNF();
-                OWLAxiom axiom = dfactory.getOWLClassAssertionAxiom(classExpression, ind);
-                negModelSet.add(axiom);
-                modelSet.add(dfactory.getOWLClassAssertionAxiom(negClassExp, ind));
-            }
-        }
-
-        if(checkingMinimalityWithQXP){
-            removeAxiomsFromOntology(pathDuringCheckingMinimality);
-        } else {
-            removeAxiomsFromOntology(path);
-        }
-        modelNode.data = new LinkedList<>(modelSet);
-        negModelNode.data = new LinkedList<>(negModelSet);
-        lastUsableModelIndex = models.indexOf(modelNode);
-        if (!modelNode.data.isEmpty() && lastUsableModelIndex == -1) {
-            lastUsableModelIndex = models.size();
-            addModel(modelNode, negModelNode);
-        }
-        //System.out.println("MODEL " + modelNode.data);
-        //System.out.println("NEG MODEL " + negModelNode.data);
-       // System.out.println();
-        return negModelNode;
-    }
-
-    private void addModel(ModelNode model, ModelNode negModel){
-        lastUsableModelIndex = models.indexOf(model);
-        if (lastUsableModelIndex != -1 || model.data.isEmpty()){
-            return;
-        }
-        lastUsableModelIndex = models.size();
-        models.add(model);
-        negModels.add(negModel);
-    }
-
-    public static Set<OWLClassExpression> nodeClassSet2classExpSet(Set<Node<OWLClass>> nodeList) {
-        Set<OWLClassExpression> toReturn = new HashSet<>();
-        for (Node<OWLClass> node : nodeList) {
-            toReturn.addAll(node.getEntitiesMinusTop());
-        }
-        return toReturn;
-    }
-
-    public static Set<OWLClassExpression> classSet2classExpSet(Set<OWLClass> classSet) {
-        Set<OWLClassExpression> toReturn = new HashSet<>();
-        toReturn.addAll(classSet);
-        return toReturn;
     }
 
     private boolean usableModelInModels(){
@@ -886,21 +630,20 @@ public class HybridSolver implements ISolver {
             }
             conflict.addAxioms(path);
             if (isMinimal(explanations, conflict)){
-                if(CHECKING_MINIMALITY_BY_QXP && isMinimalByCallingQXP(conflict)){
-                    conflict.setDepth(conflict.getOwlAxioms().size());
-                    explanations.add(conflict);
-
+                if(CHECKING_MINIMALITY_BY_QXP){
+                    if(isMinimalByCallingQXP(conflict)){
+                        conflict.setDepth(conflict.getOwlAxioms().size());
+                        explanations.add(conflict);
+                    } else {
+                        explanations.add(foundedExplanation);
+                        foundedExplanation = null;
+                    }
                 } else {
                     conflict.setDepth(conflict.getOwlAxioms().size());
                     explanations.add(conflict);
                 }
             }
         }
-        /*System.out.println("\n \n EXPLANATIONS ");
-        for(Explanation a: explanations){
-            System.out.println("Ex " + a);
-        }
-        System.out.println("\n \n");*/
         if (newExplanations.size() == this.lenghtOneExplanations.size()){
             return false;
         }
@@ -916,9 +659,9 @@ public class HybridSolver implements ISolver {
 
     private boolean isOntologyConsistent(){
         if (GET_MODELS_BY_REASONER){
-            return (!getNegModelByReasoner().data.isEmpty());
+            return (!modelExtractor.getNegModelByReasoner().data.isEmpty());
         }
-        return (!getNegModelByOntology().data.isEmpty());
+        return (!modelExtractor.getNegModelByOntology().data.isEmpty());
     }
 
     private void printAxioms(List<OWLAxiom> axioms){
@@ -944,6 +687,7 @@ public class HybridSolver implements ISolver {
     }
 
     public boolean isMinimalByCallingQXP(Explanation explanation){
+        System.out.println("CHECK " + explanation.getOwlAxioms());
         Set<OWLAxiom> temp = new HashSet<>();
         temp.addAll(explanation.getOwlAxioms());
         if(path != null){
@@ -961,266 +705,18 @@ public class HybridSolver implements ISolver {
         if (newExplanation.getOwlAxioms().containsAll(explanation.getOwlAxioms())){
             return true;
         }
+        foundedExplanation = newExplanation;
         return false;
     }
 
-    private void removeAxiomsFromOntology(List<OWLAxiom> axioms){
+    public void removeAxiomsFromOntology(List<OWLAxiom> axioms){
         reasonerManager.resetOntology(loader.getOriginalOntology().axioms());
     }
 
-    private void showExplanations() throws OWLOntologyStorageException {
-        //System.out.println("SHOWING EXPLANATIONS " + explanations);
-        StringBuilder result = new StringBuilder();
-        List<Explanation> filteredExplanations = filterExplanations();
-        //System.out.println("SHOWING EXPLANATIONS AFTER FILTER " + filteredExplanations);
-        path.clear();
-        minimalExplanations = new LinkedList<>();
 
-        int depth = 1;
-        while (filteredExplanations.size() > 0) {
-            List<Explanation> currentExplanations = removeExplanationsWithDepth(filteredExplanations, depth);
-            filterIfNotMinimal(currentExplanations);
-            //System.out.println("SHOWING EXPLANATIONS AFTER FILTER NON MINIMAL  " + currentExplanations);
-            try {
-                filterIfNotRelevant(currentExplanations);
-                //System.out.println("SHOWING EXPLANATIONS AFTER FILTER NON RELEVANT  " + currentExplanations);
-            } catch (OWLOntologyCreationException e) {
-                e.printStackTrace();
-            }
-            if (currentExplanations.isEmpty()) {
-                depth++;
-                continue;
-            }
-            if (!level_times.containsKey(depth)){
-                level_times.put(depth, find_level_time(currentExplanations));
-            }
-            minimalExplanations.addAll(currentExplanations);
-            String currentExplanationsFormat = StringUtils.join(currentExplanations, ",");
-            String line = String.format("%d;%d;%.2f;{%s}\n", depth, currentExplanations.size(), level_times.get(depth), currentExplanationsFormat);
-            System.out.print(line);
-            result.append(line);
-            depth++;
-        }
-        String line = String.format("%.2f\n", threadTimes.getTotalUserTimeInSec());
-        System.out.print(line);
-        result.append(line);
-        log_explanations_times(minimalExplanations);
 
-        FileLogger.appendToFile(FileLogger.HYBRID_LOG_FILE__PREFIX, currentTimeMillis, result.toString());
-    }
 
-    private double find_level_time(List<Explanation> explanations){
-        double time = 0;
-        for (Explanation exp: explanations){
-            if (exp.getAcquireTime() > time){
-                time = exp.getAcquireTime();
-            }
-        }
-        return time;
-    }
 
-    private void log_explanations_times(List<Explanation> explanations){
-        StringBuilder result = new StringBuilder();
-        for (Explanation exp: explanations){
-            String line = String.format("%.2f;%s\n", exp.getAcquireTime(), exp);
-            result.append(line);
-        }
-        FileLogger.appendToFile(FileLogger.HYBRID_EXP_TIMES_LOG_FILE__PREFIX, currentTimeMillis, result.toString());
-    }
-
-    private void filterIfNotMinimal(List<Explanation> explanations){
-        List<Explanation> notMinimalExplanations = new LinkedList<>();
-        for (Explanation e: explanations){
-            for (Explanation m: minimalExplanations){
-                if (e.getOwlAxioms().containsAll(m.getOwlAxioms())){
-                    notMinimalExplanations.add(e);
-                }
-            }
-        }
-        explanations.removeAll(notMinimalExplanations);
-    }
-
-    private void filterIfWithS0(List<Explanation> explanations){
-        List<Explanation> notMinimalExplanations = new LinkedList<>();
-        for (Explanation e: explanations){
-            for(OWLAxiom a : e.getOwlAxioms()){
-                if(a.containsEntityInSignature(loader.getObservation().getReductionIndividual())){
-                    notMinimalExplanations.add(e);
-                    break;
-                }
-            }
-        }
-        explanations.removeAll(notMinimalExplanations);
-    }
-
-    private void filterIfNotRelevant(List<Explanation> explanations) throws OWLOntologyCreationException {
-        List<Explanation> notRelevantExplanations = new LinkedList<>();
-
-        OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = ontologyManager.createOntology();
-
-        OWLReasonerFactory reasonerFactory = new OpenlletReasonerFactory();
-        OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
-
-        for (Explanation e : explanations){
-
-            ontologyManager.addAxioms(ontology, e.getOwlAxioms());
-
-            if(loader.isMultipleObservationOnInput()){
-                for(OWLAxiom a : loader.getObservation().getAxiomsInMultipleObservations()){
-                    OWLClassAssertionAxiom res = (OWLClassAssertionAxiom) a;
-                    OWLClassExpression classExpression = res.getClassExpression();
-                    OWLClassExpression classNeg = classExpression.getComplementNNF();
-                    OWLAxiom temp = loader.getDataFactory().getOWLClassAssertionAxiom(classNeg, res.getIndividual());
-                    ontologyManager.addAxiom(ontology, temp);
-
-                    reasoner.flush();
-                    if(!reasoner.isConsistent()){
-                        notRelevantExplanations.add(e);
-                        reasoner.flush();
-                        ontologyManager.removeAxiom(ontology, temp);
-                        break;
-                    }
-                    ontologyManager.removeAxiom(ontology, temp);
-                }
-            } else {
-                OWLClassAssertionAxiom res = (OWLClassAssertionAxiom) loader.getObservation().getOwlAxiom();
-                OWLClassExpression classExpression = res.getClassExpression();
-                OWLClassExpression classNeg = classExpression.getComplementNNF();
-                OWLAxiom temp = loader.getDataFactory().getOWLClassAssertionAxiom(classNeg, res.getIndividual());
-                ontologyManager.addAxiom(ontology, temp);
-
-                reasoner.flush();
-                if(!reasoner.isConsistent()){
-                    notRelevantExplanations.add(e);
-                    reasoner.flush();
-                    ontologyManager.removeAxiom(ontology, temp);
-                    break;
-                }
-                ontologyManager.removeAxiom(ontology, temp);
-            }
-
-            ontologyManager.removeAxioms(ontology, e.getOwlAxioms());
-        }
-        explanations.removeAll(notRelevantExplanations);
-    }
-
-    private List<Explanation> removeExplanationsWithDepth(List<Explanation> filteredExplanations, Integer depth) {
-        List<Explanation> currentExplanations = filteredExplanations.stream().filter(explanation -> explanation.getDepth().equals(depth)).collect(Collectors.toList());
-        filteredExplanations.removeAll(currentExplanations);
-        return currentExplanations;
-    }
-
-    private void showExplanationsWithDepth(Integer depth, boolean timeout) {
-        List<Explanation> currentExplanations = explanations.stream().filter(explanation -> explanation.getDepth().equals(depth)).collect(Collectors.toList());
-        String currentExplanationsFormat = StringUtils.join(currentExplanations, ",");
-        Double time = threadTimes.getTotalUserTimeInSec();
-        level_times.put(depth, time);
-        String line = String.format("%d;%d;%.2f%s;{%s}\n", depth, currentExplanations.size(), time, timeout ? "-TIMEOUT" : "", currentExplanationsFormat);
-        System.out.print(line);
-        FileLogger.appendToFile(FileLogger.HYBRID_PARTIAL_EXPLANATIONS_LOG_FILE__PREFIX, currentTimeMillis, line);
-    }
-
-    private List<Explanation> filterExplanations() throws OWLOntologyStorageException {
-        loader.getOntologyManager().removeAxiom(ontology, loader.getNegObservation().getOwlAxiom());
-
-        /*System.out.println("TU");
-        Set<OWLAxiom> set1 = loader.getOntology().getAxioms();
-        int i = 0;
-        for(OWLAxiom a : set1){
-            System.out.println(i + " : " + a);
-            i++;
-        }
-        System.out.println(loader.getOntology());*/
-
-        /*pridane kvoli tomu, ze vzdy PRVE vysvetlenie pri pouziti hermitu odignorovalo*/
-        reasonerManager.resetOntology(ontology.axioms());
-
-        /*System.out.println("TU");
-        Set<OWLAxiom> set2 = loader.getOntology().getAxioms();
-        int j = 0;
-        for(OWLAxiom a : set2){
-            System.out.println(j + " : " + a);
-            j++;
-        }
-        System.out.println(loader.getOntology());*/
-
-        List<Explanation> filteredExplanations = new ArrayList<>();
-        for (Explanation explanation : explanations) {
-            if (isExplanation(explanation)) {
-                if (reasonerManager.isOntologyWithLiteralsConsistent(explanation.getOwlAxioms(), ontology)) {
-                    filteredExplanations.add(explanation);
-                }
-            }
-        }
-
-        return filteredExplanations;
-    }
-
-    private boolean isExplanation(Explanation explanation) {
-
-        /**ROLY - bude to containsNegation fungovat??**/
-
-        if (explanation.getOwlAxioms().size() == 1) {
-            return true;
-        }
-
-        for (OWLAxiom axiom1 : explanation.getOwlAxioms()) {
-            String name1 = getClassName(axiom1);
-            boolean negated1 = containsNegation(name1);
-            if (negated1) {
-                name1 = name1.substring(1);
-            }
-
-            for (OWLAxiom axiom2 : explanation.getOwlAxioms()) {
-                if (!axiom1.equals(axiom2)) {
-                    String name2 = getClassName(axiom2);
-
-                    boolean negated2 = containsNegation(name2);
-                    if (negated2) {
-                        name2 = name2.substring(1);
-                    }
-
-                    if (name1.equals(name2) && ((!negated1 && negated2) || (negated1 && !negated2))) {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        return true;
-    }
-
-    private boolean isExplanation2(Explanation explanation) {
-        if (explanation.getOwlAxioms().size() == 1) {
-            return true;
-        }
-
-        for (OWLAxiom axiom1 : explanation.getOwlAxioms()) {
-            String name1 = getClassName(axiom1);
-            boolean negated1 = containsNegation(name1);
-            if (negated1) {
-                name1 = name1.substring(1);
-            }
-
-            for (OWLAxiom axiom2 : explanation.getOwlAxioms()) {
-                if (!axiom1.equals(axiom2) && axiom1.getIndividualsInSignature().equals(axiom2.getIndividualsInSignature())) {
-                    String name2 = getClassName(axiom2);
-
-                    boolean negated2 = containsNegation(name2);
-                    if (negated2) {
-                        name2 = name2.substring(1);
-                    }
-
-                    if (name1.equals(name2) && ((!negated1 && negated2) || (negated1 && !negated2))) {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        return true;
-    }
 
 
 }

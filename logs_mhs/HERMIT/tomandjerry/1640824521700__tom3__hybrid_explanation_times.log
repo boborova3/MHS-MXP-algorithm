@@ -1,0 +1,17 @@
+0,66;{Animal(s1640824521640),OwnerCat(mammy)}
+0,85;{Animal(s1640824521640),OwnerCat(s1640824521640)}
+1,06;{CatLover(s1640824521640),Cat(jerry)}
+1,27;{CatLover(s1640824521640),Animal(s1640824521640)}
+1,77;{Mouse(jerry),CatLover(s1640824521640)}
+1,89;{Cat(mammy),Mouse(s1640824521640)}
+4,02;{Cat(jerry),OwnerCat(s1640824521640)}
+4,02;{Cat(jerry),OwnerCat(mammy)}
+4,71;{OwnerCat(s1640824521640),Mouse(s1640824521640)}
+4,83;{OwnerCat(s1640824521640),Mouse(jerry)}
+4,83;{OwnerCat(s1640824521640),Cat(s1640824521640)}
+4,94;{OwnerCat(mammy),Mouse(s1640824521640)}
+4,94;{OwnerCat(mammy),Mouse(jerry)}
+5,06;{OwnerCat(mammy),Cat(s1640824521640)}
+5,06;{CatLover(s1640824521640),Mouse(s1640824521640)}
+5,16;{CatLover(s1640824521640),Cat(s1640824521640)}
+5,16;{Cat(s1640824521640),Mouse(mammy)}

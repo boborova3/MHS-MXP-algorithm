@@ -18,7 +18,9 @@ public class Main {
 
         String[] x = new String[1];
         x[0] = "/home/iveta/Plocha/skola/diplomovka/testingFiles/testingFiles25/lubm-25_2_2_noNeg.in";
-        x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/multiple_obs/tom3.in";
+        x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/mhs_mod/family.in";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/mhs_mod/pokus9_1.in";
+        x[0]= "/home/iveta/Plocha/skola/diplomovka/testingFiles/testingFiles0/lubm-0_3_5_noNeg.in";
         Logger.getRootLogger().setLevel(Level.OFF);
         BasicConfigurator.configure();
 

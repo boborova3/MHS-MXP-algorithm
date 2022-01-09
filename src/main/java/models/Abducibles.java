@@ -1,5 +1,6 @@
 package models;
 
+import common.Configuration;
 import common.Printer;
 import openllet.owlapi.OWL;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -15,7 +16,6 @@ import java.util.Set;
 
 public class Abducibles {
 
-//    private Set<OWLAxiom> owlAxioms;
     private Set<OWLNamedIndividual> individuals;
     private Set<OWLClass> classes;
     private Set<OWLObjectProperty> roles;
@@ -28,6 +28,9 @@ public class Abducibles {
         this.roles = new HashSet<>(loader.getOntology().getObjectPropertiesInSignature());
         this.individuals.addAll(loader.getObservation().getOwlAxiom().getIndividualsInSignature());
         this.loader = loader;
+        if(loader.isMultipleObservationOnInput()){
+            this.individuals.remove(loader.getObservation().getReductionIndividual());
+        }
     }
 
     public Abducibles(ILoader loader, Set<OWLNamedIndividual> ind, Set<OWLClass> cl, Set<OWLObjectProperty> op) {
@@ -48,20 +51,28 @@ public class Abducibles {
     public Set<OWLObjectProperty> getRoles() { return roles; }
 
     public Set<OWLAxiom> getAxioms() {
-        if (axioms == null || axioms.size() < individuals.size() * classes.size() * 2){
+        if (axioms == null /*|| axioms.size() < individuals.size() * classes.size() * 2*/){
             this.axioms = new HashSet<>();
             for (OWLNamedIndividual ind: individuals){
+                if(loader.isMultipleObservationOnInput() && ind.equals(loader.getObservation().getReductionIndividual())){
+                    continue;
+                }
+
                 for (OWLClass cl: classes){
                     axioms.add(loader.getDataFactory().getOWLClassAssertionAxiom(cl, ind));
                     axioms.add(loader.getDataFactory().getOWLClassAssertionAxiom(cl.getComplementNNF(), ind));
                 }
+
                 for (OWLNamedIndividual object: individuals){
-                    if (ind.equals(object)){
+                    if (!Configuration.LOOPING_ALLOWED && ind.equals(object)){
+                        continue;
+                    }
+                    if(loader.isMultipleObservationOnInput() && object.equals(loader.getObservation().getReductionIndividual())){
                         continue;
                     }
                     for (OWLObjectProperty op: roles){
                         axioms.add(loader.getDataFactory().getOWLObjectPropertyAssertionAxiom(op, ind, object));
-//                        axioms.add(loader.getDataFactory().getOWLObjectPropertyAssertionAxiom(op.get, ind, object));
+                        axioms.add(loader.getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(op, ind, object));
                     }
                 }
             }
@@ -72,6 +83,7 @@ public class Abducibles {
     public void addAbducibles(Abducibles abducibles) {
         this.individuals.addAll(abducibles.getIndividuals());
         this.classes.addAll(abducibles.getClasses());
+        this.roles.addAll(abducibles.getRoles());
     }
 
     @Override
@@ -114,6 +126,6 @@ public class Abducibles {
     }
 
     public boolean noAbduciblesSpecified(){
-        return individuals.isEmpty() || (classes.isEmpty()); //&& roles.isEmpty());
+        return individuals.isEmpty() || (classes.isEmpty() && roles.isEmpty());
     }
 }

@@ -3,20 +3,13 @@ package parser;
 import application.Application;
 import application.ExitCode;
 import common.Configuration;
-import common.DLSyntax;
 import common.Prefixes;
 import models.Abducibles;
-import org.apache.commons.lang3.StringUtils;
 import org.semanticweb.owlapi.model.*;
 import reasoner.Loader;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class AbduciblesParser {
 
@@ -32,47 +25,24 @@ public class AbduciblesParser {
         Set<OWLNamedIndividual> individuals = new HashSet<>();
         Set<OWLObjectProperty> roles = new HashSet<>();
 
-        List<String> abducibles = Stream.of(Configuration.ABDUCIBLES_CONCEPTS,
-                Configuration.ABDUCIBLES_INDIVIDUALS).flatMap(x -> x.stream())
-                .collect(Collectors.toList());
-
-        for (String abd_string: abducibles){
-            String[] prefix_obj;
-
-//            if (!abd.contains(DLSyntax.DELIMITER_ONTOLOGY)){
-            String abd;
-            if (Prefixes.prefixes.values().stream().anyMatch(abd_string::startsWith)){
-                abd = abd_string;
-            }
-            else{
-                prefix_obj = abd_string.split(DLSyntax.DELIMITER_ASSERTION);
-                if (!Prefixes.prefixes.containsKey(prefix_obj[0])){
-                    System.err.println("Prefix " + prefix_obj[0] + " in abducible '" + abd_string + "' is unknown, define the prefix with -p parameter.");
-                    Application.finish(ExitCode.ERROR);
-                }
-                abd = Prefixes.prefixes.get(prefix_obj[0]).concat(prefix_obj[1]);
-            }
-//            }
-
-//            prefix_obj = abd.split(DLSyntax.DELIMITER_ONTOLOGY);
-//            if (Character.isUpperCase(prefix_obj[1].charAt(0))){
-            if (Configuration.ABDUCIBLES_CONCEPTS.contains(abd_string)){
-                classes.add(create_class(abd));
-            }
-//            else if (prefix_obj[1].endsWith("()")){
-//                roles.add(create_role(abd.substring(0, abd.length() - 2)));
-//            }
-            else{
-                individuals.add(create_individual(abd));
-            }
+        for(String concept : Configuration.ABDUCIBLES_CONCEPTS){
+            classes.add(create_class(replacePrefixInAbducible(concept)));
         }
-        if (classes.isEmpty()){ //&& roles.isEmpty()){
+        for(String individual : Configuration.ABDUCIBLES_INDIVIDUALS){
+            individuals.add(create_individual(replacePrefixInAbducible(individual)));
+        }
+        for(String role : Configuration.ABDUCIBLES_ROLES){
+            roles.add(create_role(replacePrefixInAbducible(role)));
+        }
+
+        if (classes.isEmpty() && roles.isEmpty()){
             return new Abducibles(loader);
         }
-        Set<OWLNamedIndividual> observation_inds = loader.getObservation().getOwlAxiom().getIndividualsInSignature();
-        for (OWLNamedIndividual ind: observation_inds){
-            individuals.add(ind);
+
+        if(individuals.isEmpty()){
+            return new Abducibles(loader, loader.getOntology().getIndividualsInSignature(), classes, roles);
         }
+
         return new Abducibles(loader, individuals, classes, roles);
     }
 
@@ -86,5 +56,22 @@ public class AbduciblesParser {
 
     private OWLObjectProperty create_role(String abd){
         return loader.getDataFactory().getOWLObjectProperty(IRI.create(abd));
+    }
+
+    private String replacePrefixInAbducible(String abducible){
+        String[] abducibleTemp = abducible.split(":");
+        if(abducibleTemp.length == 1){
+            return abducibleTemp[0];
+        } else if (abducibleTemp.length == 2){
+            if(!Prefixes.prefixes.containsKey(abducibleTemp[0])){
+                System.err.println("Prefix " + abducibleTemp[0] + " in abducible '" + abducible + "' is unknown.");
+                Application.finish(ExitCode.ERROR);
+            }
+            return abducible.replace(abducibleTemp[0] + ":", Prefixes.prefixes.get(abducibleTemp[0]));
+        } else {
+            System.err.println("Incorrect IRI in abducible '" + abducible + "', only one delimeter ':' may be used - between prefix and name.");
+            Application.finish(ExitCode.ERROR);
+        }
+        return "";
     }
 }

@@ -2,8 +2,12 @@ package algorithms.hybrid;
 
 import common.Printer;
 import models.Explanation;
+import openllet.owlapi.OpenlletReasonerFactory;
 import org.apache.commons.lang3.StringUtils;
-import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import reasoner.AxiomManager;
 import reasoner.ILoader;
 import reasoner.IReasonerManager;
 
@@ -32,16 +36,13 @@ public class CheckRules implements ICheckRules {
 
     @Override
     public boolean isExplanation(Explanation explanation) {
-//        reasonerManager.addAxiomToOntology(loader.getNegObservation().getOwlAxiom());
         reasonerManager.addAxiomsToOntology(explanation.getOwlAxioms());
         boolean isConsistent = reasonerManager.isOntologyConsistent();
-//        reasonerManager.removeAxiomFromOntology(loader.getNegObservation().getOwlAxiom());
         reasonerManager.resetOntology(loader.getOriginalOntology().axioms());
         return !isConsistent;
     }
 
     @Override
-    //10.riadok algroitmu??
     public boolean isMinimal(List<Explanation> explanationList, Explanation explanation) {
         if (explanation == null || !(explanation.getOwlAxioms() instanceof List)) {
             return false;
@@ -53,6 +54,29 @@ public class CheckRules implements ICheckRules {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean isRelevant(Explanation explanation) throws OWLOntologyCreationException {
+        OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
+        OWLOntology ontology = ontologyManager.createOntology(explanation.getOwlAxioms());
+
+        OWLReasoner reasoner = new OpenlletReasonerFactory().createNonBufferingReasoner(ontology);
+
+        if(loader.isMultipleObservationOnInput()){
+            for(OWLAxiom obs : loader.getObservation().getAxiomsInMultipleObservations()){
+                OWLAxiom negObs = AxiomManager.getComplementOfOWLAxiom(loader, obs);
+                ontologyManager.addAxiom(ontology, negObs);
+                if(!reasoner.isConsistent()){
+                    return false;
+                }
+                ontologyManager.removeAxiom(ontology, negObs);
+            }
+            return true;
+        } else {
+            ontologyManager.addAxiom(ontology, loader.getNegObservation().getOwlAxiom());
+            return reasoner.isConsistent();
+        }
     }
 
     private void printAxioms(List<OWLAxiom> axioms){
