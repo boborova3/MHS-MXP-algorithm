@@ -1,0 +1,8 @@
+0;0;0.54;{}
+1;0;0.73;{}
+2;0;3.22;{}
+3;0;17.03;{}
+4;0;79.62;{}
+5;4;161.15;{{JournalArticle(DummyIndividual),AssociateProfessor(DummyIndividual),Schedule(DummyIndividual),Specification(DummyIndividual),Software(DummyIndividual)},{Schedule(DummyIndividual),ConferencePaper(DummyIndividual),Specification(DummyIndividual),Software(DummyIndividual),AssociateProfessor(DummyIndividual)},{Schedule(DummyIndividual),TechnicalReport(DummyIndividual),Software(DummyIndividual),AssociateProfessor(DummyIndividual),Specification(DummyIndividual)},{Schedule(DummyIndividual),Software(DummyIndividual),Specification(DummyIndividual),AssociateProfessor(DummyIndividual),Article(DummyIndividual)}}
+6;4;233.16;{{Software(DummyIndividual),TechnicalReport(DummyIndividual),Schedule(DummyIndividual),Director(DummyIndividual),Specification(DummyIndividual),AssociateProfessor(DummyIndividual)},{Software(DummyIndividual),Article(DummyIndividual),Schedule(DummyIndividual),Director(DummyIndividual),Specification(DummyIndividual),AssociateProfessor(DummyIndividual)},{Software(DummyIndividual),ConferencePaper(DummyIndividual),Schedule(DummyIndividual),Director(DummyIndividual),Specification(DummyIndividual),AssociateProfessor(DummyIndividual)},{Software(DummyIndividual),Schedule(DummyIndividual),TechnicalReport(DummyIndividual),Program(DummyIndividual),AssociateProfessor(DummyIndividual),Specification(DummyIndividual)}}
+7;0;234.81;{}

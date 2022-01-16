@@ -4,5 +4,4 @@
 -p: {
 fam: http://www.semanticweb.org/julia/ontologies/2017/8/family#
 }
--p: dai: http://dai.fmph.uniba.sk/RDF#
 

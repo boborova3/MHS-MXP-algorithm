@@ -1,0 +1,4 @@
+0.34;{Course(DummyIndividual),VisitingProfessor(DummyIndividual),TechnicalReport(DummyIndividual)}
+2.91;{TechnicalReport(DummyIndividual),GraduateCourse(DummyIndividual),VisitingProfessor(DummyIndividual)}
+3.21;{TechnicalReport(DummyIndividual),Research(DummyIndividual),VisitingProfessor(DummyIndividual)}
+3.42;{TechnicalReport(DummyIndividual),VisitingProfessor(DummyIndividual),Work(DummyIndividual)}

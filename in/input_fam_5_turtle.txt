@@ -4,5 +4,4 @@
 -p: {
 fam: http://www.semanticweb.org/julia/ontologies/2017/8/family#
 }
--p: rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
 

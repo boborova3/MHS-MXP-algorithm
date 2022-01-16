@@ -1,0 +1,5 @@
+0;0;0.46;{}
+1;0;1.39;{}
+2;0;3.52;{}
+3;4;5.49;{{Course(DummyIndividual),VisitingProfessor(DummyIndividual),TechnicalReport(DummyIndividual)},{TechnicalReport(DummyIndividual),GraduateCourse(DummyIndividual),VisitingProfessor(DummyIndividual)},{TechnicalReport(DummyIndividual),Research(DummyIndividual),VisitingProfessor(DummyIndividual)},{TechnicalReport(DummyIndividual),VisitingProfessor(DummyIndividual),Work(DummyIndividual)}}
+4;4;5.61;{{VisitingProfessor(DummyIndividual),GraduateCourse(DummyIndividual),TechnicalReport(DummyIndividual),UndergraduateStudent(DummyIndividual)},{VisitingProfessor(DummyIndividual),Research(DummyIndividual),TechnicalReport(DummyIndividual),UndergraduateStudent(DummyIndividual)},{VisitingProfessor(DummyIndividual),Work(DummyIndividual),TechnicalReport(DummyIndividual),UndergraduateStudent(DummyIndividual)},{VisitingProfessor(DummyIndividual),TechnicalReport(DummyIndividual),Director(DummyIndividual),GraduateCourse(DummyIndividual)}}

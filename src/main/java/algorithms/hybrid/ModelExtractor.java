@@ -23,6 +23,50 @@ public class ModelExtractor {
         this.hybridSolver = hybridSolver;
     }
 
+    public ModelNode getNegModelByOntology(){  // mrozek
+        OWLDataFactory dfactory = OWLManager.createOWLOntologyManager().getOWLDataFactory();
+        ModelNode negModelNode = new ModelNode();
+        ModelNode modelNode = new ModelNode();
+        modelNode.data = new LinkedList<>();
+        Set<OWLAxiom> negModelSet = new HashSet<>();
+        Set<OWLAxiom> modelSet = new HashSet<>();
+
+        if(!isOntologyConsistentWithPath()){
+            return modelNode;
+        }
+
+        ArrayList<OWLNamedIndividual> individualArray = new ArrayList<>(hybridSolver.abducibles.getIndividuals());
+
+        for (OWLNamedIndividual ind : individualArray) {
+            assignTypesToIndividual(dfactory, ind, negModelSet, modelSet);
+        }
+
+        deletePathFromOntology();
+
+        modelNode.data = new LinkedList<>(modelSet);
+        negModelNode.data = new LinkedList<>(negModelSet);
+        hybridSolver.lastUsableModelIndex = hybridSolver.models.indexOf(modelNode);
+        System.out.println("MODEL NODE");
+        hybridSolver.printAxioms(modelNode.data);
+        System.out.println("NEG MODEL NODE");
+        hybridSolver.printAxioms(negModelNode.data);
+
+        if (!modelNode.data.isEmpty() && hybridSolver.lastUsableModelIndex == -1) {
+            hybridSolver.lastUsableModelIndex = hybridSolver.models.size();
+            addModel(modelNode, negModelNode);
+        }
+        return negModelNode;
+    }
+
+    public boolean isOntologyConsistentWithPath(){
+        if(hybridSolver.checkingMinimalityWithQXP) {
+            return isOntologyWithPathConsistent(hybridSolver.pathDuringCheckingMinimality);
+        }
+        else {
+            return isOntologyWithPathConsistent(hybridSolver.path);
+        }
+    }
+
     public boolean isOntologyWithPathConsistent(List<OWLAxiom> path){
         if (path != null) {
             if(loader.isMultipleObservationOnInput()){
@@ -32,6 +76,7 @@ public class ModelExtractor {
             } else {
                 path.remove(hybridSolver.negObservation);
             }
+            System.out.println("PATHX " + path);
             reasonerManager.addAxiomsToOntology(path);
             if (!reasonerManager.isOntologyConsistent()){
                 hybridSolver.removeAxiomsFromOntology(path);
@@ -41,61 +86,27 @@ public class ModelExtractor {
         return true;
     }
 
-    public ModelNode getNegModelByOntology(){  // mrozek
-        OWLDataFactory dfactory = OWLManager.createOWLOntologyManager().getOWLDataFactory();
-        ModelNode negModelNode = new ModelNode();
-        ModelNode modelNode = new ModelNode();
-        modelNode.data = new LinkedList<>();
+    public void assignTypesToIndividual(OWLDataFactory dfactory, OWLNamedIndividual ind, Set<OWLAxiom> negModelSet, Set<OWLAxiom> modelSet){
+        //Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, hybridSolver.ontology).collect(toSet());
+        Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, loader.getOntology()).collect(toSet());
+        Set<OWLClassExpression> knownTypes = new HashSet<>();
+        Set<OWLClassExpression> knownNotTypes = new HashSet<>();
+        divideTypesAccordingOntology(ontologyTypes, knownTypes, knownNotTypes);
+        System.out.println("KNOWN TYPES");
+        System.out.println(knownTypes);
+        System.out.println("KNOWN NOT TYPER");
+        System.out.println(knownNotTypes);
 
-        if(checkConsistencyOfOntologyWithPath() != null){
-            return modelNode;
-        }
+        Set<OWLClassExpression> newNotTypes = classSet2classExpSet(hybridSolver.ontology.classesInSignature().collect(toSet()));
+        newNotTypes.remove(dfactory.getOWLThing());
+        //newNotTypes.removeAll(knownNotTypes);
 
-        ArrayList<OWLNamedIndividual> individualArray = new ArrayList<>(hybridSolver.abducibles.getIndividuals());
-        Set<OWLAxiom> negModelSet = new HashSet<>();
-        Set<OWLAxiom> modelSet = new HashSet<>();
+        Set<OWLClassExpression> foundTypes = nodeClassSet2classExpSet(loader.getReasoner().getTypes(ind, false).getNodes());
+        System.out.println("FOUND TYPES " + foundTypes);
+        newNotTypes.removeAll(foundTypes);
+        //foundTypes.removeAll(knownTypes);
 
-        for (OWLNamedIndividual ind : individualArray) {
-            Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, hybridSolver.ontology).collect(toSet());
-            Set<OWLClassExpression> knownTypes = new HashSet<>();
-            Set<OWLClassExpression> knownNotTypes = new HashSet<>();
-            divideTypesAccordingOntology(ontologyTypes, knownTypes, knownNotTypes);
-
-            Set<OWLClassExpression> newNotTypes = classSet2classExpSet(hybridSolver.ontology.classesInSignature().collect(toSet()));
-            newNotTypes.remove(dfactory.getOWLThing());
-            newNotTypes.removeAll(knownNotTypes);
-
-            Set<OWLClassExpression> foundTypes = nodeClassSet2classExpSet(loader.getReasoner().getTypes(ind, false).getNodes());
-            newNotTypes.removeAll(foundTypes);
-            foundTypes.removeAll(knownTypes);
-
-            addAxiomsToModelsAccordingTypes(dfactory, negModelSet, modelSet, foundTypes, newNotTypes, ind);
-        }
-
-        deletePathFromOntology();
-
-        modelNode.data = new LinkedList<>(modelSet);
-        negModelNode.data = new LinkedList<>(negModelSet);
-        hybridSolver.lastUsableModelIndex = hybridSolver.models.indexOf(modelNode);
-        if (!modelNode.data.isEmpty() && hybridSolver.lastUsableModelIndex == -1) {
-            hybridSolver.lastUsableModelIndex = hybridSolver.models.size();
-            addModel(modelNode, negModelNode);
-        }
-        return negModelNode;
-    }
-
-    public ModelNode checkConsistencyOfOntologyWithPath(){
-        if(hybridSolver.checkingMinimalityWithQXP) {
-            if(!isOntologyWithPathConsistent(hybridSolver.pathDuringCheckingMinimality)){
-                return new ModelNode();
-            }
-        }
-        else {
-            if(!isOntologyWithPathConsistent(hybridSolver.path)){
-                return new ModelNode();
-            }
-        }
-        return null;
+        addAxiomsToModelsAccordingTypes(dfactory, negModelSet, modelSet, foundTypes, newNotTypes, ind);
     }
 
     public void divideTypesAccordingOntology(Set<OWLClassExpression> ontologyTypes, Set<OWLClassExpression> knownTypes, Set<OWLClassExpression> knownNotTypes){
@@ -109,12 +120,18 @@ public class ModelExtractor {
         }
     }
 
-    public void deletePathFromOntology(){
-        if(hybridSolver.checkingMinimalityWithQXP){
-            hybridSolver.removeAxiomsFromOntology(hybridSolver.pathDuringCheckingMinimality);
-        } else {
-            hybridSolver.removeAxiomsFromOntology(hybridSolver.path);
+    public static Set<OWLClassExpression> nodeClassSet2classExpSet(Set<Node<OWLClass>> nodeList) {
+        Set<OWLClassExpression> toReturn = new HashSet<>();
+        for (Node<OWLClass> node : nodeList) {
+            toReturn.addAll(node.getEntitiesMinusTop());
         }
+        return toReturn;
+    }
+
+    public static Set<OWLClassExpression> classSet2classExpSet(Set<OWLClass> classSet) {
+        Set<OWLClassExpression> toReturn = new HashSet<>();
+        toReturn.addAll(classSet);
+        return toReturn;
     }
 
     public void addAxiomsToModelsAccordingTypes(OWLDataFactory dfactory, Set<OWLAxiom> negModelSet, Set<OWLAxiom> modelSet, Set<OWLClassExpression> foundTypes, Set<OWLClassExpression> newNotTypes, OWLNamedIndividual ind){
@@ -139,18 +156,14 @@ public class ModelExtractor {
         }
     }
 
-    public static Set<OWLClassExpression> nodeClassSet2classExpSet(Set<Node<OWLClass>> nodeList) {
-        Set<OWLClassExpression> toReturn = new HashSet<>();
-        for (Node<OWLClass> node : nodeList) {
-            toReturn.addAll(node.getEntitiesMinusTop());
+    public void deletePathFromOntology(){
+        if(hybridSolver.checkingMinimalityWithQXP){
+            hybridSolver.removeAxiomsFromOntology(hybridSolver.pathDuringCheckingMinimality);
+        } else {
+            System.out.println("ON " + loader.getOntology());
+            hybridSolver.removeAxiomsFromOntology(hybridSolver.path);
+            System.out.println("ON " + loader.getOntology());
         }
-        return toReturn;
-    }
-
-    public static Set<OWLClassExpression> classSet2classExpSet(Set<OWLClass> classSet) {
-        Set<OWLClassExpression> toReturn = new HashSet<>();
-        toReturn.addAll(classSet);
-        return toReturn;
     }
 
     public void addModel(ModelNode model, ModelNode negModel){

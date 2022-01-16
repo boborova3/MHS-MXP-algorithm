@@ -1,0 +1,2 @@
+4;3;5.16;{{ConferencePaper(DummyIndividual),Department(DummyIndividual),UndergraduateStudent(DummyIndividual),AssociateProfessor(DummyIndividual)},{AssociateProfessor(DummyIndividual),ConferencePaper(DummyIndividual),Student(DummyIndividual),Department(DummyIndividual)},{AssociateProfessor(DummyIndividual),ConferencePaper(DummyIndividual),GraduateStudent(DummyIndividual),Department(DummyIndividual)}}
+5.43

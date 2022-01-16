@@ -1,0 +1,6 @@
+0;0;0.43;{}
+1;0;0.71;{}
+2;0;4.57;{}
+3;0;12.88;{}
+4;2;24.01;{{GraduateStudent(DummyIndividual),Course(DummyIndividual),TeachingAssistant(DummyIndividual),Schedule(DummyIndividual)},{TeachingAssistant(DummyIndividual),GraduateCourse(DummyIndividual),GraduateStudent(DummyIndividual),Schedule(DummyIndividual)}}
+5;2;33.02;{{GraduateCourse(DummyIndividual),Schedule(DummyIndividual),TeachingAssistant(DummyIndividual),FullProfessor(DummyIndividual),GraduateStudent(DummyIndividual)},{GraduateCourse(DummyIndividual),TeachingAssistant(DummyIndividual),UndergraduateStudent(DummyIndividual),Schedule(DummyIndividual),GraduateStudent(DummyIndividual)}}

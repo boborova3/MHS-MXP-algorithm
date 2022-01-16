@@ -1,7 +1,7 @@
 import algorithms.ISolver;
 import algorithms.hybrid.HybridSolver;
 import algorithms.hybrid.ModelNode;
-import common.ArgumentParser;
+import parser.ArgumentParser;
 import common.Configuration;
 import common.Printer;
 import org.apache.log4j.BasicConfigurator;
@@ -13,12 +13,8 @@ import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.search.EntitySearcher;
 import reasoner.*;
 import timer.ThreadTimes;
-import uk.ac.manchester.cs.jfact.kernel.Axiom;
 
-import javax.lang.model.type.UnionType;
-import java.beans.Expression;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toSet;
 

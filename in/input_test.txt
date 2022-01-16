@@ -1,7 +1,0 @@
--f: C:\Users\gabli\Desktop\Diplomovka\hybrid_solver\files\test.owl
--o: test:I(test:jack)
--p: {
-test: http://www.semanticweb.org/katka/ontologies/2018/9/katka#
-}
--a: {
-}

@@ -1,0 +1,5 @@
+0;0;0.47;{}
+1;0;1.75;{}
+2;0;3.27;{}
+3;0;13.14;{}
+4;4;21.73;{{FullProfessor(DummyIndividual),SystemsStaff(DummyIndividual),Course(DummyIndividual),ResearchAssistant(DummyIndividual)},{SystemsStaff(DummyIndividual),Work(DummyIndividual),FullProfessor(DummyIndividual),ResearchAssistant(DummyIndividual)},{SystemsStaff(DummyIndividual),GraduateCourse(DummyIndividual),FullProfessor(DummyIndividual),ResearchAssistant(DummyIndividual)},{SystemsStaff(DummyIndividual),Research(DummyIndividual),ResearchAssistant(DummyIndividual),FullProfessor(DummyIndividual)}}

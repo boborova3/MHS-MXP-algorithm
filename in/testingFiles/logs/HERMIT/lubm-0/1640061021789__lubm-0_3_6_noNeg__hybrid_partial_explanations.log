@@ -1,0 +1,4 @@
+0;0;0.45;{}
+1;0;1.49;{}
+2;0;3.14;{}
+3;4;8.06;{{ClericalStaff(DummyIndividual),Course(DummyIndividual),College(DummyIndividual)},{College(DummyIndividual),ClericalStaff(DummyIndividual),Work(DummyIndividual)},{College(DummyIndividual),ClericalStaff(DummyIndividual),GraduateCourse(DummyIndividual)},{College(DummyIndividual),ClericalStaff(DummyIndividual),Research(DummyIndividual)}}

@@ -1,6 +1,6 @@
 import algorithms.ISolver;
 import algorithms.hybrid.HybridSolver;
-import common.ArgumentParser;
+import parser.ArgumentParser;
 import common.Configuration;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
@@ -18,9 +18,11 @@ public class Main {
 
         String[] x = new String[1];
         x[0] = "/home/iveta/Plocha/skola/diplomovka/testingFiles/testingFiles25/lubm-25_2_2_noNeg.in";
-        x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/mhs_mod/family.in";
+        x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/multiple_obs/family.in";
         //x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/mhs_mod/pokus9_1.in";
-        x[0]= "/home/iveta/Plocha/skola/diplomovka/testingFiles/testingFiles0/lubm-0_3_5_noNeg.in";
+        //x[0]= "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/testExtractingModels/pokus9_1_P.in";
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/testingFiles/testingFiles0/lubm-0_3_5_MXP_notNegation.in"; //s dummy class
+        //x[0] = "/home/iveta/Plocha/skola/diplomovka/testingFiles/testingFiles0/lubm-0_3_5_noNeg.in"; //bez dummy class
         Logger.getRootLogger().setLevel(Level.OFF);
         BasicConfigurator.configure();
 

@@ -1,0 +1,9 @@
+0.27;{Professor(DummyIndividual)}
+0.36;{AssociateProfessor(DummyIndividual)}
+0.45;{VisitingProfessor(DummyIndividual)}
+0.54;{AssistantProfessor(DummyIndividual)}
+0.54;{FullProfessor(DummyIndividual)}
+0.54;{Dean(DummyIndividual)}
+0.65;{Chair(DummyIndividual)}
+0.75;{Lecturer(DummyIndividual)}
+0.86;{PostDoc(DummyIndividual)}

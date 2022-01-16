@@ -1,0 +1,6 @@
+0;0;0.45;{}
+1;0;0.93;{}
+2;0;3.43;{}
+3;0;7.12;{}
+4;3;17.58;{{ClericalStaff(DummyIndividual),Software(DummyIndividual),UndergraduateStudent(DummyIndividual),Chair(DummyIndividual)},{Chair(DummyIndividual),ClericalStaff(DummyIndividual),GraduateStudent(DummyIndividual),Software(DummyIndividual)},{Chair(DummyIndividual),ClericalStaff(DummyIndividual),Software(DummyIndividual),Student(DummyIndividual)}}
+5;4;27.22;{{Student(DummyIndividual),Software(DummyIndividual),ClericalStaff(DummyIndividual),Chair(DummyIndividual),Department(DummyIndividual)},{Student(DummyIndividual),Software(DummyIndividual),Chair(DummyIndividual),Director(DummyIndividual),ClericalStaff(DummyIndividual)},{GraduateStudent(DummyIndividual),Chair(DummyIndividual),ConferencePaper(DummyIndividual),ClericalStaff(DummyIndividual),Software(DummyIndividual)},{Student(DummyIndividual),Chair(DummyIndividual),ConferencePaper(DummyIndividual),ClericalStaff(DummyIndividual),Software(DummyIndividual)}}

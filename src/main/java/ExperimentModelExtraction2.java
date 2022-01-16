@@ -1,7 +1,7 @@
 import algorithms.ISolver;
 import algorithms.hybrid.HybridSolver;
 import algorithms.hybrid.ModelNode;
-import common.ArgumentParser;
+import parser.ArgumentParser;
 import common.Configuration;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
@@ -12,7 +12,6 @@ import org.semanticweb.owlapi.reasoner.Node;
 import reasoner.*;
 import timer.ThreadTimes;
 
-import javax.lang.model.type.UnionType;
 import java.util.*;
 
 import static java.util.stream.Collectors.toSet;

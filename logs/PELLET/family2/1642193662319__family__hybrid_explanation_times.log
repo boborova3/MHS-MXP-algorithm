@@ -1,0 +1,4 @@
+0,41;{Grandmother(jane),Grandfather(jack)}
+1,84;{Grandfather(jack),Female(jane),Parent(jane)}
+2,24;{Parent(jack),Male(jack),Grandmother(jane)}
+3,97;{Male(jack),Female(jane),Parent(jack),Parent(jane)}

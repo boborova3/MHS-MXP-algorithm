@@ -27,39 +27,38 @@ public class HybridSolver implements ISolver {
     private boolean CHECKING_MINIMALITY_BY_QXP;
     private boolean MHS_MODE;
     private boolean ROLES_IN_EXPLANATIONS;
-    private boolean CACHED_CONFLICTS_LONGEST_CONFLICT = true;
+    private boolean CACHED_CONFLICTS_LONGEST_CONFLICT = false;
     private boolean CACHED_CONFLICTS_TABLE_OF_OCCURRENCE = false;
 
     private ILoader loader;
     private IReasonerManager reasonerManager;
-    public OWLOntology ontology;
+    private Literals literals;
+    private Literals abd_literals;
+    private ModelExtractor modelExtractor;
+    private ExplanationsFilter explanationsFilter;
+    private List<OWLAxiom> lenghtOneExplanations = new ArrayList<>();
+    private List<Set<OWLAxiom>> pathsInCertainDepth = new ArrayList<>();
+    private Explanation foundedExplanation;
 
+    public OWLOntology ontology;
     public List<ModelNode> models;
     public List<ModelNode> negModels;
     public List<OWLAxiom> assertionsAxioms;
     public List<OWLAxiom> negAssertionsAxioms;
-    private Literals literals;
-    private Literals abd_literals;
     public List<Explanation> explanations;
     public List<OWLAxiom> path;
     public List<OWLAxiom> pathDuringCheckingMinimality;
     public Abducibles abducibles;
-    private ModelExtractor modelExtractor;
-    private ExplanationsFilter explanationsFilter;
-
-    List<OWLAxiom> lenghtOneExplanations = new ArrayList<>();
-    List<Set<OWLAxiom>> pathsInCertainDepth = new ArrayList<>();
-
     public int lastUsableModelIndex;
     public OWLAxiom negObservation;
-
     public ThreadTimes threadTimes;
     public long currentTimeMillis;
-
     public Map<Integer, Double> level_times = new HashMap<>();
-
     public boolean checkingMinimalityWithQXP = false;
-    private Explanation foundedExplanation;
+
+    private Map<AxiomPair, Integer> tableOfAxiomPairOccurance;
+    private List<Integer> numberOfAxiomPairOccurance;
+    private double median = 0;
 
     public HybridSolver(ThreadTimes threadTimes, long currentTimeMillis) {
         this.threadTimes = threadTimes;
@@ -81,6 +80,8 @@ public class HybridSolver implements ISolver {
         this.ontology = this.loader.getOriginalOntology();
         this.modelExtractor = new ModelExtractor(loader, reasonerManager, this);
         this.explanationsFilter = new ExplanationsFilter(loader, reasonerManager, this);
+        tableOfAxiomPairOccurance = new HashMap<>();
+        numberOfAxiomPairOccurance = new ArrayList<>();
 
         negObservation = loader.getNegObservation().getOwlAxiom();
         this.abducibles = loader.getAbducibles();
@@ -123,6 +124,8 @@ public class HybridSolver implements ISolver {
                 }
             }
         });
+
+
 
         if (loader.isMultipleObservationOnInput()){
             assertionsAxioms.removeAll(loader.getObservation().getAxiomsInMultipleObservations());
@@ -318,8 +321,14 @@ public class HybridSolver implements ISolver {
                         if(CHECKING_MINIMALITY_BY_QXP){
                             if(isMinimalByCallingQXP(explanation)){
                                 explanations.add(explanation);
+                                if(CACHED_CONFLICTS_TABLE_OF_OCCURRENCE){
+                                    addPairsOfLiteralsToTable(explanation);
+                                }
                             } else {
                                 explanations.add(foundedExplanation);
+                                if(CACHED_CONFLICTS_TABLE_OF_OCCURRENCE){
+                                    addPairsOfLiteralsToTable(foundedExplanation);
+                                }
                                 foundedExplanation = null;
                             }
                         } else {
@@ -330,7 +339,7 @@ public class HybridSolver implements ISolver {
                                 }*/
                                 System.out.println();
                                 if(checkRules.isConsistent(explanation) && checkRules.isRelevant(explanation)){
-                                    System.out.println("PRESLO");
+                                    System.out.println("PRESLO X");
                                     explanations.add(explanation);
                                 } else {
                                     //System.out.println("NEPRESLO");
@@ -340,6 +349,9 @@ public class HybridSolver implements ISolver {
                                 }
                             } else {
                                 explanations.add(explanation);
+                                if(CACHED_CONFLICTS_TABLE_OF_OCCURRENCE){
+                                    addPairsOfLiteralsToTable(explanation);
+                                }
                             }
                         }
                         path.clear();
@@ -397,12 +409,13 @@ public class HybridSolver implements ISolver {
                             System.out.print(Printer.print(c) + " ");
                         }
                         System.out.println();*/
+                        System.out.println("TU NASTANE " + modelNode.data);
                         if (modelNode.data.isEmpty()){
-                            System.out.println("NOT MODEL IN ABD");
                             path.clear();
                             continue;
                         }
                     }
+                    System.out.println("USABLE " + lastUsableModelIndex);
                     modelNode.depth = model.depth + 1;
                     modelNode.add_node_explanations(model);
                     if(!MHS_MODE){
@@ -414,6 +427,10 @@ public class HybridSolver implements ISolver {
                     }
                     System.out.println();*/
 
+                    System.out.println("TU NASTANE2 " + modelNode.data);
+                    if(modelNode.data == null){
+                        modelNode.data = new ArrayList<>();
+                    }
                     queue.add(modelNode);
                     System.out.println();
                     path.clear();
@@ -471,11 +488,11 @@ public class HybridSolver implements ISolver {
 
         while (!isOntologyWithLiteralsConsistent(conflictLiterals.getOwlAxioms())) {
             path.addAll(conflictC2.getLiterals().getOwlAxioms());
-            Explanation X = getConflict(conflictC2.getLiterals().getOwlAxioms(), conflictC1.getLiterals());
+            Explanation X = getConflict(conflictC2.getLiterals().getOwlAxioms(), conflictC1.getLiterals(), path);
             path.removeAll(conflictC2.getLiterals().getOwlAxioms());
 
             path.addAll(X.getOwlAxioms());
-            Explanation CS = getConflict(X.getOwlAxioms(), conflictC2.getLiterals());
+            Explanation CS = getConflict(X.getOwlAxioms(), conflictC2.getLiterals(), path);
             path.removeAll(X.getOwlAxioms());
 
             CS.getOwlAxioms().addAll(X.getOwlAxioms());
@@ -491,19 +508,70 @@ public class HybridSolver implements ISolver {
             if(CHECKING_MINIMALITY_BY_QXP){
                 if(isMinimalByCallingQXP(CS)){
                     explanations.add(CS);
+                    if(CACHED_CONFLICTS_TABLE_OF_OCCURRENCE){
+                        addPairsOfLiteralsToTable(CS);
+                    }
                 } else {
                     explanations.add(foundedExplanation);
+                    if(CACHED_CONFLICTS_TABLE_OF_OCCURRENCE){
+                        addPairsOfLiteralsToTable(foundedExplanation);
+                    }
                     foundedExplanation = null;
                 }
             } else {
                 explanations.add(CS);
+                if(CACHED_CONFLICTS_TABLE_OF_OCCURRENCE){
+                    addPairsOfLiteralsToTable(CS);
+                }
             }
         }
 
         return new Conflict(conflictLiterals, explanations);
     }
 
-    private Explanation getConflict(Collection<OWLAxiom> axioms, Literals literals) {
+    private void addPairsOfLiteralsToTable(Explanation explanation){
+        List<OWLAxiom> expAxioms;
+        if (explanation.getOwlAxioms() instanceof List)
+            expAxioms = (ArrayList<OWLAxiom>) explanation.getOwlAxioms();
+        else
+            expAxioms = new ArrayList<>(explanation.getOwlAxioms());
+
+        for(int i = 0; i < expAxioms.size(); i++){
+            for(int j = i + 1; j < expAxioms.size(); j++){
+                AxiomPair axiomPair = new AxiomPair(expAxioms.get(i), expAxioms.get(j));
+                Integer value = tableOfAxiomPairOccurance.getOrDefault(axiomPair, 0) + 1;
+                tableOfAxiomPairOccurance.put(axiomPair, value);
+                addToListOfAxiomPairOccurance(value);
+            }
+        }
+        setMedianFromListOfAxiomPairOccurance();
+    }
+
+    public void addToListOfAxiomPairOccurance(Integer value){
+        int index = 0;
+        for(int i = 0; i < numberOfAxiomPairOccurance.size(); i++){
+            if(numberOfAxiomPairOccurance.get(i) > value){
+                break;
+            }
+            index++;
+        }
+        numberOfAxiomPairOccurance.add(index, value);
+    }
+
+    private void setMedianFromListOfAxiomPairOccurance(){
+        if(numberOfAxiomPairOccurance.size() == 0){
+            return;
+        }
+        if(numberOfAxiomPairOccurance.size() % 2 == 0){
+            int index = numberOfAxiomPairOccurance.size()/2;
+            median = (numberOfAxiomPairOccurance.get(index - 1) + numberOfAxiomPairOccurance.get(index)) / 2.0;
+        } else {
+            int index = (numberOfAxiomPairOccurance.size() - 1)/2;
+            median = numberOfAxiomPairOccurance.get(index);
+        }
+    }
+
+    private Explanation getConflict(Collection<OWLAxiom> axioms, Literals literals, List<OWLAxiom> actualPath) {
         if (!axioms.isEmpty() && !isOntologyConsistent()) {
             return new Explanation();
         }
@@ -513,22 +581,13 @@ public class HybridSolver implements ISolver {
         }
         List<Literals> sets = divideIntoSets(literals);
 
-        if(checkingMinimalityWithQXP) pathDuringCheckingMinimality.addAll(sets.get(0).getOwlAxioms());
-        else path.addAll(sets.get(0).getOwlAxioms());
+        actualPath.addAll(sets.get(0).getOwlAxioms());
+        Explanation D2 = getConflict(sets.get(0).getOwlAxioms(), sets.get(1), actualPath);
+        actualPath.removeAll(sets.get(0).getOwlAxioms());
 
-        Explanation D2 = getConflict(sets.get(0).getOwlAxioms(), sets.get(1));
-
-        if(checkingMinimalityWithQXP) pathDuringCheckingMinimality.removeAll(sets.get(0).getOwlAxioms());
-        else path.removeAll(sets.get(0).getOwlAxioms());
-
-
-        if(checkingMinimalityWithQXP) pathDuringCheckingMinimality.addAll(D2.getOwlAxioms());
-        else path.addAll(D2.getOwlAxioms());
-
-        Explanation D1 = getConflict(D2.getOwlAxioms(), sets.get(0));
-
-        if(checkingMinimalityWithQXP) pathDuringCheckingMinimality.removeAll(D2.getOwlAxioms());
-        else path.removeAll(D2.getOwlAxioms());
+        actualPath.addAll(D2.getOwlAxioms());
+        Explanation D1 = getConflict(D2.getOwlAxioms(), sets.get(0), actualPath);
+        actualPath.removeAll(D2.getOwlAxioms());
 
         Set<OWLAxiom> conflicts = new HashSet<>();
         conflicts.addAll(D1.getOwlAxioms());
@@ -583,13 +642,24 @@ public class HybridSolver implements ISolver {
     }
 
     private List<Literals> divideIntoSetsAccordingTableOfLiteralsPairOccurrence(Literals literals){
+        Set<OWLAxiom> axiomsFromLiterals = new HashSet<>(literals.getOwlAxioms());
         List<Literals> dividedLiterals = new ArrayList<>();
         dividedLiterals.add(new Literals());
         dividedLiterals.add(new Literals());
 
+        for(AxiomPair key : tableOfAxiomPairOccurance.keySet()){
+            if(axiomsFromLiterals.contains(key.first) && axiomsFromLiterals.contains(key.second)){
+                if(tableOfAxiomPairOccurance.get(key) > median){
+                    dividedLiterals.get(0).getOwlAxioms().add(key.first);
+                    dividedLiterals.get(1).getOwlAxioms().add(key.second);
+                    axiomsFromLiterals.remove(key.first);
+                    axiomsFromLiterals.remove(key.second);
+                }
+            }
+        }
+        
         int count = 0;
-
-        for (OWLAxiom owlAxiom : literals.getOwlAxioms()) {
+        for (OWLAxiom owlAxiom : axiomsFromLiterals) {
             dividedLiterals.get(count % 2).getOwlAxioms().add(owlAxiom);
             count++;
         }
@@ -634,13 +704,22 @@ public class HybridSolver implements ISolver {
                     if(isMinimalByCallingQXP(conflict)){
                         conflict.setDepth(conflict.getOwlAxioms().size());
                         explanations.add(conflict);
+                        if(CACHED_CONFLICTS_TABLE_OF_OCCURRENCE){
+                            addPairsOfLiteralsToTable(conflict);
+                        }
                     } else {
                         explanations.add(foundedExplanation);
+                        if(CACHED_CONFLICTS_TABLE_OF_OCCURRENCE){
+                            addPairsOfLiteralsToTable(foundedExplanation);
+                        }
                         foundedExplanation = null;
                     }
                 } else {
                     conflict.setDepth(conflict.getOwlAxioms().size());
                     explanations.add(conflict);
+                    if(CACHED_CONFLICTS_TABLE_OF_OCCURRENCE){
+                        addPairsOfLiteralsToTable(conflict);
+                    }
                 }
             }
         }
@@ -649,6 +728,21 @@ public class HybridSolver implements ISolver {
         }
         return !newExplanations.isEmpty();
     }
+
+    /*private boolean isAddedToExplanations(Explanation conflict){
+        if(CHECKING_MINIMALITY_BY_QXP){
+            if(isMinimalByCallingQXP(conflict)){
+                conflict.setDepth(conflict.getOwlAxioms().size());
+                explanations.add(conflict);
+            } else {
+                explanations.add(foundedExplanation);
+                foundedExplanation = null;
+            }
+        } else {
+            conflict.setDepth(conflict.getOwlAxioms().size());
+            explanations.add(conflict);
+        }
+    }*/
 
     private boolean isOntologyWithLiteralsConsistent(Collection<OWLAxiom> axioms){
         path.addAll(axioms);
@@ -664,7 +758,7 @@ public class HybridSolver implements ISolver {
         return (!modelExtractor.getNegModelByOntology().data.isEmpty());
     }
 
-    private void printAxioms(List<OWLAxiom> axioms){
+    public void printAxioms(List<OWLAxiom> axioms){
         List<String> result = new ArrayList<>();
         for (OWLAxiom owlAxiom : axioms) {
             result.add(Printer.print(owlAxiom));
@@ -687,7 +781,6 @@ public class HybridSolver implements ISolver {
     }
 
     public boolean isMinimalByCallingQXP(Explanation explanation){
-        System.out.println("CHECK " + explanation.getOwlAxioms());
         Set<OWLAxiom> temp = new HashSet<>();
         temp.addAll(explanation.getOwlAxioms());
         if(path != null){
@@ -697,8 +790,7 @@ public class HybridSolver implements ISolver {
 
         checkingMinimalityWithQXP = true;
         pathDuringCheckingMinimality = new ArrayList<>();
-        //reasonerManager.addAxiomToOntology(loader.getNegObservation().getOwlAxiom());
-        Explanation newExplanation = getConflict(new ArrayList<>(), potentialExplanations);
+        Explanation newExplanation = getConflict(new ArrayList<>(), potentialExplanations, pathDuringCheckingMinimality);
         checkingMinimalityWithQXP = false;
         pathDuringCheckingMinimality = new ArrayList<>();
 
@@ -712,11 +804,5 @@ public class HybridSolver implements ISolver {
     public void removeAxiomsFromOntology(List<OWLAxiom> axioms){
         reasonerManager.resetOntology(loader.getOriginalOntology().axioms());
     }
-
-
-
-
-
-
 
 }

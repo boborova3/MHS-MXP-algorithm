@@ -2,17 +2,14 @@ import algorithms.ISolver;
 import algorithms.hybrid.HybridSolver;
 import algorithms.hybrid.ModelNode;
 import com.google.common.collect.Multimap;
-import common.ArgumentParser;
+import parser.ArgumentParser;
 import common.Configuration;
 import common.Printer;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.semanticweb.HermiT.ReasonerFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.reasoner.BufferingMode;
-import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.knowledgeexploration.OWLKnowledgeExplorerReasoner;
@@ -23,7 +20,6 @@ import reasoner.Loader;
 import reasoner.ReasonerManager;
 import timer.ThreadTimes;
 import uk.ac.manchester.cs.jfact.JFactFactory;
-import uk.ac.manchester.cs.jfact.KnowledgeExplorer;
 
 import java.util.*;
 
