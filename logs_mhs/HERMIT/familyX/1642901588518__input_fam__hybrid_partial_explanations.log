@@ -1,0 +1,4 @@
+0;0;1,33;{}
+1;2;3,48;{{Grandfather(jack)},{GreatGrandfather(jack)}}
+2;1;7,85;{{Male(jack),Parent(jack)}}
+3;0;13,66;{}

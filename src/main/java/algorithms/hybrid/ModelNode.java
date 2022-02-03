@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 public class ModelNode extends TreeNode {
-    public List<OWLAxiom> data;
+    public Set<OWLAxiom> data;
     Set<OWLAxiom> lenght_one_explanations = new HashSet<>();
 
     @Override

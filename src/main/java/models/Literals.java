@@ -40,9 +40,20 @@ public class Literals {
         owlAxioms.removeAll(literals);
     }
 
+    public void removeLiterals(Set<OWLAxiom> literals){
+        owlAxioms.removeAll(literals);
+    }
+
     public void removeLiteral(OWLAxiom literal) {owlAxioms.remove(literal); }
 
     public void addLiterals(List<OWLAxiom> literals){
+        for(OWLAxiom axiom : literals){
+            owlAxioms.add(axiom);
+        }
+        //owlAxioms.addAll(literals);
+    }
+
+    public void addLiterals(Set<OWLAxiom> literals){
         for(OWLAxiom axiom : literals){
             owlAxioms.add(axiom);
         }

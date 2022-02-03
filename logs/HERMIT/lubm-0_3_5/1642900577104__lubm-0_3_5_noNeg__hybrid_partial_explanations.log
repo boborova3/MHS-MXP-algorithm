@@ -1,0 +1,4 @@
+0;0;1,15;{}
+1;0;2,82;{}
+2;0;5,59;{}
+3;4;8,38;{{Book(DummyIndividual),TeachingAssistant(DummyIndividual),Course(DummyIndividual)},{Book(DummyIndividual),TeachingAssistant(DummyIndividual),Work(DummyIndividual)},{Book(DummyIndividual),TeachingAssistant(DummyIndividual),Research(DummyIndividual)},{Book(DummyIndividual),TeachingAssistant(DummyIndividual),GraduateCourse(DummyIndividual)}}

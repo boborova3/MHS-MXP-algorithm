@@ -1,0 +1,5 @@
+-f: files/pokus1.owl
+-o: Prefix: prefix1: <http://www.co-ode.org/ontologies/ont.owl#> Class: prefix1:B Class: prefix1:D Individual: prefix1:a Types: prefix1:B
+-t: 14400
+-n: false
+-mhs: true

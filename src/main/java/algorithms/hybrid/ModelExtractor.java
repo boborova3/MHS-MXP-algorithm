@@ -27,11 +27,11 @@ public class ModelExtractor {
         OWLDataFactory dfactory = OWLManager.createOWLOntologyManager().getOWLDataFactory();
         ModelNode negModelNode = new ModelNode();
         ModelNode modelNode = new ModelNode();
-        modelNode.data = new LinkedList<>();
         Set<OWLAxiom> negModelSet = new HashSet<>();
         Set<OWLAxiom> modelSet = new HashSet<>();
 
         if(!isOntologyConsistentWithPath()){
+            modelNode.data = new HashSet<>();
             return modelNode;
         }
 
@@ -43,13 +43,9 @@ public class ModelExtractor {
 
         deletePathFromOntology();
 
-        modelNode.data = new LinkedList<>(modelSet);
-        negModelNode.data = new LinkedList<>(negModelSet);
+        modelNode.data = modelSet;
+        negModelNode.data = negModelSet;
         hybridSolver.lastUsableModelIndex = hybridSolver.models.indexOf(modelNode);
-        System.out.println("MODEL NODE");
-        hybridSolver.printAxioms(modelNode.data);
-        System.out.println("NEG MODEL NODE");
-        hybridSolver.printAxioms(negModelNode.data);
 
         if (!modelNode.data.isEmpty() && hybridSolver.lastUsableModelIndex == -1) {
             hybridSolver.lastUsableModelIndex = hybridSolver.models.size();
@@ -60,14 +56,14 @@ public class ModelExtractor {
 
     public boolean isOntologyConsistentWithPath(){
         if(hybridSolver.checkingMinimalityWithQXP) {
-            return isOntologyWithPathConsistent(hybridSolver.pathDuringCheckingMinimality);
+            return isOntologyConsistentWithPath(hybridSolver.pathDuringCheckingMinimality);
         }
         else {
-            return isOntologyWithPathConsistent(hybridSolver.path);
+            return isOntologyConsistentWithPath(hybridSolver.path);
         }
     }
 
-    public boolean isOntologyWithPathConsistent(List<OWLAxiom> path){
+    public boolean isOntologyConsistentWithPath(Set<OWLAxiom> path){
         if (path != null) {
             if(loader.isMultipleObservationOnInput()){
                 for(OWLAxiom axiom : loader.getObservation().getAxiomsInMultipleObservations()){
@@ -76,7 +72,6 @@ public class ModelExtractor {
             } else {
                 path.remove(hybridSolver.negObservation);
             }
-            System.out.println("PATHX " + path);
             reasonerManager.addAxiomsToOntology(path);
             if (!reasonerManager.isOntologyConsistent()){
                 hybridSolver.removeAxiomsFromOntology(path);
@@ -87,24 +82,20 @@ public class ModelExtractor {
     }
 
     public void assignTypesToIndividual(OWLDataFactory dfactory, OWLNamedIndividual ind, Set<OWLAxiom> negModelSet, Set<OWLAxiom> modelSet){
-        //Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, hybridSolver.ontology).collect(toSet());
-        Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, loader.getOntology()).collect(toSet());
+        /**berie sa ontologia z hybridSolvera, co ale nie je menena ontologia, ako je v loader.getOntology()**/
+        Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, hybridSolver.ontology).collect(toSet());
+        //Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, loader.getOntology()).collect(toSet());
         Set<OWLClassExpression> knownTypes = new HashSet<>();
         Set<OWLClassExpression> knownNotTypes = new HashSet<>();
         divideTypesAccordingOntology(ontologyTypes, knownTypes, knownNotTypes);
-        System.out.println("KNOWN TYPES");
-        System.out.println(knownTypes);
-        System.out.println("KNOWN NOT TYPER");
-        System.out.println(knownNotTypes);
 
         Set<OWLClassExpression> newNotTypes = classSet2classExpSet(hybridSolver.ontology.classesInSignature().collect(toSet()));
         newNotTypes.remove(dfactory.getOWLThing());
-        //newNotTypes.removeAll(knownNotTypes);
+        newNotTypes.removeAll(knownNotTypes);
 
         Set<OWLClassExpression> foundTypes = nodeClassSet2classExpSet(loader.getReasoner().getTypes(ind, false).getNodes());
-        System.out.println("FOUND TYPES " + foundTypes);
         newNotTypes.removeAll(foundTypes);
-        //foundTypes.removeAll(knownTypes);
+        foundTypes.removeAll(knownTypes);
 
         addAxiomsToModelsAccordingTypes(dfactory, negModelSet, modelSet, foundTypes, newNotTypes, ind);
     }
@@ -160,9 +151,7 @@ public class ModelExtractor {
         if(hybridSolver.checkingMinimalityWithQXP){
             hybridSolver.removeAxiomsFromOntology(hybridSolver.pathDuringCheckingMinimality);
         } else {
-            System.out.println("ON " + loader.getOntology());
             hybridSolver.removeAxiomsFromOntology(hybridSolver.path);
-            System.out.println("ON " + loader.getOntology());
         }
     }
 
@@ -178,7 +167,7 @@ public class ModelExtractor {
 
     public ModelNode getNegModelByReasoner() {
         ModelNode modelNode = new ModelNode();
-        List<OWLAxiom> model = new LinkedList<>();
+        Set<OWLAxiom> model = new HashSet<>();
 
         if (hybridSolver.path != null) {
             hybridSolver.path.remove(hybridSolver.negObservation);
@@ -223,7 +212,7 @@ public class ModelExtractor {
             }
         }
         hybridSolver.removeAxiomsFromOntology(hybridSolver.path);
-        modelNode.data = new LinkedList<>();
+        modelNode.data = new HashSet<>();
         for (OWLAxiom axiom: model){
             if (hybridSolver.abducibles.getIndividuals().containsAll(axiom.individualsInSignature().collect(Collectors.toList())) &&
                     hybridSolver.abducibles.getClasses().containsAll( axiom.classesInSignature().collect(Collectors.toList()))){
@@ -234,9 +223,9 @@ public class ModelExtractor {
         return hybridSolver.negModels.get(hybridSolver.lastUsableModelIndex);
     }
 
-    private ModelNode getComplementOfModel(List<OWLAxiom> model) {
+    private ModelNode getComplementOfModel(Set<OWLAxiom> model) {
         ModelNode negModelNode = new ModelNode();
-        List<OWLAxiom> negModel = new LinkedList<>();
+        Set<OWLAxiom> negModel = new HashSet<>();
         for (OWLAxiom axiom : model) {
             //nechana stara funkcia getComplementOfOWLAxiom2, kedze s touto castou kodu som nepracovala a neviem, ci to nieco ovplyvni
             OWLAxiom complement = AxiomManager.getComplementOfOWLAxiom2(loader, axiom);

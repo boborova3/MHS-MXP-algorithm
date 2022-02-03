@@ -1,5 +1,6 @@
 package algorithms.hybrid;
 
+import common.Configuration;
 import common.DLSyntax;
 import common.Printer;
 import fileLogger.FileLogger;
@@ -28,10 +29,9 @@ public class ExplanationsFilter {
         this.checkRules = new CheckRules(loader, reasonerManager);
     }
 
-    public void showExplanations(boolean mhsMode) throws OWLOntologyStorageException, OWLOntologyCreationException {
-        StringBuilder result = new StringBuilder();
+    public void showExplanations() throws OWLOntologyStorageException, OWLOntologyCreationException {
         List<Explanation> filteredExplanations = new ArrayList<>();
-        if(mhsMode){
+        if(Configuration.MHS_MODE){
             filteredExplanations.addAll(hybridSolver.explanations);
         } else {
             filteredExplanations = getConsistentExplanations();
@@ -40,12 +40,27 @@ public class ExplanationsFilter {
         hybridSolver.path.clear();
         minimalExplanations = new LinkedList<>();
 
+        StringBuilder result = showExplanationsAccordingToLength(filteredExplanations);
+        FileLogger.appendToFile(FileLogger.HYBRID_LOG_FILE__PREFIX, hybridSolver.currentTimeMillis, result.toString());
+
+        log_explanations_times(minimalExplanations);
+
+        if(!Configuration.MHS_MODE){
+            StringBuilder resultLevel = showExplanationsAccordingToLevel(new ArrayList<>(minimalExplanations));
+            FileLogger.appendToFile(FileLogger.HYBRID_LEVEL_LOG_FILE__PREFIX, hybridSolver.currentTimeMillis, resultLevel.toString());
+        }
+    }
+
+    private StringBuilder showExplanationsAccordingToLength(List<Explanation> filteredExplanations) throws OWLOntologyCreationException {
+        StringBuilder result = new StringBuilder();
         int depth = 1;
         while (filteredExplanations.size() > 0) {
             List<Explanation> currentExplanations = removeExplanationsWithDepth(filteredExplanations, depth);
-            if(!mhsMode){
-                filterIfNotMinimal(currentExplanations);
-                filterIfNotRelevant(currentExplanations);
+            if(!Configuration.MHS_MODE){
+                if(!Configuration.CHECKING_MINIMALITY_BY_QXP){
+                    filterIfNotMinimal(currentExplanations);
+                }
+                //filterIfNotRelevant(currentExplanations);
             }
             if (currentExplanations.isEmpty()) {
                 depth++;
@@ -61,12 +76,29 @@ public class ExplanationsFilter {
             result.append(line);
             depth++;
         }
+
         String line = String.format("%.2f\n", hybridSolver.threadTimes.getTotalUserTimeInSec());
         System.out.print(line);
         result.append(line);
-        log_explanations_times(minimalExplanations);
+        return result;
+    }
 
-        FileLogger.appendToFile(FileLogger.HYBRID_LOG_FILE__PREFIX, hybridSolver.currentTimeMillis, result.toString());
+    private StringBuilder showExplanationsAccordingToLevel(List<Explanation> filteredExplanations){
+        StringBuilder result = new StringBuilder();
+        int level = 0;
+        while (filteredExplanations.size() > 0) {
+            List<Explanation> currentExplanations = removeExplanationsWithLevel(filteredExplanations, level);
+            if (!hybridSolver.level_times.containsKey(level)){
+                hybridSolver.level_times.put(level, find_level_time(currentExplanations));
+            }
+            String currentExplanationsFormat = StringUtils.join(currentExplanations, ",");
+            String line = String.format("%d;%d;%.2f;{%s}\n", level, currentExplanations.size(), hybridSolver.level_times.get(level), currentExplanationsFormat);
+            result.append(line);
+            level++;
+        }
+        String line = String.format("%.2f\n", hybridSolver.threadTimes.getTotalUserTimeInSec());
+        result.append(line);
+        return result;
     }
 
     private void filterIfNotMinimal(List<Explanation> explanations){
@@ -93,6 +125,12 @@ public class ExplanationsFilter {
 
     private List<Explanation> removeExplanationsWithDepth(List<Explanation> filteredExplanations, Integer depth) {
         List<Explanation> currentExplanations = filteredExplanations.stream().filter(explanation -> explanation.getDepth().equals(depth)).collect(Collectors.toList());
+        filteredExplanations.removeAll(currentExplanations);
+        return currentExplanations;
+    }
+
+    private List<Explanation> removeExplanationsWithLevel(List<Explanation> filteredExplanations, Integer level) {
+        List<Explanation> currentExplanations = filteredExplanations.stream().filter(explanation -> explanation.getLevel().equals(level)).collect(Collectors.toList());
         filteredExplanations.removeAll(currentExplanations);
         return currentExplanations;
     }
@@ -176,14 +214,20 @@ public class ExplanationsFilter {
         return name.contains(DLSyntax.DISPLAY_NEGATION);
     }
 
-    public void showExplanationsWithDepth(Integer depth, boolean timeout) {
+    public void showExplanationsWithDepth(Integer depth, boolean timeout, Double time) {
         List<Explanation> currentExplanations = hybridSolver.explanations.stream().filter(explanation -> explanation.getDepth().equals(depth)).collect(Collectors.toList());
         String currentExplanationsFormat = StringUtils.join(currentExplanations, ",");
-        Double time = hybridSolver.threadTimes.getTotalUserTimeInSec();
-        hybridSolver.level_times.put(depth, time);
         String line = String.format("%d;%d;%.2f%s;{%s}\n", depth, currentExplanations.size(), time, timeout ? "-TIMEOUT" : "", currentExplanationsFormat);
         System.out.print(line);
         FileLogger.appendToFile(FileLogger.HYBRID_PARTIAL_EXPLANATIONS_LOG_FILE__PREFIX, hybridSolver.currentTimeMillis, line);
+    }
+
+    public void showExplanationsWithLevel(Integer level, boolean timeout, Double time){
+        List<Explanation> currentExplanations = hybridSolver.explanations.stream().filter(explanation -> explanation.getLevel().equals(level)).collect(Collectors.toList());
+        String currentExplanationsFormat = StringUtils.join(currentExplanations, ",");
+        String line = String.format("%d;%d;%.2f%s;{%s}\n", level, currentExplanations.size(), time, timeout ? "-TIMEOUT" : "", currentExplanationsFormat);
+        //System.out.print(line);
+        FileLogger.appendToFile(FileLogger.HYBRID_PARTIAL_EXPLANATIONS_ACCORDING_TO_LEVELS_LOG_FILE__PREFIX, hybridSolver.currentTimeMillis, line);
     }
 
 }

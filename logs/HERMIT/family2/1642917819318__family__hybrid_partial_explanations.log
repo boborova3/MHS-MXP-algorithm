@@ -1,0 +1,5 @@
+0;0;1,76;{}
+1;0;3,52;{}
+2;11;5,45;{{Grandfather(jack),Female(jack)},{Grandmother(jack),Male(jack)},{Male(jane),Grandmother(jane)},{Female(jane),Father(jane)},{Grandfather(jack),Grandmother(jane)},{Grandfather(jack),Mother(jack)},{Grandmother(jack),Grandfather(jack)},{Male(jack),Mother(jack)},{Grandfather(jane),Grandmother(jane)},{Female(jane),Grandfather(jane)},{Father(jane),Grandmother(jane)}}
+3;4;6,58;{{Grandfather(jack),Female(jane),Parent(jane)},{Male(jack),Parent(jack),Female(jack)},{Male(jack),Parent(jack),Grandmother(jane)},{Male(jane),Female(jane),Parent(jane)}}
+4;1;6,68;{{Male(jack),Female(jane),Parent(jack),Parent(jane)}}

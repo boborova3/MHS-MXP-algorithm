@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 
 public class AxiomManager {
 
-    //odstranene preserveObservation, kedze v kode sa to volalo iba raz s nastavenym na true
-    //preserveObservation iba rozhodovalo, ci priradit individual aj do triedy z pozorovania, to sa ale aj tak odstranovalo neskor v kode, takze to nemalo vyznam
     public static List<OWLAxiom> createClassAssertionAxiom(ILoader loader, OWLAxiom axiom) {
         List<OWLAxiom> owlAxioms = new LinkedList<>();
 

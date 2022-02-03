@@ -14,19 +14,23 @@ public class Explanation {
 
     private double acquireTime;
 
+    private Integer level;
+
     public Explanation(Collection<OWLAxiom> owlAxioms) {
         this.owlAxioms = owlAxioms;
     }
 
-    public Explanation(Collection<OWLAxiom> owlAxioms, Integer depth, double acquireTime) {
+    public Explanation(Collection<OWLAxiom> owlAxioms, Integer depth, Integer level, double acquireTime) {
         this.owlAxioms = new LinkedList<>(owlAxioms);
         this.depth = depth;
         this.acquireTime = acquireTime;
+        this.level = level;
     }
 
     public Explanation() {
         this.owlAxioms = new LinkedList<>();
         this.depth = 0;
+        this.level = -1;
     }
 
     public Collection<OWLAxiom> getOwlAxioms() {
@@ -43,6 +47,14 @@ public class Explanation {
 
     public void setDepth(Integer depth) {
         this.depth = depth;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public void addAxioms(Collection<OWLAxiom> axioms) {

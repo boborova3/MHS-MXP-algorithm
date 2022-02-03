@@ -1,0 +1,4 @@
+-f: testingFiles/testingFiles500/ontologies/lubm-500_2_9.owl
+-o: Prefix: prefix1: <http://> Prefix: prefix2: <http://swat.cse.lehigh.edu/onto/univ-bench.owl#> Class: prefix2:DummyClass Individual: http://www.Department9.University0.edu Types: prefix2:DummyClass
+-t: 14400
+-eR: false

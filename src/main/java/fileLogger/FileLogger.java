@@ -12,8 +12,10 @@ import java.nio.file.StandardOpenOption;
 public class FileLogger {
 
     public static final String HYBRID_LOG_FILE__PREFIX = "hybrid";
+    public static final String HYBRID_LEVEL_LOG_FILE__PREFIX = "hybrid_level";
     public static final String HYBRID_EXP_TIMES_LOG_FILE__PREFIX = "hybrid_explanation_times";
     public static final String HYBRID_PARTIAL_EXPLANATIONS_LOG_FILE__PREFIX = "hybrid_partial_explanations";
+    public static final String HYBRID_PARTIAL_EXPLANATIONS_ACCORDING_TO_LEVELS_LOG_FILE__PREFIX = "hybrid_partial_level_explanations";
     public static final String LOG_FILE__POSTFIX = ".log";
     private static String FILE_DIRECTORY = "";
 
@@ -21,7 +23,7 @@ public class FileLogger {
         if(Configuration.MHS_MODE){
             FILE_DIRECTORY = "logs_mhs";
         } else {
-            FILE_DIRECTORY = "logs";
+            FILE_DIRECTORY = "logs" + Configuration.version;
         }
         createFileIfNotExists(fileName, currentTimeMillis);
         try {

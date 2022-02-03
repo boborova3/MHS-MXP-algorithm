@@ -78,14 +78,4 @@ public class CheckRules implements ICheckRules {
             return reasoner.isConsistent();
         }
     }
-
-    private void printAxioms(List<OWLAxiom> axioms){
-        List<String> result = new ArrayList<>();
-        for (OWLAxiom owlAxiom : axioms) {
-            result.add(Printer.print(owlAxiom));
-        }
-        System.out.println("{" + StringUtils.join(result, ",") + "}");
-    }
-
-
 }
