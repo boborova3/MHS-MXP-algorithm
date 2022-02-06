@@ -60,7 +60,7 @@ public class ExplanationsFilter {
                 if(!Configuration.CHECKING_MINIMALITY_BY_QXP){
                     filterIfNotMinimal(currentExplanations);
                 }
-                //filterIfNotRelevant(currentExplanations);
+                filterIfNotRelevant(currentExplanations);
             }
             if (currentExplanations.isEmpty()) {
                 depth++;

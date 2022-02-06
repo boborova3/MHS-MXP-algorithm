@@ -39,8 +39,8 @@ public class HybridSolver implements ISolver {
     public List<OWLAxiom> assertionsAxioms;
     public List<OWLAxiom> negAssertionsAxioms;
     public List<Explanation> explanations;
-    //public Set<OWLAxiom> path;
-    public List<OWLAxiom> path;
+    public Set<OWLAxiom> path;
+    //public List<OWLAxiom> path;
     public Set<OWLAxiom> pathDuringCheckingMinimality;
     public Abducibles abducibles;
     public int lastUsableModelIndex;
@@ -170,7 +170,6 @@ public class HybridSolver implements ISolver {
         initializeTree(queue);
 
         while (!queue.isEmpty()) {
-            System.out.println("NOVY VRCHOL");
             TreeNode node = queue.poll();
 
             if(increaseDepth(node)){
@@ -337,10 +336,10 @@ public class HybridSolver implements ISolver {
         if (!checkRules.isMinimal(explanations, explanation)){
             return true;
         }
-        /*if(pathsInCertainDepth.contains(path)){
+        if(pathsInCertainDepth.contains(path)){
             return true;
         }
-        pathsInCertainDepth.add(new HashSet<>(path));*/
+        pathsInCertainDepth.add(new HashSet<>(path));
 
         if(Configuration.MHS_MODE){
             if(!checkRules.isRelevant(explanation)){
