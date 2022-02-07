@@ -17,7 +17,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         String[] x = new String[1];
-        x[0] = "/home/iveta/Plocha/skola/diplomovka/testingFilesDummyClass/testingFiles/testingFiles0/mhs-mxp/lubm-0_5_14_noNeg.in";
+        x[0] = "/home/iveta/Plocha/skola/diplomovka/testingFilesDummyClass/testingFiles/testingFiles0/mhs-mxp/lubm-0_2_3_noNeg.in";
+        x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/input_fam_abd.txt";
         Logger.getRootLogger().setLevel(Level.OFF);
         BasicConfigurator.configure();
 

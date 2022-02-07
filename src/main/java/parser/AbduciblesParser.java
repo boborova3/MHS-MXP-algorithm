@@ -62,12 +62,15 @@ public class AbduciblesParser {
         String[] abducibleTemp = abducible.split(":");
         if(abducibleTemp.length == 1){
             return abducibleTemp[0];
+        } else if("http".equals(abducibleTemp[0])){
+            return abducible;
         } else if (abducibleTemp.length == 2){
-            if(!Prefixes.prefixes.containsKey(abducibleTemp[0])){
+            String pref = abducibleTemp[0] + ":";
+            if(!Prefixes.prefixes.containsKey(pref)){
                 System.err.println("Prefix " + abducibleTemp[0] + " in abducible '" + abducible + "' is unknown.");
                 Application.finish(ExitCode.ERROR);
             }
-            return abducible.replace(abducibleTemp[0] + ":", Prefixes.prefixes.get(abducibleTemp[0]));
+            return abducible.replace(pref, Prefixes.prefixes.get(pref));
         } else {
             System.err.println("Incorrect IRI in abducible '" + abducible + "', only one delimeter ':' may be used - between prefix and name.");
             Application.finish(ExitCode.ERROR);

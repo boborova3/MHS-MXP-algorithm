@@ -25,7 +25,6 @@ public class HybridSolver implements ISolver {
 
     private ILoader loader;
     private IReasonerManager reasonerManager;
-    private Literals literals;
     private Literals abd_literals;
     private ModelExtractor modelExtractor;
     private ExplanationsFilter explanationsFilter;
@@ -79,7 +78,7 @@ public class HybridSolver implements ISolver {
         if (!reasonerManager.isOntologyConsistent())
             return;
         initialize();
-        if (reasonerManager.isOntologyWithLiteralsConsistent(literals.getOwlAxioms(), ontology))
+        if (reasonerManager.isOntologyWithLiteralsConsistent(abd_literals.getOwlAxioms(), ontology))
             return;
         startSolving();
         explanationsFilter.showExplanations();
@@ -95,8 +94,8 @@ public class HybridSolver implements ISolver {
         loader.getOntologyManager().addAxiom(ontology, loader.getNegObservation().getOwlAxiom());
         reasonerManager.addAxiomToOntology(loader.getNegObservation().getOwlAxiom());
 
-        loader.getOntology().axioms(AxiomType.DECLARATION).forEach(axiom -> {
-            List<OWLAxiom> classAssertionAxiom = AxiomManager.createClassAssertionAxiom(loader, axiom);
+        for(OWLClass owlClass : abducibles.getClasses()){
+            List<OWLAxiom> classAssertionAxiom = AxiomManager.createClassAssertionAxiom(loader, owlClass);
             for (int i = 0; i < classAssertionAxiom.size(); i++) {
                 if (i % 2 == 0) {
                     assertionsAxioms.add(classAssertionAxiom.get(i));
@@ -104,8 +103,11 @@ public class HybridSolver implements ISolver {
                     negAssertionsAxioms.add(classAssertionAxiom.get(i));
                 }
             }
-            if(Configuration.ROLES_IN_EXPLANATIONS_ALLOWED){
-                List<OWLAxiom> objectPropertyAssertionAxiom = AxiomManager.createObjectPropertyAssertionAxiom(loader, axiom);
+        }
+
+        if(Configuration.ROLES_IN_EXPLANATIONS_ALLOWED){
+            for(OWLObjectProperty objectProperty : abducibles.getRoles()){
+                List<OWLAxiom> objectPropertyAssertionAxiom = AxiomManager.createObjectPropertyAssertionAxiom(loader, objectProperty);
                 for (int i = 0; i < objectPropertyAssertionAxiom.size(); i++) {
                     if (i % 2 == 0) {
                         assertionsAxioms.add(objectPropertyAssertionAxiom.get(i));
@@ -114,7 +116,7 @@ public class HybridSolver implements ISolver {
                     }
                 }
             }
-        });
+        }
 
         if (loader.isMultipleObservationOnInput()){
             assertionsAxioms.removeAll(loader.getObservation().getAxiomsInMultipleObservations());
@@ -124,41 +126,16 @@ public class HybridSolver implements ISolver {
             negAssertionsAxioms.remove(loader.getObservation().getOwlAxiom());
         }
 
-        Set<OWLAxiom> allLiterals = new HashSet<>();
-        allLiterals.addAll(assertionsAxioms);
-        allLiterals.addAll(negAssertionsAxioms);
-
-        literals = new Literals(allLiterals);
         Set<OWLAxiom> to_abd = new HashSet<>();
 
-        if (Configuration.NEGATION_ALLOWED){
-            for (OWLAxiom ax : allLiterals){
-                if (abducibles.getIndividuals().containsAll(ax.getIndividualsInSignature()) &&
-                        abducibles.getClasses().containsAll(ax.getClassesInSignature()) &&
-                        abducibles.getRoles().containsAll(ax.getObjectPropertiesInSignature())){
-                    to_abd.add(ax);
-                }
-            }
-        }
-        else {
-            for (OWLAxiom ax : assertionsAxioms){
-                if (abducibles.getIndividuals().containsAll(ax.getIndividualsInSignature()) &&
-                        abducibles.getClasses().containsAll(ax.getClassesInSignature()) &&
-                        abducibles.getRoles().containsAll(ax.getObjectPropertiesInSignature())){
-                    to_abd.add(ax);
-                }
-            }
+        if(Configuration.NEGATION_ALLOWED){
+            to_abd.addAll(assertionsAxioms);
+            to_abd.addAll(negAssertionsAxioms);
+        } else {
+            to_abd.addAll(assertionsAxioms);
         }
 
         abd_literals = new Literals(to_abd);
-        if (abd_literals.getOwlAxioms().isEmpty()){
-            if (Configuration.NEGATION_ALLOWED){
-                abd_literals = literals;
-            }
-            else{
-                abd_literals.addLiterals(assertionsAxioms);
-            }
-        }
     }
 
     private void startSolving() throws OWLOntologyStorageException, OWLOntologyCreationException {
@@ -378,7 +355,7 @@ public class HybridSolver implements ISolver {
             return new Conflict();
         }
 
-        if (reasonerManager.isOntologyWithLiteralsConsistent(literals.getOwlAxioms(), ontology)) {
+        if (reasonerManager.isOntologyWithLiteralsConsistent(abd_literals.getOwlAxioms(), ontology)) {
             return new Conflict();
         }
         return findConflicts(abd_literals);
