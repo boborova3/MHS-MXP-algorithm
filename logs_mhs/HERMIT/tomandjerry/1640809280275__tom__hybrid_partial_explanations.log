@@ -1,6 +1,0 @@
-0;0;1,45;{}
-1;1;3,16;{{Mouse(tom)}}
-2;2;4,87;{{Cat(mammy),Mouse(mammy)},{Mouse(jerry),Cat(jerry)}}
-3;2;8,01;{{OwnerCat(mammy),ChaseMouse(tom),Mouse(jerry)},{Cat(jerry),OwnerCat(mammy),ChaseMouse(tom)}}
-4;2;10,40;{{ChaseMouse(tom),OwnerCat(mammy),Cat(jerry),ChaseMouse(jerry)},{ChaseMouse(tom),Cat(jerry),HappyCat(mammy),OwnerCat(mammy)}}
-5;0;11,16;{}

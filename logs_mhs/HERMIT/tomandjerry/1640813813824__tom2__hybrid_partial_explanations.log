@@ -1,3 +1,0 @@
-0;0;1,13;{}
-1;1;2,41;{{Mouse(tom)}}
-2;3;2,46;{{ChaseMouse(tom),Cat(jerry)},{Mouse(jerry),ChaseMouse(tom)},{Cat(jerry),Mouse(jerry)}}

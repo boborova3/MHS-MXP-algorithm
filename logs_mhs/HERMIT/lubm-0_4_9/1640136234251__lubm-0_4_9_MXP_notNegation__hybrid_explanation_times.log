@@ -1,3 +1,0 @@
-1,31;{ClericalStaff(DummyIndividual),Software(DummyIndividual),UndergraduateStudent(DummyIndividual),Chair(DummyIndividual)}
-16,36;{Chair(DummyIndividual),ClericalStaff(DummyIndividual),GraduateStudent(DummyIndividual),Software(DummyIndividual)}
-16,58;{Chair(DummyIndividual),ClericalStaff(DummyIndividual),Software(DummyIndividual),Student(DummyIndividual)}

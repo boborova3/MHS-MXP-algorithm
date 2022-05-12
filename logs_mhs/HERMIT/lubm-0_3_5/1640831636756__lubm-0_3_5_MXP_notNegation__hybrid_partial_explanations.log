@@ -1,5 +1,0 @@
-0;0;1,13;{}
-1;0;2,63;{}
-2;0;5,54;{}
-3;4;8,36;{{Book(DummyIndividual),Course(DummyIndividual),TeachingAssistant(DummyIndividual)},{TeachingAssistant(DummyIndividual),GraduateCourse(DummyIndividual),Book(DummyIndividual)},{TeachingAssistant(DummyIndividual),Research(DummyIndividual),Book(DummyIndividual)},{TeachingAssistant(DummyIndividual),Book(DummyIndividual),Work(DummyIndividual)}}
-4;4;9,25;{{Work(DummyIndividual),Book(DummyIndividual),TeachingAssistant(DummyIndividual),Director(DummyIndividual)},{Work(DummyIndividual),TeachingAssistant(DummyIndividual),ConferencePaper(DummyIndividual),Book(DummyIndividual)},{Research(DummyIndividual),TeachingAssistant(DummyIndividual),ConferencePaper(DummyIndividual),Book(DummyIndividual)},{GraduateCourse(DummyIndividual),TeachingAssistant(DummyIndividual),ConferencePaper(DummyIndividual),Book(DummyIndividual)}}
