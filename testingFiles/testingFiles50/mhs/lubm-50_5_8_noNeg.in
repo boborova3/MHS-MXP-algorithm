@@ -1,6 +1,0 @@
--f: testingFiles/testingFiles50/ontologies/lubm-50_5_8.owl
--o: Prefix: prefix0: <http://www.Department9.University0.edu/> Prefix: prefix1: <http://swat.cse.lehigh.edu/onto/univ-bench.owl#> Class: prefix1:DummyClass Individual: prefix0:UndergraduateStudent5 Types: prefix1:DummyClass
--t: 14400
--n: false
--eR: false
--mhs: true
