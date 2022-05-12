@@ -1,4 +1,0 @@
-0,97;{ClericalStaff(DummyIndividual),ConferencePaper(DummyIndividual),PostDoc(DummyIndividual)}
-5,36;{PostDoc(DummyIndividual),TechnicalReport(DummyIndividual),ClericalStaff(DummyIndividual)}
-5,36;{PostDoc(DummyIndividual),ClericalStaff(DummyIndividual),Article(DummyIndividual)}
-5,65;{PostDoc(DummyIndividual),ClericalStaff(DummyIndividual),JournalArticle(DummyIndividual)}

@@ -1,3 +1,0 @@
-0;0;82,03;{}
-1;0;136,29;{}
-2;12;144,03;{{GraduateCourse(DummyIndividual),GraduateStudent(DummyIndividual)},{GraduateCourse(DummyIndividual),Student(DummyIndividual)},{UndergraduateStudent(DummyIndividual),Course(DummyIndividual)},{UndergraduateStudent(DummyIndividual),Work(DummyIndividual)},{UndergraduateStudent(DummyIndividual),Research(DummyIndividual)},{UndergraduateStudent(DummyIndividual),GraduateCourse(DummyIndividual)},{Work(DummyIndividual),Student(DummyIndividual)},{Work(DummyIndividual),GraduateStudent(DummyIndividual)},{Course(DummyIndividual),Student(DummyIndividual)},{Course(DummyIndividual),GraduateStudent(DummyIndividual)},{Research(DummyIndividual),Student(DummyIndividual)},{Research(DummyIndividual),GraduateStudent(DummyIndividual)}}

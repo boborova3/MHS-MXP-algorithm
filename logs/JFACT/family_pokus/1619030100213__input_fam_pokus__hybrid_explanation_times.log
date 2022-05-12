@@ -1,6 +1,0 @@
-18,27;{Father(Jennie)}
-24,48;{GreatGrandfather(Jennie)}
-31,32;{Grandfather(Jennie)}
-10,44;{Parent(Jennie),¬Mother(Jennie)}
-13,24;{Parent(Jennie),¬Female(Jennie)}
-39,24;{Parent(Jennie),Male(Jennie)}

@@ -1,7 +1,0 @@
-0,15;{GreatGrandmother(jack)}
-0,35;{Grandmother(jack)}
-0,45;{¬Male(jack)}
-0,64;{Female(jack)}
-0,74;{¬Parent(jack)}
-0,83;{¬Person(jack)}
-0,83;{Mother(jack)}

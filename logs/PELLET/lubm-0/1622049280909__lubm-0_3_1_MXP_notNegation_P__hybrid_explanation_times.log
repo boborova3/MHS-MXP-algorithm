@@ -1,6 +1,0 @@
-0,90;{GraduateCourse(DummyIndividual),GraduateStudent(DummyIndividual)}
-1,51;{UndergraduateStudent(DummyIndividual),Course(DummyIndividual)}
-1,96;{UndergraduateStudent(DummyIndividual),GraduateCourse(DummyIndividual)}
-2,74;{GraduateCourse(DummyIndividual),Student(DummyIndividual)}
-3,05;{Course(DummyIndividual),Student(DummyIndividual)}
-3,26;{Course(DummyIndividual),GraduateStudent(DummyIndividual)}

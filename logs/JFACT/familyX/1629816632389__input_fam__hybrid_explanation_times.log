@@ -1,5 +1,0 @@
-0,15;{Grandfather(jack)}
-0,53;{GreatGrandfather(jack)}
-1,14;{Parent(jack),¬Mother(jack)}
-1,51;{Male(jack),Parent(jack)}
-1,51;{¬Female(jack),Parent(jack)}

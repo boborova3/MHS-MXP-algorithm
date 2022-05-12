@@ -1,3 +1,0 @@
-0;0;2,50;{}
-1;0;5,86;{}
-2;6;6,50;{{GraduateCourse(DummyIndividual),GraduateStudent(DummyIndividual)},{UndergraduateStudent(DummyIndividual),Course(DummyIndividual)},{UndergraduateStudent(DummyIndividual),GraduateCourse(DummyIndividual)},{GraduateCourse(DummyIndividual),Student(DummyIndividual)},{Course(DummyIndividual),Student(DummyIndividual)},{Course(DummyIndividual),GraduateStudent(DummyIndividual)}}
