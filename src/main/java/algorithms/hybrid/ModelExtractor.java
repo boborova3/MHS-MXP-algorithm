@@ -1,7 +1,9 @@
 package algorithms.hybrid;
+import com.google.inject.internal.asm.$ClassReader;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.Node;
+import org.semanticweb.owlapi.reasoner.knowledgeexploration.OWLKnowledgeExplorerReasoner;
 import org.semanticweb.owlapi.search.EntitySearcher;
 import reasoner.AxiomManager;
 import reasoner.ILoader;
@@ -35,7 +37,12 @@ public class ModelExtractor {
             return modelNode;
         }
 
-        ArrayList<OWLNamedIndividual> individualArray = new ArrayList<>(hybridSolver.abducibles.getIndividuals());
+        ArrayList<OWLNamedIndividual> individualArray;
+        if(loader.isAxiomBasedAbduciblesOnInput()){
+            individualArray = new ArrayList<>(loader.getOntology().getIndividualsInSignature());
+        } else {
+            individualArray = new ArrayList<>(hybridSolver.abducibles.getIndividuals());
+        }
 
         for (OWLNamedIndividual ind : individualArray) {
             assignTypesToIndividual(dfactory, ind, negModelSet, modelSet);
@@ -43,8 +50,17 @@ public class ModelExtractor {
 
         deletePathFromOntology();
 
-        modelNode.data = modelSet;
-        negModelNode.data = negModelSet;
+        if(loader.isAxiomBasedAbduciblesOnInput()){
+            modelSet.retainAll(hybridSolver.abducibles.getAxiomBasedAbducibles());
+            modelNode.data = modelSet;
+            negModelSet.retainAll(hybridSolver.abducibles.getAxiomBasedAbducibles());
+            negModelNode.data = negModelSet;
+
+        } else {
+            modelNode.data = modelSet;
+            negModelNode.data = negModelSet;
+        }
+
         hybridSolver.lastUsableModelIndex = hybridSolver.models.indexOf(modelNode);
 
         if (!modelNode.data.isEmpty() && hybridSolver.lastUsableModelIndex == -1) {
@@ -83,17 +99,21 @@ public class ModelExtractor {
 
     public void assignTypesToIndividual(OWLDataFactory dfactory, OWLNamedIndividual ind, Set<OWLAxiom> negModelSet, Set<OWLAxiom> modelSet){
         /**berie sa ontologia z hybridSolvera, co ale nie je menena ontologia, ako je v loader.getOntology()**/
+        //System.out.println("INDIVIDUAL " + ind);
         Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, hybridSolver.ontology).collect(toSet());
+        //System.out.println(ontologyTypes);
         //Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, loader.getOntology()).collect(toSet());
         Set<OWLClassExpression> knownTypes = new HashSet<>();
         Set<OWLClassExpression> knownNotTypes = new HashSet<>();
         divideTypesAccordingOntology(ontologyTypes, knownTypes, knownNotTypes);
 
         Set<OWLClassExpression> newNotTypes = classSet2classExpSet(hybridSolver.ontology.classesInSignature().collect(toSet()));
+        //System.out.println("NEW NOT TYPES " + newNotTypes);
         newNotTypes.remove(dfactory.getOWLThing());
         newNotTypes.removeAll(knownNotTypes);
 
         Set<OWLClassExpression> foundTypes = nodeClassSet2classExpSet(loader.getReasoner().getTypes(ind, false).getNodes());
+        //System.out.println("FOUND TYPES " + foundTypes);
         newNotTypes.removeAll(foundTypes);
         foundTypes.removeAll(knownTypes);
 
@@ -109,6 +129,8 @@ public class ModelExtractor {
                 knownNotTypes.add(exp.getComplementNNF());
             }
         }
+        //System.out.println("KNOWN TYPES "  + knownTypes);
+        //System.out.println("KNOWN NOT TYPES "  + knownTypes);
     }
 
     public static Set<OWLClassExpression> nodeClassSet2classExpSet(Set<Node<OWLClass>> nodeList) {
@@ -126,24 +148,31 @@ public class ModelExtractor {
     }
 
     public void addAxiomsToModelsAccordingTypes(OWLDataFactory dfactory, Set<OWLAxiom> negModelSet, Set<OWLAxiom> modelSet, Set<OWLClassExpression> foundTypes, Set<OWLClassExpression> newNotTypes, OWLNamedIndividual ind){
+
         for (OWLClassExpression classExpression : foundTypes) {
-            if (!hybridSolver.abducibles.getClasses().contains(classExpression)){
-                continue;
+            if(!loader.isAxiomBasedAbduciblesOnInput()){
+                if (!hybridSolver.abducibles.getClasses().contains(classExpression)){
+                    continue;
+                }
             }
             OWLClassExpression negClassExp = classExpression.getComplementNNF();
             OWLAxiom axiom = dfactory.getOWLClassAssertionAxiom(negClassExp, ind);
+            OWLAxiom axiom1 = dfactory.getOWLClassAssertionAxiom(classExpression, ind);
             negModelSet.add(axiom);
-            modelSet.add(dfactory.getOWLClassAssertionAxiom(classExpression, ind));
+            modelSet.add(axiom1);
         }
 
         for (OWLClassExpression classExpression : newNotTypes) {
-            if (!hybridSolver.abducibles.getClasses().contains(classExpression)){
-                continue;
+            if(!loader.isAxiomBasedAbduciblesOnInput()){
+                if (!hybridSolver.abducibles.getClasses().contains(classExpression)){
+                    continue;
+                }
             }
             OWLClassExpression negClassExp = classExpression.getComplementNNF();
             OWLAxiom axiom = dfactory.getOWLClassAssertionAxiom(classExpression, ind);
+            OWLAxiom axiom1 = dfactory.getOWLClassAssertionAxiom(negClassExp, ind);
             negModelSet.add(axiom);
-            modelSet.add(dfactory.getOWLClassAssertionAxiom(negClassExp, ind));
+            modelSet.add(axiom1);
         }
     }
 

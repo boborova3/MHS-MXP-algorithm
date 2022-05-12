@@ -1,4 +1,0 @@
--f: files/lubm-0_1_2.owl
--o: Prefix: prefix1: <http://swat.cse.lehigh.edu/onto/univ-bench.owl#> Prefix: prefix2: <http://www.co-ode.org/ontologies/ont.owl#> Prefix: prefix3: <http://www.Department9.University0.edu/> Class: prefix1:FacultyMember Class: prefix1:Article Individual: prefix3:DummyIndividual Types: prefix1:Faculty Individual: prefix2:Dummy2 Types: prefix1:Article
--t: 14400
--n: false

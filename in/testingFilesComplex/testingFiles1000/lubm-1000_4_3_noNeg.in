@@ -1,4 +1,0 @@
--f: files/lubm-1000.owl
--o: Prefix: prefix0: <http://www.Department9.University0.edu/> Prefix: prefix1: <http://swat.cse.lehigh.edu/onto/univ-bench.owl#> Class: prefix1:Publication Class: prefix1:Work Class: prefix1:AdministrativeStaff Class: prefix1:Professor Individual: prefix0:DummyIndividual Types: prefix1:Publication and prefix1:Work and prefix1:AdministrativeStaff and prefix1:Professor
--t: 14400
--n: false

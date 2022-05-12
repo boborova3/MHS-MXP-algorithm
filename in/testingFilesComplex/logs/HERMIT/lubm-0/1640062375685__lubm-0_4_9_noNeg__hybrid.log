@@ -1,3 +1,0 @@
-4;2;17.58;{{ClericalStaff(DummyIndividual),Software(DummyIndividual),UndergraduateStudent(DummyIndividual),Chair(DummyIndividual)},{Chair(DummyIndividual),ClericalStaff(DummyIndividual),GraduateStudent(DummyIndividual),Software(DummyIndividual)}}
-5;2;27.22;{{Student(DummyIndividual),Software(DummyIndividual),Chair(DummyIndividual),Director(DummyIndividual),ClericalStaff(DummyIndividual)},{Student(DummyIndividual),Chair(DummyIndividual),ConferencePaper(DummyIndividual),ClericalStaff(DummyIndividual),Software(DummyIndividual)}}
-27.48

@@ -1,0 +1,4 @@
+-f: files/family.owl
+-o: Prefix(fam:=<http://www.semanticweb.org/julia/ontologies/2017/8/family#>) Ontology( <http://www.example.com/ontology1> ClassAssertion( fam:Father fam:jack ))
+-r: jfact
+

@@ -1,3 +1,0 @@
-0.35;{ConferencePaper(DummyIndividual),Department(DummyIndividual),UndergraduateStudent(DummyIndividual),AssociateProfessor(DummyIndividual)}
-2.69;{AssociateProfessor(DummyIndividual),ConferencePaper(DummyIndividual),Student(DummyIndividual),Department(DummyIndividual)}
-3.56;{AssociateProfessor(DummyIndividual),ConferencePaper(DummyIndividual),GraduateStudent(DummyIndividual),Department(DummyIndividual)}

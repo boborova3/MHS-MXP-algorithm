@@ -1,7 +1,0 @@
--f: files/family.owl
--o: Class: <http://www.semanticweb.org/julia/ontologies/2017/8/family#Father> Individual: fam:jack Types: <http://www.semanticweb.org/julia/ontologies/2017/8/family#Father>
--r: jfact
--p: {
-fam: http://www.semanticweb.org/julia/ontologies/2017/8/family#
-}
-

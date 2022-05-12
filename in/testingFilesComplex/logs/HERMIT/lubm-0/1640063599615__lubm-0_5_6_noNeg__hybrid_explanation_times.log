@@ -1,4 +1,0 @@
-0.37;{FullProfessor(DummyIndividual),SystemsStaff(DummyIndividual),Course(DummyIndividual),ResearchAssistant(DummyIndividual)}
-10.30;{SystemsStaff(DummyIndividual),Work(DummyIndividual),FullProfessor(DummyIndividual),ResearchAssistant(DummyIndividual)}
-12.33;{SystemsStaff(DummyIndividual),GraduateCourse(DummyIndividual),FullProfessor(DummyIndividual),ResearchAssistant(DummyIndividual)}
-12.86;{SystemsStaff(DummyIndividual),Research(DummyIndividual),ResearchAssistant(DummyIndividual),FullProfessor(DummyIndividual)}

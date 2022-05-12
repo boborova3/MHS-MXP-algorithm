@@ -1,4 +1,0 @@
-0.36;{JournalArticle(DummyIndividual),ClericalStaff(DummyIndividual),PostDoc(DummyIndividual)}
-0.95;{PostDoc(DummyIndividual),ConferencePaper(DummyIndividual),ClericalStaff(DummyIndividual)}
-1.50;{PostDoc(DummyIndividual),TechnicalReport(DummyIndividual),ClericalStaff(DummyIndividual)}
-1.29;{Article(DummyIndividual),PostDoc(DummyIndividual),AssistantProfessor(DummyIndividual),ClericalStaff(DummyIndividual)}

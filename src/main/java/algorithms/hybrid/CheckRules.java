@@ -1,9 +1,7 @@
 package algorithms.hybrid;
 
-import common.Printer;
 import models.Explanation;
 import openllet.owlapi.OpenlletReasonerFactory;
-import org.apache.commons.lang3.StringUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -11,7 +9,6 @@ import reasoner.AxiomManager;
 import reasoner.ILoader;
 import reasoner.IReasonerManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CheckRules implements ICheckRules {
@@ -62,6 +59,7 @@ public class CheckRules implements ICheckRules {
         OWLOntology ontology = ontologyManager.createOntology(explanation.getOwlAxioms());
 
         OWLReasoner reasoner = new OpenlletReasonerFactory().createNonBufferingReasoner(ontology);
+        //OWLReasoner reasoner = new ReasonerFactory().createNonBufferingReasoner(ontology);
 
         if(loader.isMultipleObservationOnInput()){
             for(OWLAxiom obs : loader.getObservation().getAxiomsInMultipleObservations()){

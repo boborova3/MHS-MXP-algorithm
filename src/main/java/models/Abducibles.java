@@ -21,6 +21,7 @@ public class Abducibles {
     private Set<OWLObjectProperty> roles;
     private Set<OWLAxiom> axioms;
     private ILoader loader;
+    private Set<OWLAxiom> axiomBasedAbducibles;
 
     public Abducibles(ILoader loader) {
         this.individuals = new HashSet<>(loader.getOntology().getIndividualsInSignature());
@@ -31,6 +32,11 @@ public class Abducibles {
         if(loader.isMultipleObservationOnInput()){
             this.individuals.remove(loader.getObservation().getReductionIndividual());
         }
+    }
+
+    public Abducibles(ILoader loader, Set<OWLAxiom> axiomBasedAbducibles){
+        this.loader = loader;
+        this.axiomBasedAbducibles = axiomBasedAbducibles;
     }
 
     public Abducibles(ILoader loader, Set<OWLNamedIndividual> ind, Set<OWLClass> cl, Set<OWLObjectProperty> op) {
@@ -49,6 +55,8 @@ public class Abducibles {
     }
 
     public Set<OWLObjectProperty> getRoles() { return roles; }
+
+    public Set<OWLAxiom> getAxiomBasedAbducibles() { return axiomBasedAbducibles; }
 
     public Set<OWLAxiom> getAxioms() {
         if (axioms == null /*|| axioms.size() < individuals.size() * classes.size() * 2*/){

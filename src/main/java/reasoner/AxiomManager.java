@@ -10,21 +10,6 @@ import java.util.stream.Collectors;
 
 public class AxiomManager {
 
-    public static List<OWLAxiom> createClassAssertionAxiom(ILoader loader, OWLAxiom axiom) {
-        List<OWLAxiom> owlAxioms = new LinkedList<>();
-
-        if (OWLDeclarationAxiom.class.isAssignableFrom(axiom.getClass()) && OWLClass.class.isAssignableFrom(((OWLDeclarationAxiom) axiom).getEntity().getClass())) {
-            OWLClass owlClass = loader.getDataFactory().getOWLClass(((OWLDeclarationAxiom) axiom).getEntity().getIRI());
-            for (OWLNamedIndividual namedIndividual : loader.getAbducibles().getIndividuals()) {
-                if(!loader.isMultipleObservationOnInput() || loader.getObservation().getReductionIndividual() != namedIndividual){
-                    owlAxioms.add(loader.getDataFactory().getOWLClassAssertionAxiom(owlClass, namedIndividual));
-                    owlAxioms.add(loader.getDataFactory().getOWLClassAssertionAxiom(owlClass.getComplementNNF(), namedIndividual));
-                }
-            }
-        }
-        return owlAxioms;
-    }
-
     public static List<OWLAxiom> createClassAssertionAxiom(ILoader loader, OWLClass owlClass) {
         List<OWLAxiom> owlAxioms = new LinkedList<>();
 
@@ -33,27 +18,6 @@ public class AxiomManager {
                 if(!loader.isMultipleObservationOnInput() || loader.getObservation().getReductionIndividual() != namedIndividual){
                     owlAxioms.add(loader.getDataFactory().getOWLClassAssertionAxiom(owlClass, namedIndividual));
                     owlAxioms.add(loader.getDataFactory().getOWLClassAssertionAxiom(owlClass.getComplementNNF(), namedIndividual));
-                }
-            }
-        }
-        return owlAxioms;
-    }
-
-    public static List<OWLAxiom> createObjectPropertyAssertionAxiom(ILoader loader, OWLAxiom axiom) {
-        List<OWLAxiom> owlAxioms = new LinkedList<>();
-
-        if (OWLDeclarationAxiom.class.isAssignableFrom(axiom.getClass()) && OWLObjectProperty.class.isAssignableFrom(((OWLDeclarationAxiom) axiom).getEntity().getClass())) {
-            OWLObjectProperty objectProperty = loader.getDataFactory().getOWLObjectProperty(((OWLDeclarationAxiom) axiom).getEntity().getIRI());
-            for (OWLNamedIndividual subject : loader.getAbducibles().getIndividuals()) {
-                if(!loader.isMultipleObservationOnInput() || subject != loader.getObservation().getReductionIndividual()){
-                    for (OWLNamedIndividual object : loader.getAbducibles().getIndividuals()) {
-                        if (Configuration.LOOPING_ALLOWED || !subject.equals(object)) {
-                            if(!loader.isMultipleObservationOnInput() || object != loader.getObservation().getReductionIndividual()){
-                                owlAxioms.add(loader.getDataFactory().getOWLObjectPropertyAssertionAxiom(objectProperty, subject, object));
-                                owlAxioms.add(loader.getDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(objectProperty, subject, object));
-                            }
-                        }
-                    }
                 }
             }
         }

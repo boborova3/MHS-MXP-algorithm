@@ -48,4 +48,6 @@ public interface ILoader {
     Abducibles getAbducibles();
 
     boolean isMultipleObservationOnInput();
+
+    boolean isAxiomBasedAbduciblesOnInput();
 }

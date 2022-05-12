@@ -42,6 +42,7 @@ public class Loader implements ILoader {
 
     private OWLDocumentFormat observationOntologyFormat;
     private boolean isMultipleObservationOnInput = false;
+    private boolean isAxiomBasedAbduciblesOnInput = false;
 
     @Override
     public void initialize(ReasonerType reasonerType) throws Exception {
@@ -204,5 +205,13 @@ public class Loader implements ILoader {
 
     public void setMultipleObservationOnInput(boolean multipleObservationOnInput) {
         isMultipleObservationOnInput = multipleObservationOnInput;
+    }
+
+    public boolean isAxiomBasedAbduciblesOnInput() {
+        return isAxiomBasedAbduciblesOnInput;
+    }
+
+    public void setAxiomBasedAbduciblesOnInput(boolean axiomBasedAbduciblesOnInput) {
+        isAxiomBasedAbduciblesOnInput = axiomBasedAbduciblesOnInput;
     }
 }

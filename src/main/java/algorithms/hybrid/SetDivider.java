@@ -25,6 +25,21 @@ public class SetDivider {
         lastUsedIndex = -1;
     }
 
+    public void decreaseMedian(){
+        median /= 2;
+        if(median < 1){
+            median = 0;
+        }
+    }
+
+    public void setMedian(double median){
+        this.median = median;
+    }
+
+    public double getMedian(){
+        return median;
+    }
+
     public void setIndexesOfExplanations(int sizeOfCollection){
         for(int i = 0; i < sizeOfCollection; i++){
             notUsedExplanations.add(i);
@@ -40,13 +55,13 @@ public class SetDivider {
     public List<Literals> divideIntoSets(Literals literals) {
         if(Configuration.CACHED_CONFLICTS_LONGEST_CONFLICT && hybridSolver.explanations.size() > 0 && lastUsedIndex != -1){
             return divideIntoSetsAccordingTheLongestConflict(literals);
-        } else if (Configuration.CACHED_CONFLICTS_TABLE_OF_OCCURRENCE && hybridSolver.explanations.size() > 0){
+        } else if (Configuration.CACHED_CONFLICTS_MEDIAN && hybridSolver.explanations.size() > 0){
             return divideIntoSetsAccordingTableOfLiteralsPairOccurrence(literals);
         }
         return divideIntoSetsWithoutCondition(literals);
     }
 
-    private List<Literals> divideIntoSetsWithoutCondition(Literals literals){
+    public List<Literals> divideIntoSetsWithoutCondition(Literals literals){
         List<Literals> dividedLiterals = new ArrayList<>();
 
         dividedLiterals.add(new Literals());
@@ -112,7 +127,7 @@ public class SetDivider {
 
         for(AxiomPair key : tableOfAxiomPairOccurance.keySet()){
             if(axiomsFromLiterals.contains(key.first) && axiomsFromLiterals.contains(key.second)){
-                if(tableOfAxiomPairOccurance.get(key) > median){
+                if(tableOfAxiomPairOccurance.get(key) >= median){
                     dividedLiterals.get(0).getOwlAxioms().add(key.first);
                     dividedLiterals.get(1).getOwlAxioms().add(key.second);
                     axiomsFromLiterals.remove(key.first);
@@ -126,6 +141,8 @@ public class SetDivider {
             dividedLiterals.get(count % 2).getOwlAxioms().add(owlAxiom);
             count++;
         }
+
+        decreaseMedian();
         return dividedLiterals;
     }
 

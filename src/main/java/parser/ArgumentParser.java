@@ -25,21 +25,25 @@ public class ArgumentParser {
         boolean read_individuals = false;
         boolean read_prefixes= false;
         boolean read_roles = false;
+        boolean read_abducibles = false;
 
         for (String[] line: lines){
             String new_line = line[0].trim();
-            if (read_concepts || read_individuals || read_prefixes || read_roles){
+            if (read_concepts || read_individuals || read_prefixes || read_roles || read_abducibles){
                 if (new_line.equals("}")){
                     read_prefixes = false;
                     read_concepts = false;
                     read_individuals = false;
                     read_roles = false;
+                    read_abducibles = false;
                 } else if (read_concepts) {
-                    add_abd(new_line, true, false);
+                    add_abd(new_line, false, true, false);
                 } else if (read_individuals) {
-                    add_abd(new_line, false, false);
+                    add_abd(new_line, false,false, false);
                 } else if (read_roles) {
-                    add_abd(new_line, false, true);
+                    add_abd(new_line, false,false, true);
+                } else if (read_abducibles) {
+                    add_axiom_based_abd(line);
                 } else{
                     String last = (line.length == 2) ? line[1] : "";
                     add_prefix(new_line + " " + last);
@@ -90,21 +94,28 @@ public class ArgumentParser {
                     if (next.equals("{")){
                         read_individuals = true;
                     } else {
-                        add_abd(next, false, false);
+                        add_abd(next, false, false, false);
                     }
                     break;
                 case "-aC:":
                     if (next.equals("{")){
                         read_concepts = true;
                     } else {
-                        add_abd(next, true, false);
+                        add_abd(next, false,true, false);
                     }
                     break;
                 case "-aR:":
                     if (next.equals("{")){
                         read_roles = true;
                     } else {
-                        add_abd(next, false, true);
+                        add_abd(next, false,false, true);
+                    }
+                    break;
+                case "-abd:":
+                    if (next.equals("{")){
+                        read_abducibles = true;
+                    } else {
+                        add_abd(next, true,false, false);
                     }
                     break;
                 case "-mhs:":
@@ -135,6 +146,13 @@ public class ArgumentParser {
                         System.err.println("Wrong negation allowed value -n" + next + ", allowed values are 'true' and 'false'");
                     }
                     break;
+                case "-abdF:":
+                    if (!(new File(next).exists())){
+                        System.err.println("Could not open -abdF file " + next);
+                        Application.finish(ExitCode.ERROR);
+                    }
+                    Configuration.ABDUCIBLES_FILE_NAME = next;
+                    break;
                 default:
                     System.err.println("Unknown option " + line[0] + " in input file");
                     Application.finish(ExitCode.ERROR);
@@ -160,13 +178,24 @@ public class ArgumentParser {
         Configuration.PREFIXES.add(prefix);
     }
 
-    private void add_abd(String abd, boolean isConcept, boolean isRole){
-        if (isConcept)
+    private void add_abd(String abd, boolean axiomBasedAbducibles, boolean isConcept, boolean isRole){
+        System.out.println(abd);
+        if (axiomBasedAbducibles)
+            Configuration.AXIOM_BASED_ABDUCIBLES.add(abd);
+        else if (isConcept)
             Configuration.ABDUCIBLES_CONCEPTS.add(abd);
         else if (isRole)
             Configuration.ABDUCIBLES_ROLES.add(abd);
         else
             Configuration.ABDUCIBLES_INDIVIDUALS.add(abd);
+    }
+
+    private void add_axiom_based_abd(String[] abd){
+        String assertion = "";
+        for(String abd1 : abd){
+            assertion += abd1 + " ";
+        }
+        Configuration.AXIOM_BASED_ABDUCIBLES.add(assertion);
     }
 
     private ArrayList<String[]> read_input_file(String input_file_path) {
