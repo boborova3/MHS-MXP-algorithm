@@ -155,20 +155,18 @@ public class ExplanationsFilter {
     }
 
     private List<Explanation> getConsistentExplanations() throws OWLOntologyStorageException {
-        loader.getOntologyManager().removeAxiom(hybridSolver.ontology, loader.getNegObservation().getOwlAxiom());
-
-        /*pridane kvoli tomu, ze vzdy PRVE vysvetlenie pri pouziti hermitu odignorovalo*/
-        reasonerManager.resetOntology(hybridSolver.ontology.axioms());
+        reasonerManager.resetOntology(loader.getInitialOntology().axioms());
 
         List<Explanation> filteredExplanations = new ArrayList<>();
         for (Explanation explanation : hybridSolver.explanations) {
             if (isExplanation(explanation)) {
-                if (reasonerManager.isOntologyWithLiteralsConsistent(explanation.getOwlAxioms(), hybridSolver.ontology)) {
+                if (reasonerManager.isOntologyWithLiteralsConsistent(explanation.getOwlAxioms(), loader.getInitialOntology())) {
                     filteredExplanations.add(explanation);
                 }
             }
         }
 
+        reasonerManager.resetOntology(loader.getOriginalOntology().axioms());
         return filteredExplanations;
     }
 

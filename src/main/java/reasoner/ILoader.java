@@ -46,6 +46,8 @@ public interface ILoader {
 
     OWLOntology getOriginalOntology();
 
+    OWLOntology getInitialOntology();
+
     Abducibles getAbducibles();
 
     boolean isMultipleObservationOnInput();

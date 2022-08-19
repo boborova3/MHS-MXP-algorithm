@@ -23,11 +23,10 @@ public class CheckRules implements ICheckRules {
 
     @Override
     public boolean isConsistent(Explanation explanation) {
-        reasonerManager.removeAxiomFromOntology(loader.getNegObservation().getOwlAxiom());
+        reasonerManager.resetOntology(loader.getInitialOntology().axioms());
         reasonerManager.addAxiomsToOntology(explanation.getOwlAxioms());
         boolean isConsistent = reasonerManager.isOntologyConsistent();
         reasonerManager.resetOntology(loader.getOriginalOntology().axioms());
-        reasonerManager.addAxiomToOntology(loader.getNegObservation().getOwlAxiom());
         return isConsistent;
     }
 

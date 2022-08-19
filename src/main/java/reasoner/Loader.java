@@ -39,6 +39,7 @@ public class Loader implements ILoader {
     private String ontologyIRI;
     private Individuals namedIndividuals;
     private OWLOntology originalOntology;
+    private OWLOntology initialOntology; // initial ontology without negated observation
     private Abducibles abducibles;
 
     private OWLDocumentFormat observationOntologyFormat;
@@ -58,6 +59,7 @@ public class Loader implements ILoader {
             ontologyManager = OWLManager.createOWLOntologyManager();
             ontology = ontologyManager.loadOntologyFromOntologyDocument(new File(Configuration.INPUT_ONT_FILE));
             originalOntology = OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(new File(Configuration.INPUT_ONT_FILE));
+            initialOntology = OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(new File(Configuration.INPUT_ONT_FILE));
 
             changeReasoner(reasonerType);
             initializeReasoner();
@@ -195,6 +197,11 @@ public class Loader implements ILoader {
     @Override
     public OWLOntology getOriginalOntology() {
         return originalOntology;
+    }
+
+    @Override
+    public OWLOntology getInitialOntology() {
+        return initialOntology;
     }
 
 
