@@ -17,7 +17,10 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         String[] x = new String[1];
-        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithm/in/testExtractingModels/pokus9_1.in";
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithm/in/testExtractingModels/pokus9_1.in"; //modely problem
+
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithm/in/testExtractingModels/input_01.in"; //model existuje oprava
+
 
         Logger.getRootLogger().setLevel(Level.OFF);
         BasicConfigurator.configure();

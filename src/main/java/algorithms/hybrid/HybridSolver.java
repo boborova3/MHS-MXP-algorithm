@@ -571,9 +571,9 @@ public class HybridSolver implements ISolver {
 
     private boolean isOntologyConsistent(){
         if (Configuration.GET_MODELS_BY_REASONER){
-            return (!modelExtractor.getNegModelByReasoner().data.isEmpty());
+            return modelExtractor.getNegModelByReasoner().modelIsValid;
         }
-        return (!modelExtractor.getNegModelByOntology().data.isEmpty());
+        return modelExtractor.getNegModelByOntology().modelIsValid;
     }
 
     public void printAxioms(List<OWLAxiom> axioms){

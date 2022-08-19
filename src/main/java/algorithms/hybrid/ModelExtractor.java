@@ -35,7 +35,9 @@ public class ModelExtractor {
         Set<OWLAxiom> modelSet = new HashSet<>();
 
         if(!isOntologyConsistentWithPath()){
-            modelNode.data = new HashSet<>();
+            modelNode.modelIsValid = false;
+            negModelNode.modelIsValid = false;
+            //modelNode.data = new HashSet<>();
             return modelNode;
         }
 
@@ -210,7 +212,7 @@ public class ModelExtractor {
         hybridSolver.negModels.add(negModel);
     }
 
-    public ModelNode getNegModelByReasoner() {
+    public ModelNode getNegModelByReasoner() { //nefunguje?
         ModelNode modelNode = new ModelNode();
         Set<OWLAxiom> model = new HashSet<>();
 
@@ -220,6 +222,7 @@ public class ModelExtractor {
             if (!reasonerManager.isOntologyConsistent()){
                 hybridSolver.removeAxiomsFromOntology(hybridSolver.path);
                 modelNode.data = model;
+                modelNode.modelIsValid = false;
                 return modelNode;
             }
         }
@@ -264,13 +267,18 @@ public class ModelExtractor {
                 modelNode.data.add(axiom);
             }
         }
-        addModel(modelNode, getComplementOfModel(modelNode.data));
+        addModel(modelNode, getComplementOfModel(modelNode));
         return hybridSolver.negModels.get(hybridSolver.lastUsableModelIndex);
     }
 
-    private ModelNode getComplementOfModel(Set<OWLAxiom> model) {
+    private ModelNode getComplementOfModel(ModelNode modelNode) {
+        Set<OWLAxiom> model = modelNode.data;
+
         ModelNode negModelNode = new ModelNode();
+        negModelNode.modelIsValid = modelNode.modelIsValid;
+
         Set<OWLAxiom> negModel = new HashSet<>();
+
         for (OWLAxiom axiom : model) {
             //nechana stara funkcia getComplementOfOWLAxiom2, kedze s touto castou kodu som nepracovala a neviem, ci to nieco ovplyvni
             OWLAxiom complement = AxiomManager.getComplementOfOWLAxiom2(loader, axiom);

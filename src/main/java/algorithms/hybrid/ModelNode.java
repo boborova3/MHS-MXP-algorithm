@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 public class ModelNode extends TreeNode {
+
     public Set<OWLAxiom> data;
+    public boolean modelIsValid = true;
     Set<OWLAxiom> lenght_one_explanations = new HashSet<>();
 
     @Override
