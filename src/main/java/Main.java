@@ -16,15 +16,15 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        /*String[] x = new String[1];
-        x[0] = "/home/iveta/Plocha/skola/diplomovka/MHS-MXP-algorithm/in/otherSyntax/input_fam_5_turtle.in";*/
+        String[] x = new String[1];
+        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithm/in/testExtractingModels/pokus9_1.in";
 
         Logger.getRootLogger().setLevel(Level.OFF);
         BasicConfigurator.configure();
 
         ArgumentParser argumentParser = new ArgumentParser();
-        argumentParser.parse(args);
-        //argumentParser.parse(x);
+//        argumentParser.parse(args);
+        argumentParser.parse(x); // for testing
 
         ILoader loader = new Loader();
         loader.initialize(Configuration.REASONER);

@@ -13,6 +13,7 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.knowledgeexploration.OWLKnowledgeExplorerReasoner;
 import parser.IObservationParser;
 import parser.ObservationParser;
 import parser.PrefixesParser;
@@ -31,7 +32,7 @@ public class Loader implements ILoader {
     private OWLOntologyManager ontologyManager;
     private OWLReasonerFactory reasonerFactory;
     private OWLOntology ontology;
-    private OWLReasoner reasoner;
+    private OWLKnowledgeExplorerReasoner reasoner;
 
     private Observation observation;
     private Observation negObservation;
@@ -76,22 +77,24 @@ public class Loader implements ILoader {
         }
     }
 
+    //TODO momentalne ma zmysel asi len JFact, ale pozriet sa na to este potom
     @Override
     public void changeReasoner(ReasonerType reasonerType) {
-        switch (reasonerType) {
-            case PELLET:
-                setOWLReasonerFactory(new OpenlletReasonerFactory());
-                break;
-
-            case HERMIT:
-                setOWLReasonerFactory(new ReasonerFactory());
-                break;
-
-            case JFACT:
-                setOWLReasonerFactory(new JFactFactory());
-                break;
-        }
-        reasoner = reasonerFactory.createReasoner(ontology);
+//        switch (reasonerType) {
+//            case PELLET:
+//                setOWLReasonerFactory(new OpenlletReasonerFactory());
+//                break;
+//
+//            case HERMIT:
+//                setOWLReasonerFactory(new ReasonerFactory());
+//                break;
+//
+//            case JFACT:
+//                setOWLReasonerFactory(new JFactFactory());
+//                break;
+//        }
+        setOWLReasonerFactory(new JFactFactory());
+        reasoner = (OWLKnowledgeExplorerReasoner) reasonerFactory.createReasoner(ontology);
         logger.log(Level.INFO, LogMessage.INFO_ONTOLOGY_LOADED);
     }
 
@@ -157,7 +160,7 @@ public class Loader implements ILoader {
     }
 
     @Override
-    public OWLReasoner getReasoner() {
+    public OWLKnowledgeExplorerReasoner getReasoner() {
         return reasoner;
     }
 

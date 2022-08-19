@@ -7,6 +7,7 @@ import models.Observation;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.knowledgeexploration.OWLKnowledgeExplorerReasoner;
 
 
 public interface ILoader {
@@ -31,7 +32,7 @@ public interface ILoader {
 
     OWLOntology getOntology();
 
-    OWLReasoner getReasoner();
+    OWLKnowledgeExplorerReasoner getReasoner();
 
     void setOWLReasonerFactory(OWLReasonerFactory reasonerFactory);
 

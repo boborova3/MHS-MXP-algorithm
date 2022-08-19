@@ -18,15 +18,17 @@ public class ModelExtractor {
     private ILoader loader;
     private IReasonerManager reasonerManager;
     private HybridSolver hybridSolver;
+    private OWLOntologyManager ontologyManager;
 
     public ModelExtractor(ILoader loader, IReasonerManager reasonerManager, HybridSolver hybridSolver){
         this.loader = loader;
         this.reasonerManager = reasonerManager;
         this.hybridSolver = hybridSolver;
+        this.ontologyManager = OWLManager.createOWLOntologyManager();
     }
 
     public ModelNode getNegModelByOntology(){  // mrozek
-        OWLDataFactory dfactory = OWLManager.createOWLOntologyManager().getOWLDataFactory();
+        OWLDataFactory dfactory = ontologyManager.getOWLDataFactory();
         ModelNode negModelNode = new ModelNode();
         ModelNode modelNode = new ModelNode();
         Set<OWLAxiom> negModelSet = new HashSet<>();
@@ -101,21 +103,35 @@ public class ModelExtractor {
         /**berie sa ontologia z hybridSolvera, co ale nie je menena ontologia, ako je v loader.getOntology()**/
         //System.out.println("INDIVIDUAL " + ind);
         Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, hybridSolver.ontology).collect(toSet());
-        //System.out.println(ontologyTypes);
+        //tu su zlozene koncepty priamo z ontologie, povodna ontologia
+
+//        ontologyTypes.addAll(nodeClassSet2classExpSet(loader.getReasoner().getTypes(ind, false).getNodes()));
+        //nenajde potom vsetky riesenia ??
+
         //Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, loader.getOntology()).collect(toSet());
-        Set<OWLClassExpression> knownTypes = new HashSet<>();
-        Set<OWLClassExpression> knownNotTypes = new HashSet<>();
+        //s tymto druhym to nefunguje, menena ontologia
+
+//        System.out.println("ONTOLOGY TYPES " + ontologyTypes);
+
+        Set<OWLClassExpression> knownTypes = new HashSet<>(); // to, kde ind urcite patri z ontologie
+        Set<OWLClassExpression> knownNotTypes = new HashSet<>(); // to, kde ind nepatri z ontologie
         divideTypesAccordingOntology(ontologyTypes, knownTypes, knownNotTypes);
 
         Set<OWLClassExpression> newNotTypes = classSet2classExpSet(hybridSolver.ontology.classesInSignature().collect(toSet()));
-        //System.out.println("NEW NOT TYPES " + newNotTypes);
+//        System.out.println("NEW NOT TYPES " + newNotTypes); //triedy z ontologie
         newNotTypes.remove(dfactory.getOWLThing());
         newNotTypes.removeAll(knownNotTypes);
 
-        Set<OWLClassExpression> foundTypes = nodeClassSet2classExpSet(loader.getReasoner().getTypes(ind, false).getNodes());
-        //System.out.println("FOUND TYPES " + foundTypes);
+        OWLObjectOneOf individual = ontologyManager.getOWLDataFactory().getOWLObjectOneOf(ind);
+        //OWLClassExpression nominal = individual.asObjectUnionOf();
+
+        OWLKnowledgeExplorerReasoner.RootNode rootNode = loader.getReasoner().getRoot(individual);
+        Set<OWLClassExpression> foundTypes = loader.getReasoner().getObjectLabel(rootNode,false)
+                .entities()
+                .collect(toSet());
+
         newNotTypes.removeAll(foundTypes);
-        foundTypes.removeAll(knownTypes);
+        foundTypes.removeAll(knownTypes); // odstranime tie, co tam su vzdy
 
         addAxiomsToModelsAccordingTypes(dfactory, negModelSet, modelSet, foundTypes, newNotTypes, ind);
     }

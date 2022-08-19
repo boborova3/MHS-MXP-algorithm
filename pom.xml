@@ -10,7 +10,19 @@
 
 <!--    <packaging>jar</packaging>-->
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+        <dependency>
+            <groupId>com.github.boborova3</groupId>
+            <artifactId>jfact</artifactId>
+            <version>fdb6448</version>
+        </dependency>
         <dependency>
             <groupId>net.sourceforge.owlapi</groupId>
             <artifactId>owlapi-osgidistribution</artifactId>
@@ -47,11 +59,11 @@
             <artifactId>elk-owlapi</artifactId>
             <version>0.4.3</version>
         </dependency>
-        <dependency>
-            <groupId>net.sourceforge.owlapi</groupId>
-            <artifactId>jfact</artifactId>
-            <version>5.0.3</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>net.sourceforge.owlapi</groupId>-->
+<!--            <artifactId>jfact</artifactId>-->
+<!--            <version>5.0.3</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.github.galigator.openllet</groupId>
             <artifactId>openllet-owlapi</artifactId>
