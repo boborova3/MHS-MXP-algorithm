@@ -22,8 +22,14 @@ public class Main {
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithm/in/testExtractingModels/input_01.in"; //model existuje oprava
 
         //konzistentne vysvetlenia zle odfiltrovane
-        x[0] ="C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testExtractingModels/pokus6.in";
+//        x[0] ="C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testExtractingModels/pokus6.in";
 //        x[0] ="C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testExtractingModels/pokus6_2.in";
+
+        //roly + problem indexovy
+//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testExtractingModels/input_19.in";
+//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/input_fam.in";
+//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/multiple_obs/tom.in";
+        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/multiple_obs/tom1.in";
 
 
         Logger.getRootLogger().setLevel(Level.OFF);

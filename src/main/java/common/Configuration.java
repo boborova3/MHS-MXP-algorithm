@@ -22,7 +22,7 @@ public class Configuration {
     public static boolean LOOPING_ALLOWED = true;
     public static boolean MHS_MODE = false;
     //default true, ale zatial iba false
-    public static boolean ROLES_IN_EXPLANATIONS_ALLOWED = false;
+    public static boolean ROLES_IN_EXPLANATIONS_ALLOWED = true;
 
     //constants set before run program
     public static boolean REUSE_OF_MODELS = true;
