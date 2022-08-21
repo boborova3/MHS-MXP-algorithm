@@ -19,7 +19,7 @@ public class Configuration {
     public static ArrayList<String> AXIOM_BASED_ABDUCIBLES = new ArrayList<>();
     public static ArrayList<String> PREFIXES = new ArrayList<>();
     public static boolean NEGATION_ALLOWED = true;
-    public static boolean LOOPING_ALLOWED = true;
+    public static boolean LOOPING_ALLOWED = false;
     public static boolean MHS_MODE = false;
     //default true, ale zatial iba false
     public static boolean ROLES_IN_EXPLANATIONS_ALLOWED = true;
