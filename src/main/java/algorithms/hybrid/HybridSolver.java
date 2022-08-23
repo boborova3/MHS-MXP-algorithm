@@ -150,6 +150,8 @@ public class HybridSolver implements ISolver {
         }
 
         abd_literals = new Literals(to_abd);
+
+        // TODO vytvorenie roly?
     }
 
     private void startSolving() throws OWLOntologyStorageException, OWLOntologyCreationException {
