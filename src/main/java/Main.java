@@ -27,7 +27,7 @@ public class Main {
 
         //roly + problem indexovy
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testExtractingModels/input_19.in";
-        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/input_fam.in"; //TODO dava o jedno viac zsvetlenie v oboch?? kuknut na to
+//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/input_fam.in";
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/input_fam4.in";
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/multiple_obs/tom.in";
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/multiple_obs/tom1.in";
@@ -38,7 +38,10 @@ public class Main {
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_16.in";
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_17.in";
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_18.in";
-//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_19.in";
+        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_19.in";
+//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/jack1.in";
+//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/jack2.in";
+//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/jack3.in";
 
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testExtractingModels/input_13.in";
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testExtractingModels/input_14.in";

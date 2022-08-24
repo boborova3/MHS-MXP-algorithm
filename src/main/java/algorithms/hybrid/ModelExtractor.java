@@ -245,31 +245,31 @@ public class ModelExtractor {
 
     public void assignTypesAndRolesToIndividual(OWLDataFactory dfactory, ArrayList<OWLNamedIndividual> individuals, Set<OWLAxiom> negModelSet, Set<OWLAxiom> modelSet) {
 
-        final String ROLE = "#newrole/role";
-        OWLEntity entity = dfactory.getOWLEntity(EntityType.OBJECT_PROPERTY, IRI.create(ROLE));
-        OWLAxiom declarationAxiom = dfactory.getOWLDeclarationAxiom(entity);
-        OWLObjectPropertyExpression property = dfactory.getOWLObjectProperty(ROLE);
-        reasonerManager.addAxiomToOntology(declarationAxiom);
+//        final String ROLE = "#newrole/role";
+//        OWLEntity entity = dfactory.getOWLEntity(EntityType.OBJECT_PROPERTY, IRI.create(ROLE));
+//        OWLAxiom declarationAxiom = dfactory.getOWLDeclarationAxiom(entity);
+//        OWLObjectPropertyExpression property = dfactory.getOWLObjectProperty(ROLE);
+//        reasonerManager.addAxiomToOntology(declarationAxiom);
 
         List<OWLKnowledgeExplorerReasoner.RootNode> individualNodes = new ArrayList<>();
-        int count = 0;
+//        int count = 0;
 
         for (OWLNamedIndividual i : individuals) {
 
             OWLObjectOneOf obj = dfactory.getOWLObjectOneOf(i);
             individualNodes.add(loader.getReasoner().getRoot(obj));
 
-            count++;
-
-            if (count > 1) {
-                int second = count - 1;
-                int first = count - 2;
-
-                OWLObjectPropertyAssertionAxiom axiom1 = dfactory.getOWLObjectPropertyAssertionAxiom(property, individuals.get(first), individuals.get(second));
-                OWLObjectPropertyAssertionAxiom axiom2 = dfactory.getOWLObjectPropertyAssertionAxiom(property, individuals.get(second), individuals.get(first));
-                reasonerManager.addAxiomToOntology(axiom1);
-                reasonerManager.addAxiomToOntology(axiom2);
-            }
+//            count++;
+//
+//            if (count > 1) {
+//                int second = count - 1;
+//                int first = count - 2;
+//
+//                OWLObjectPropertyAssertionAxiom axiom1 = dfactory.getOWLObjectPropertyAssertionAxiom(property, individuals.get(first), individuals.get(second));
+//                OWLObjectPropertyAssertionAxiom axiom2 = dfactory.getOWLObjectPropertyAssertionAxiom(property, individuals.get(second), individuals.get(first));
+//                reasonerManager.addAxiomToOntology(axiom1);
+//                reasonerManager.addAxiomToOntology(axiom2);
+//            }
         }
 
         List<OWLKnowledgeExplorerReasoner.RootNode> queue = new ArrayList<>();

@@ -9,6 +9,7 @@ import models.Explanation;
 import models.Literals;
 import org.apache.commons.lang3.StringUtils;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.knowledgeexploration.OWLKnowledgeExplorerReasoner;
 import reasoner.AxiomManager;
 import reasoner.ILoader;
 import reasoner.IReasonerManager;
@@ -152,6 +153,32 @@ public class HybridSolver implements ISolver {
         abd_literals = new Literals(to_abd);
 
         // TODO vytvorenie roly?
+        ArrayList<OWLNamedIndividual> individuals;
+        if(loader.isAxiomBasedAbduciblesOnInput()){
+            individuals = new ArrayList<>(loader.getOntology().getIndividualsInSignature());
+        } else {
+            individuals = new ArrayList<>(abducibles.getIndividuals());
+        }
+
+        final String ROLE = "#newrole/role";
+        OWLDataFactory dfactory = loader.getOntologyManager().getOWLDataFactory();
+        OWLEntity entity = dfactory.getOWLEntity(EntityType.OBJECT_PROPERTY, IRI.create(ROLE));
+        OWLAxiom declarationAxiom = dfactory.getOWLDeclarationAxiom(entity);
+        OWLObjectPropertyExpression property = dfactory.getOWLObjectProperty(ROLE);
+        reasonerManager.addAxiomToOntology(declarationAxiom);
+
+        for (int index = 0; index < individuals.size() - 1; index++) {
+
+            int second = index + 1;
+
+            OWLObjectPropertyAssertionAxiom axiom1 = dfactory.getOWLObjectPropertyAssertionAxiom(property, individuals.get(index), individuals.get(second));
+            OWLObjectPropertyAssertionAxiom axiom2 = dfactory.getOWLObjectPropertyAssertionAxiom(property, individuals.get(second), individuals.get(index));
+            reasonerManager.addAxiomToOntology(axiom1);
+            reasonerManager.addAxiomToOntology(axiom2);
+
+            loader.getOriginalOntology().addAxiom(axiom1);
+            loader.getOriginalOntology().addAxiom(axiom2);
+        }
     }
 
     private void startSolving() throws OWLOntologyStorageException, OWLOntologyCreationException {
