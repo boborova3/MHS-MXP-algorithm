@@ -238,8 +238,6 @@ public class ModelExtractor {
         addAxiomsToModelsAccordingTypes(negModelSet, modelSet, found, newNot);
     }
 
-    // TODO: hlavne spojazdnit !
-    // TODO: tie known atd mozem urobim mimo forcyklu, to su take, co su vzdy (property, types asi nie)
     // mozno ani nebude treba ist cez tu rolu pomocnu, ak pojdeme cez individualy ?? -> asi nejde
     //nedava to vsetky vysvetlenia
 
