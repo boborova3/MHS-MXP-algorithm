@@ -22,7 +22,7 @@ public class Configuration {
     public static boolean LOOPING_ALLOWED = true;
     public static boolean MHS_MODE = false;
     //default true, ale zatial iba false
-    public static boolean ROLES_IN_EXPLANATIONS_ALLOWED = true;
+    public static boolean ROLES_IN_EXPLANATIONS_ALLOWED = false;
 
     //constants set before run program
     public static boolean REUSE_OF_MODELS = true;
@@ -33,5 +33,5 @@ public class Configuration {
     public static boolean CHECK_RELEVANCE_DURING_BUILDING_TREE_IN_MHS_MXP = false;
 
     //public static boolean RETURN_CACHED_EXPLANATION_IN_QXP = true;
-    public static String version = "_v10";
+    public static String version = "_v11";
 }

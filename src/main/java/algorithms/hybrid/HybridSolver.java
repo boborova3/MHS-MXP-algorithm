@@ -3,6 +3,7 @@ package algorithms.hybrid;
 import algorithms.ISolver;
 import com.google.common.collect.Iterables;
 import common.Configuration;
+import common.LogMessage;
 import common.Printer;
 import models.Abducibles;
 import models.Explanation;
@@ -12,9 +13,12 @@ import org.semanticweb.owlapi.model.*;
 import reasoner.AxiomManager;
 import reasoner.ILoader;
 import reasoner.IReasonerManager;
+import reasoner.Loader;
 import timer.ThreadTimes;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Base = knowledgeBase + negObservation
@@ -37,8 +41,8 @@ public class HybridSolver implements ISolver {
     public List<ModelNode> negModels;
     public List<OWLAxiom> assertionsAxioms;
     public List<OWLAxiom> negAssertionsAxioms;
-    public List<Explanation> explanations;
-    public Set<OWLAxiom> path;
+    public List<Explanation> explanations = new LinkedList<>();
+    public Set<OWLAxiom> path = new HashSet<>();
     //public List<OWLAxiom> path;
     public Set<OWLAxiom> pathDuringCheckingMinimality;
     public Abducibles abducibles;
@@ -59,6 +63,7 @@ public class HybridSolver implements ISolver {
         System.out.println("Negation " + Configuration.NEGATION_ALLOWED);
         System.out.println("MHS MODE " + Configuration.MHS_MODE);
         System.out.println();
+
         this.threadTimes = threadTimes;
         this.currentTimeMillis = currentTimeMillis;
     }
@@ -75,16 +80,30 @@ public class HybridSolver implements ISolver {
 
         negObservation = loader.getNegObservation().getOwlAxiom();
         this.abducibles = loader.getAbducibles();
-        if (!reasonerManager.isOntologyConsistent())
-            return;
+
         initialize();
-        if (reasonerManager.isOntologyWithLiteralsConsistent(abd_literals.getOwlAxioms(), ontology))
-            return;
-        startSolving();
+
+        String message = null;
+        if (!reasonerManager.isOntologyConsistent()) {
+            message = "MESSAGE: nothing to explain";
+        }
+        else if (reasonerManager.isOntologyWithLiteralsConsistent(abd_literals.getOwlAxioms(), ontology)) {
+            message = "MESSAGE: no conflicts, consistent with abducibles";
+        }
+        else {
+            startSolving();
+        }
+
         /*for(ModelNode m : models){
             printAxioms(new ArrayList<>(m.data));
         }*/
-        explanationsFilter.showExplanations();
+
+        explanationsFilter.showExplanations(message);
+        //System.out.println(explanations);
+        if (message != null) {
+            System.out.println();
+            System.out.println(message);
+        }
     }
 
     private void initialize() {
@@ -153,8 +172,6 @@ public class HybridSolver implements ISolver {
     }
 
     private void startSolving() throws OWLOntologyStorageException, OWLOntologyCreationException {
-        explanations = new LinkedList<>();
-        path = new HashSet<>();
         currentDepth = 0;
 
         Queue<TreeNode> queue = new LinkedList<>();
@@ -393,14 +410,7 @@ public class HybridSolver implements ISolver {
         return false;
     }
 
-    private Conflict getMergeConflict() throws OWLOntologyStorageException {
-        if (!reasonerManager.isOntologyConsistent()) {
-            return new Conflict();
-        }
-
-        if (reasonerManager.isOntologyWithLiteralsConsistent(abd_literals.getOwlAxioms(), ontology)) {
-            return new Conflict();
-        }
+    private Conflict getMergeConflict() {
         return findConflicts(abd_literals);
     }
 

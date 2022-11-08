@@ -29,7 +29,7 @@ public class ExplanationsFilter {
         this.checkRules = new CheckRules(loader, reasonerManager);
     }
 
-    public void showExplanations() throws OWLOntologyStorageException, OWLOntologyCreationException {
+    public void showExplanations(String message) throws OWLOntologyStorageException, OWLOntologyCreationException {
         List<Explanation> filteredExplanations = new ArrayList<>();
         if(Configuration.MHS_MODE){
             filteredExplanations.addAll(hybridSolver.explanations);
@@ -40,7 +40,12 @@ public class ExplanationsFilter {
         hybridSolver.path.clear();
         minimalExplanations = new LinkedList<>();
 
-        StringBuilder result = showExplanationsAccordingToLength(filteredExplanations);
+        StringBuilder result;
+        if (message == null || message.isEmpty()) {
+            result = showExplanationsAccordingToLength(filteredExplanations, null);
+        } else {
+            result = showExplanationsAccordingToLength(filteredExplanations, message);
+        }
         FileLogger.appendToFile(FileLogger.HYBRID_LOG_FILE__PREFIX, hybridSolver.currentTimeMillis, result.toString());
 
         log_explanations_times(minimalExplanations);
@@ -51,7 +56,7 @@ public class ExplanationsFilter {
         }
     }
 
-    private StringBuilder showExplanationsAccordingToLength(List<Explanation> filteredExplanations) throws OWLOntologyCreationException {
+    private StringBuilder showExplanationsAccordingToLength(List<Explanation> filteredExplanations, String message) throws OWLOntologyCreationException {
         StringBuilder result = new StringBuilder();
         int depth = 1;
         while (filteredExplanations.size() > 0) {
@@ -80,6 +85,11 @@ public class ExplanationsFilter {
         String line = String.format("%.2f\n", hybridSolver.threadTimes.getTotalUserTimeInSec());
         System.out.print(line);
         result.append(line);
+
+        if (message != null) {
+            result.append("\n").append(message);
+        }
+
         return result;
     }
 
