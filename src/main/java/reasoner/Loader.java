@@ -79,9 +79,10 @@ public class Loader implements ILoader {
         }
     }
 
-    //TODO momentalne ma zmysel asi len JFact, ale pozriet sa na to este potom
     @Override
     public void changeReasoner(ReasonerType reasonerType) {
+        // Note: we only use JFact for now
+
 //        switch (reasonerType) {
 //            case PELLET:
 //                setOWLReasonerFactory(new OpenlletReasonerFactory());
@@ -95,6 +96,7 @@ public class Loader implements ILoader {
 //                setOWLReasonerFactory(new JFactFactory());
 //                break;
 //        }
+
         setOWLReasonerFactory(new JFactFactory());
         reasoner = (OWLKnowledgeExplorerReasoner) reasonerFactory.createReasoner(ontology);
         logger.log(Level.INFO, LogMessage.INFO_ONTOLOGY_LOADED);

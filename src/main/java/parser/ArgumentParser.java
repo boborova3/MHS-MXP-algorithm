@@ -63,15 +63,19 @@ public class ArgumentParser {
                     String observation = String.join(" ", line).replace("-o: ", "");
                     Configuration.OBSERVATION = observation;
                     break;
-                case "-r:":
-                    try {
-                        Configuration.REASONER = ReasonerType.valueOf(next.toUpperCase());
-                    }
-                    catch (IllegalArgumentException e){
-                        System.err.println("Reasoner type -r " + next + " is unknown, the only allowed reasoners are hermit|pellet|jfact");
-                        Application.finish(ExitCode.ERROR);
-                    }
-                    break;
+
+                    // Note: we work with only JFact reasoner for now
+
+//                case "-r:":
+//                    try {
+//                        Configuration.REASONER = ReasonerType.valueOf(next.toUpperCase());
+//                    }
+//                    catch (IllegalArgumentException e){
+//                        System.err.println("Reasoner type -r " + next + " is unknown, the only allowed reasoners are hermit|pellet|jfact");
+//                        Application.finish(ExitCode.ERROR);
+//                    }
+//                    break;
+
                 case "-d:":
                     try {
                         Configuration.DEPTH = Integer.valueOf(next);
@@ -132,11 +136,11 @@ public class ArgumentParser {
                         System.err.println("Wrong looping allowed value -l" + next + ", allowed values are 'true' and 'false'");
                     }
                     break;
-                case "-eR:":
+                case "-r:":
                     if (next.equals("false")) {
                         Configuration.ROLES_IN_EXPLANATIONS_ALLOWED = false;
                     } else if (!next.equals("true")) {
-                        System.err.println("Wrong roles in explanations allowed value -eR" + next + ", allowed values are 'true' and 'false'");
+                        System.err.println("Wrong roles in explanations allowed value -r" + next + ", allowed values are 'true' and 'false'");
                     }
                     break;
                 case "-n:":
@@ -163,7 +167,7 @@ public class ArgumentParser {
             Application.finish(ExitCode.ERROR);
         }
         if (Configuration.REASONER == null) {
-            Configuration.REASONER = ReasonerType.HERMIT;
+            Configuration.REASONER = ReasonerType.JFACT;
         }
         if (Configuration.DEPTH == null){
             Configuration.DEPTH = Integer.MAX_VALUE;

@@ -10,7 +10,7 @@ public class Configuration {
     public static String INPUT_ONT_FILE = "";
     public static String INPUT_FILE_NAME = "";
     public static String ABDUCIBLES_FILE_NAME = null;
-    public static ReasonerType REASONER;
+    public static ReasonerType REASONER = ReasonerType.JFACT;     // we work only with JFact for now
     public static Integer DEPTH;
     public static Long TIMEOUT;
     public static ArrayList<String> ABDUCIBLES_CONCEPTS = new ArrayList<>();
@@ -22,11 +22,10 @@ public class Configuration {
     public static boolean LOOPING_ALLOWED = true;
     public static boolean MHS_MODE = false;
     //default true, ale zatial iba false
-    public static boolean ROLES_IN_EXPLANATIONS_ALLOWED = false;
+    public static boolean ROLES_IN_EXPLANATIONS_ALLOWED = true;
 
     //constants set before run program
     public static boolean REUSE_OF_MODELS = true;
-    public static boolean GET_MODELS_BY_REASONER = false;
     public static boolean CHECKING_MINIMALITY_BY_QXP = false;
     public static boolean CACHED_CONFLICTS_LONGEST_CONFLICT = false;
     public static boolean CACHED_CONFLICTS_MEDIAN = true;

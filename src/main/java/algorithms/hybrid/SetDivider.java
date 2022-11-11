@@ -53,9 +53,9 @@ public class SetDivider {
     }
 
     public List<Literals> divideIntoSets(Literals literals) {
-        if(Configuration.CACHED_CONFLICTS_LONGEST_CONFLICT && hybridSolver.explanations.size() > 0 && lastUsedIndex != -1){
+        if(Configuration.CACHED_CONFLICTS_LONGEST_CONFLICT && hybridSolver.possibleExplanations.size() > 0 && lastUsedIndex != -1){
             return divideIntoSetsAccordingTheLongestConflict(literals);
-        } else if (Configuration.CACHED_CONFLICTS_MEDIAN && hybridSolver.explanations.size() > 0){
+        } else if (Configuration.CACHED_CONFLICTS_MEDIAN && hybridSolver.possibleExplanations.size() > 0){
             return divideIntoSetsAccordingTableOfLiteralsPairOccurrence(literals);
         }
         return divideIntoSetsWithoutCondition(literals);
@@ -77,7 +77,7 @@ public class SetDivider {
     }
 
     private List<Literals> divideIntoSetsAccordingTheLongestConflict(Literals literals){
-        Explanation theLongestExplanation = hybridSolver.explanations.get(lastUsedIndex);
+        Explanation theLongestExplanation = hybridSolver.possibleExplanations.get(lastUsedIndex);
         Set<OWLAxiom> axiomsFromExplanation = new HashSet<>(theLongestExplanation.getOwlAxioms());
 
         List<Literals> dividedLiterals = new ArrayList<>();
@@ -106,7 +106,7 @@ public class SetDivider {
         int length = 0;
 
         for(Integer i : notUsedExplanations){
-            if(hybridSolver.explanations.get(i).getDepth() > length){
+            if(hybridSolver.possibleExplanations.get(i).getDepth() > length){
                 indexOfLongestExp = i;
             }
         }

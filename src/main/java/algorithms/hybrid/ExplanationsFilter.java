@@ -32,7 +32,7 @@ public class ExplanationsFilter {
     public void showExplanations(String message) throws OWLOntologyStorageException, OWLOntologyCreationException {
         List<Explanation> filteredExplanations = new ArrayList<>();
         if(Configuration.MHS_MODE){
-            filteredExplanations.addAll(hybridSolver.explanations);
+            filteredExplanations.addAll(hybridSolver.possibleExplanations);
         } else {
             filteredExplanations = getConsistentExplanations();
         }
@@ -168,7 +168,7 @@ public class ExplanationsFilter {
         reasonerManager.resetOntology(loader.getInitialOntology().axioms());
 
         List<Explanation> filteredExplanations = new ArrayList<>();
-        for (Explanation explanation : hybridSolver.explanations) {
+        for (Explanation explanation : hybridSolver.possibleExplanations) {
             if (isExplanation(explanation)) {
                 if (reasonerManager.isOntologyWithLiteralsConsistent(explanation.getOwlAxioms(), loader.getInitialOntology())) {
                     filteredExplanations.add(explanation);
@@ -223,7 +223,7 @@ public class ExplanationsFilter {
     }
 
     public void showExplanationsWithDepth(Integer depth, boolean timeout, Double time) {
-        List<Explanation> currentExplanations = hybridSolver.explanations.stream().filter(explanation -> explanation.getDepth().equals(depth)).collect(Collectors.toList());
+        List<Explanation> currentExplanations = hybridSolver.possibleExplanations.stream().filter(explanation -> explanation.getDepth().equals(depth)).collect(Collectors.toList());
         String currentExplanationsFormat = StringUtils.join(currentExplanations, ",");
         String line = String.format("%d;%d;%.2f%s;{%s}\n", depth, currentExplanations.size(), time, timeout ? "-TIMEOUT" : "", currentExplanationsFormat);
         System.out.print(line);
@@ -231,7 +231,7 @@ public class ExplanationsFilter {
     }
 
     public void showExplanationsWithLevel(Integer level, boolean timeout, Double time){
-        List<Explanation> currentExplanations = hybridSolver.explanations.stream().filter(explanation -> explanation.getLevel().equals(level)).collect(Collectors.toList());
+        List<Explanation> currentExplanations = hybridSolver.possibleExplanations.stream().filter(explanation -> explanation.getLevel().equals(level)).collect(Collectors.toList());
         String currentExplanationsFormat = StringUtils.join(currentExplanations, ",");
         String line = String.format("%d;%d;%.2f%s;{%s}\n", level, currentExplanations.size(), time, timeout ? "-TIMEOUT" : "", currentExplanationsFormat);
         //System.out.print(line);

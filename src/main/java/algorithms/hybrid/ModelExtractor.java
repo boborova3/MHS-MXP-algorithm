@@ -38,7 +38,6 @@ public class ModelExtractor {
         if(!isOntologyConsistentWithPath()){
             modelNode.modelIsValid = false;
             negModelNode.modelIsValid = false;
-            //modelNode.data = new HashSet<>();
             return modelNode;
         }
 
@@ -100,7 +99,7 @@ public class ModelExtractor {
             }
             reasonerManager.addAxiomsToOntology(path);
             if (!reasonerManager.isOntologyConsistent()){
-                hybridSolver.removeAxiomsFromOntology(path);
+                hybridSolver.removeAxiomsFromOntology();
                 return false;
             }
         }
@@ -108,30 +107,18 @@ public class ModelExtractor {
     }
 
     public void assignTypesToIndividual(OWLDataFactory dfactory, OWLNamedIndividual ind, Set<OWLAxiom> negModelSet, Set<OWLAxiom> modelSet){
-        /**berie sa ontologia z hybridSolvera, co ale nie je menena ontologia, ako je v loader.getOntology()**/
-        //System.out.println("INDIVIDUAL " + ind);
+        //complex concepts from original ontology
         Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, hybridSolver.ontology).collect(toSet());
-        //tu su zlozene koncepty priamo z ontologie, povodna ontologia
 
-//        ontologyTypes.addAll(nodeClassSet2classExpSet(loader.getReasoner().getTypes(ind, false).getNodes()));
-        //nenajde potom vsetky riesenia ??
-
-        //Set<OWLClassExpression> ontologyTypes = EntitySearcher.getTypes(ind, loader.getOntology()).collect(toSet());
-        //s tymto druhym to nefunguje, menena ontologia
-
-//        System.out.println("ONTOLOGY TYPES " + ontologyTypes);
-
-        Set<OWLClassExpression> knownTypes = new HashSet<>(); // to, kde ind urcite patri z ontologie
-        Set<OWLClassExpression> knownNotTypes = new HashSet<>(); // to, kde ind nepatri z ontologie
+        Set<OWLClassExpression> knownTypes = new HashSet<>(); //concepts assigned to ind from original ontology
+        Set<OWLClassExpression> knownNotTypes = new HashSet<>(); //neg concepts assigned to ind from original ontology
         divideTypesAccordingOntology(ontologyTypes, knownTypes, knownNotTypes);
 
         Set<OWLClassExpression> newNotTypes = classSet2classExpSet(hybridSolver.ontology.classesInSignature().collect(toSet()));
-//        System.out.println("NEW NOT TYPES " + newNotTypes); //triedy z ontologie
         newNotTypes.remove(dfactory.getOWLThing());
         newNotTypes.removeAll(knownNotTypes);
 
         OWLObjectOneOf individual = ontologyManager.getOWLDataFactory().getOWLObjectOneOf(ind);
-        //OWLClassExpression nominal = individual.asObjectUnionOf();
 
         OWLKnowledgeExplorerReasoner.RootNode rootNode = loader.getReasoner().getRoot(individual);
         Set<OWLClassExpression> foundTypes = loader.getReasoner().getObjectLabel(rootNode,false)
@@ -139,7 +126,7 @@ public class ModelExtractor {
                 .collect(toSet());
 
         newNotTypes.removeAll(foundTypes);
-        foundTypes.removeAll(knownTypes); // odstranime tie, co tam su vzdy
+        foundTypes.removeAll(knownTypes);
 
         addAxiomsToModelsAccordingTypes(dfactory, negModelSet, modelSet, foundTypes, newNotTypes, ind);
     }
@@ -148,35 +135,26 @@ public class ModelExtractor {
         Set<OWLAxiom> ontologyPropertyAxioms = hybridSolver.ontology.axioms()
                 .filter(a -> a.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)
                         && ((OWLObjectPropertyAssertionAxiom)a).getSubject() == ind)
-                .collect(toSet());
+                .collect(toSet()); //object properties where ind is a subject -> objectProperty(ind,x)
 
         ontologyPropertyAxioms.addAll(hybridSolver.ontology.axioms()
                 .filter(a -> a.isOfType(AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION)
                         && ((OWLNegativeObjectPropertyAssertionAxiom)a).getSubject() == ind)
-                .collect(toSet()));
-
-//        System.out.println("ontology axioms");   //OK
-//        System.out.println(ontologyPropertyAxioms);
+                .collect(toSet())); //add neg object properties where ind is a subject -> not(objectProperty(ind,x))
 
         Set<OWLObjectPropertyAssertionAxiom> known = new HashSet<>();
         Set<OWLObjectPropertyAssertionAxiom> knownNot = new HashSet<>();
-        dividePropertyAxiomsAccordingOntology(ontologyPropertyAxioms, known, knownNot); //OK
+        dividePropertyAxiomsAccordingOntology(ontologyPropertyAxioms, known, knownNot);
 
         Set<OWLAxiom> newNot = hybridSolver.assertionsAxioms.stream()
                 .filter(p -> p.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)
                         && ((OWLObjectPropertyAssertionAxiom)p).getSubject() == ind)
                 .collect(toSet());
 
-//        System.out.println("NEW NOT");
-//        printAxioms(new ArrayList<>(newNot));
-
         newNot.removeAll(knownNot);
 
         Set<OWLObjectPropertyAssertionAxiom> found = new HashSet<>();
-
         List<OWLKnowledgeExplorerReasoner.RootNode> nodes = new ArrayList<>();
-        // PROBLEM TO DlCompletionTree, pripadne porovnavanie rootNode naprogramovat este??
-        // neda sa dat root node ako key do mapy .. nefunguje equals
 
         for (OWLNamedIndividual n : individuals) {
             OWLObjectOneOf i = ontologyManager.getOWLDataFactory().getOWLObjectOneOf(n);
@@ -195,19 +173,9 @@ public class ModelExtractor {
                         .getObjectNeighbours(rootNode, role.getNamedProperty());
 
                 for (OWLKnowledgeExplorerReasoner.RootNode r : nodes2) {
-//                    System.out.println("r");
-                    //ver 1
-//                    for (OWLKnowledgeExplorerReasoner.RootNode n : nodes) {
-//                        if (r.getNode().equals(n)) {
-//                            OWLNamedIndividual object = individuals.get(nodes.indexOf(n));
-//                            found.add(dfactory.getOWLObjectPropertyAssertionAxiom(role, ind, object));
-//                            break;
-//                        }
-//                    }
-
-                    //ver 2
                     if (nodes.stream().anyMatch(p -> p.getNode().equals(r.getNode()))) {
-                        OWLKnowledgeExplorerReasoner.RootNode n = nodes.stream().filter(p -> p.getNode().equals(r.getNode())).findFirst().get();
+                        OWLKnowledgeExplorerReasoner.RootNode n = nodes.stream()
+                                .filter(p -> p.getNode().equals(r.getNode())).findFirst().get();
                         OWLNamedIndividual object = individuals.get(nodes.indexOf(n));
                         found.add(dfactory.getOWLObjectPropertyAssertionAxiom(role, ind, object));
                     }
@@ -217,9 +185,6 @@ public class ModelExtractor {
 
         newNot.removeAll(found);
         found.removeAll(known);
-
-//        System.out.println("FOUND"); //ok?
-//        printAxioms(new ArrayList<>(found));
 
         addAxiomsToModelsAccordingTypes(negModelSet, modelSet, found, newNot);
     }
@@ -234,8 +199,6 @@ public class ModelExtractor {
                 knownNotTypes.add(exp.getComplementNNF());
             }
         }
-        //System.out.println("KNOWN TYPES "  + knownTypes);
-        //System.out.println("KNOWN NOT TYPES "  + knownNotTypes);
     }
 
     private void dividePropertyAxiomsAccordingOntology(Set<OWLAxiom> ontologyAxioms, Set<OWLObjectPropertyAssertionAxiom> known, Set<OWLObjectPropertyAssertionAxiom> knownNot) {
@@ -247,19 +210,6 @@ public class ModelExtractor {
                 knownNot.add((OWLObjectPropertyAssertionAxiom) AxiomManager.getComplementOfOWLAxiom(loader, assertionAxiom));
             }
         }
-
-//        System.out.println("KNOWN");
-//        System.out.println(known); //OK
-//        System.out.println("KNOWN NOT");
-//        System.out.println(knownNot); //OK
-    }
-
-    public static Set<OWLClassExpression> nodeClassSet2classExpSet(Set<Node<OWLClass>> nodeList) {
-        Set<OWLClassExpression> toReturn = new HashSet<>();
-        for (Node<OWLClass> node : nodeList) {
-            toReturn.addAll(node.getEntitiesMinusTop());
-        }
-        return toReturn;
     }
 
     public static Set<OWLClassExpression> classSet2classExpSet(Set<OWLClass> classSet) {
@@ -326,12 +276,8 @@ public class ModelExtractor {
     }
 
 
-    public void deletePathFromOntology(){
-        if(hybridSolver.checkingMinimalityWithQXP){
-            hybridSolver.removeAxiomsFromOntology(hybridSolver.pathDuringCheckingMinimality);
-        } else {
-            hybridSolver.removeAxiomsFromOntology(hybridSolver.path);
-        }
+    public void deletePathFromOntology() {
+        hybridSolver.removeAxiomsFromOntology();
     }
 
     public void addModel(ModelNode model, ModelNode negModel){
@@ -342,82 +288,6 @@ public class ModelExtractor {
         hybridSolver.lastUsableModelIndex = hybridSolver.models.size();
         hybridSolver.models.add(model);
         hybridSolver.negModels.add(negModel);
-    }
-
-    public ModelNode getNegModelByReasoner() { //nefunguje?
-        ModelNode modelNode = new ModelNode();
-        Set<OWLAxiom> model = new HashSet<>();
-
-        if (hybridSolver.path != null) {
-            hybridSolver.path.remove(hybridSolver.negObservation);
-            reasonerManager.addAxiomsToOntology(hybridSolver.path);
-            if (!reasonerManager.isOntologyConsistent()){
-                hybridSolver.removeAxiomsFromOntology(hybridSolver.path);
-                modelNode.data = model;
-                modelNode.modelIsValid = false;
-                return modelNode;
-            }
-        }
-
-        for (int i = 0; i < hybridSolver.assertionsAxioms.size(); i++) {
-            OWLAxiom axiom = hybridSolver.assertionsAxioms.get(i);
-            OWLAxiom complementOfAxiom = hybridSolver.negAssertionsAxioms.get(i);
-            if (loader.getOntology().containsAxiom(axiom)){
-                model.add(axiom);
-            }
-            else if (loader.getOntology().containsAxiom(complementOfAxiom)){
-                model.add(complementOfAxiom);
-            }
-            else if (!model.contains(axiom) && !model.contains(complementOfAxiom)){
-                reasonerManager.addAxiomToOntology(axiom);
-                boolean isConsistent = reasonerManager.isOntologyConsistent();
-                reasonerManager.removeAxiomFromOntology(axiom);
-
-                reasonerManager.addAxiomToOntology(complementOfAxiom);
-                boolean isComplementConsistent = reasonerManager.isOntologyConsistent();
-                reasonerManager.removeAxiomFromOntology(complementOfAxiom);
-
-                if (!isComplementConsistent && isConsistent) {
-                    model.add(axiom);
-                    reasonerManager.addAxiomToOntology(axiom);
-                } else if (isComplementConsistent){
-                    model.add(complementOfAxiom);
-                    reasonerManager.addAxiomToOntology(complementOfAxiom);
-                }
-                else {
-                    modelNode.data.clear();
-                    hybridSolver.removeAxiomsFromOntology(hybridSolver.path);
-                    return modelNode;
-                }
-            }
-        }
-        hybridSolver.removeAxiomsFromOntology(hybridSolver.path);
-        modelNode.data = new HashSet<>();
-        for (OWLAxiom axiom: model){
-            if (hybridSolver.abducibles.getIndividuals().containsAll(axiom.individualsInSignature().collect(Collectors.toList())) &&
-                    hybridSolver.abducibles.getClasses().containsAll( axiom.classesInSignature().collect(Collectors.toList()))){
-                modelNode.data.add(axiom);
-            }
-        }
-        addModel(modelNode, getComplementOfModel(modelNode));
-        return hybridSolver.negModels.get(hybridSolver.lastUsableModelIndex);
-    }
-
-    private ModelNode getComplementOfModel(ModelNode modelNode) {
-        Set<OWLAxiom> model = modelNode.data;
-
-        ModelNode negModelNode = new ModelNode();
-        negModelNode.modelIsValid = modelNode.modelIsValid;
-
-        Set<OWLAxiom> negModel = new HashSet<>();
-
-        for (OWLAxiom axiom : model) {
-            //nechana stara funkcia getComplementOfOWLAxiom2, kedze s touto castou kodu som nepracovala a neviem, ci to nieco ovplyvni
-            OWLAxiom complement = AxiomManager.getComplementOfOWLAxiom2(loader, axiom);
-            negModel.add(complement);
-        }
-        negModelNode.data = negModel;
-        return negModelNode;
     }
 
 }

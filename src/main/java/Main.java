@@ -5,10 +5,7 @@ import common.Configuration;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import reasoner.ILoader;
-import reasoner.IReasonerManager;
-import reasoner.Loader;
-import reasoner.ReasonerManager;
+import reasoner.*;
 import timer.ThreadTimes;
 
 
@@ -22,7 +19,7 @@ public class Main {
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus9.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus8.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus7.in";
-        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6_inconsistent_obs.in";
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6_inconsistent_obs.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6_inconsistent_ont.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6.in";
 //        x[0] ="C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6_2.in";
@@ -34,7 +31,7 @@ public class Main {
 
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/multiple_obs/tom.in";
 
-//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithm/in/testExtractingModels/input_01.in"; //model existuje oprava
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/input_01.in"; //model existuje oprava
 
         //konzistentne vysvetlenia zle odfiltrovane
 //        x[0] ="C:/Users/2018/Desktop/new/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6.in";
@@ -50,12 +47,12 @@ public class Main {
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/ont_input11949.in";
 
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_13.in";
-//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_14.in";
+//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_14.in"; //pada??
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_15.in";
-//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_16.in";
+//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_16.in"; //nothing to explain
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_17.in";
-//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_18.in";
-//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_19.in";
+//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_18.in"; //nothing to explain
+//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_19.in"; //skontrolovat ...
 
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/jack1.in";
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/jack2.in";
