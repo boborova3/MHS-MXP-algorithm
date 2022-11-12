@@ -19,6 +19,14 @@ public class Printer {
         return Printer.getObjectPropertyAssertionAxiom(owlAxiom);
     }
 
+    public static String print(List<OWLAxiom> axioms){
+        List<String> result = new ArrayList<>();
+        for (OWLAxiom owlAxiom : axioms) {
+            result.add(Printer.print(owlAxiom));
+        }
+        return "{" + StringUtils.join(result, ",") + "}";
+    }
+
     private static String getNamedIndividual(OWLAxiom owlAxiom) {
         List<String> owlNamedIndividuals = new ArrayList<>();
         List<OWLNamedIndividual> individualsInSignature = owlAxiom.individualsInSignature().collect(Collectors.toList());

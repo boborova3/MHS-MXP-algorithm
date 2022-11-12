@@ -1,16 +1,13 @@
 package algorithms.hybrid;
-import com.google.inject.internal.asm.$ClassReader;
 import common.Configuration;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.knowledgeexploration.OWLKnowledgeExplorerReasoner;
 import org.semanticweb.owlapi.search.EntitySearcher;
 import reasoner.AxiomManager;
 import reasoner.ILoader;
 import reasoner.IReasonerManager;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -99,7 +96,7 @@ public class ModelExtractor {
             }
             reasonerManager.addAxiomsToOntology(path);
             if (!reasonerManager.isOntologyConsistent()){
-                hybridSolver.removeAxiomsFromOntology();
+                hybridSolver.resetOntologyToOriginal();
                 return false;
             }
         }
@@ -277,7 +274,7 @@ public class ModelExtractor {
 
 
     public void deletePathFromOntology() {
-        hybridSolver.removeAxiomsFromOntology();
+        hybridSolver.resetOntologyToOriginal();
     }
 
     public void addModel(ModelNode model, ModelNode negModel){

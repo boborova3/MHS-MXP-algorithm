@@ -90,9 +90,10 @@ public class HybridSolver implements ISolver {
             startSolving();
         }
 
-        /*for(ModelNode m : models){
-            printAxioms(new ArrayList<>(m.data));
-        }*/
+//        for(ModelNode m : models){
+//            System.out.println(Printer.print(new ArrayList<>(m.data)));
+//        }
+//        System.out.println(models.size());
 
         explanationsFilter.showExplanations(message);
 
@@ -428,7 +429,7 @@ public class HybridSolver implements ISolver {
         if (isOntologyWithLiteralsConsistent(literals.getOwlAxioms())) {
             return new Conflict(literals, new LinkedList<>());
         }
-        removeAxiomsFromOntology();
+        resetOntologyToOriginal();
         if (literals.getOwlAxioms().size() == 1) {
             List<Explanation> explanations = new LinkedList<>();
             explanations.add(new Explanation(literals.getOwlAxioms(), literals.getOwlAxioms().size(), currentDepth, threadTimes.getTotalUserTimeInSec()));
@@ -506,15 +507,6 @@ public class HybridSolver implements ISolver {
             return new Explanation(literals.getOwlAxioms(), 1, currentDepth, threadTimes.getTotalUserTimeInSec());
         }
 
-        /*if(Configuration.CHECKING_MINIMALITY_BY_QXP && Configuration.RETURN_CACHED_EXPLANATION_IN_QXP && !checkingMinimalityWithQXP){
-            for(Explanation e1 : explanations) {
-                if(literals.getOwlAxioms().containsAll(e1.getOwlAxioms())){
-                    System.out.println("STALO SA");
-                    return new Explanation(e1.getOwlAxioms(), e1.getDepth(), e1.getLevel(), e1.getAcquireTime());
-                }
-            }
-        }*/
-
         List<Literals> sets = setDivider.divideIntoSetsWithoutCondition(literals);
 
         actualPath.addAll(sets.get(0).getOwlAxioms());
@@ -579,14 +571,6 @@ public class HybridSolver implements ISolver {
         return modelExtractor.getNegModelByOntology().modelIsValid;
     }
 
-    public void printAxioms(List<OWLAxiom> axioms){
-        List<String> result = new ArrayList<>();
-        for (OWLAxiom owlAxiom : axioms) {
-            result.add(Printer.print(owlAxiom));
-        }
-        System.out.println("{" + StringUtils.join(result, ",") + "}");
-    }
-
     public Explanation getMinimalExplanationByCallingQXP(Explanation explanation){
         Set<OWLAxiom> temp = new HashSet<>();
         temp.addAll(explanation.getOwlAxioms());
@@ -604,7 +588,7 @@ public class HybridSolver implements ISolver {
         return newExplanation;
     }
 
-    public void removeAxiomsFromOntology(){
+    public void resetOntologyToOriginal(){
         reasonerManager.resetOntology(loader.getOriginalOntology().axioms());
     }
 
