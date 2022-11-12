@@ -10,7 +10,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.github.boborova3:jfact:fdb6448" level="project" />
+    <orderEntry type="library" name="Maven: com.github.boborova3:jfact:428024c" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-distribution:5.1.13" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-compatibility:5.1.13" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-apibinding:5.1.13" level="project" />

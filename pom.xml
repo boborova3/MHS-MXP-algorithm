@@ -21,7 +21,8 @@
         <dependency>
             <groupId>com.github.boborova3</groupId>
             <artifactId>jfact</artifactId>
-            <version>fdb6448</version>
+            <version>428024c</version>
+<!--            fdb6448-->
         </dependency>
         <dependency>
             <groupId>net.sourceforge.owlapi</groupId>

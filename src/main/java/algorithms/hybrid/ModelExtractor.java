@@ -160,6 +160,10 @@ public class ModelExtractor {
 
         OWLObjectOneOf individual = ontologyManager.getOWLDataFactory().getOWLObjectOneOf(ind);
         OWLKnowledgeExplorerReasoner.RootNode rootNode = loader.getReasoner().getRoot(individual);
+//        System.out.println("IND " + ind);
+//        System.out.println("NOMINAL " + individual);
+//        System.out.println("NODE " + rootNode);
+//        System.out.println("NODE v2 " + rootNode.getNode() + "");
         Set<OWLObjectPropertyExpression> roles = loader.getReasoner().getObjectNeighbours(rootNode, false)
                 .entities()
                 .collect(toSet());
