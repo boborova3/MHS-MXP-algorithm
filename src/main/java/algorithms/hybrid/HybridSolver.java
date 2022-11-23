@@ -170,7 +170,6 @@ public class HybridSolver implements ISolver {
         }
 
         abd_literals = new Literals(to_abd);
-        System.out.println(abd_literals);
     }
 
     private void startSolving() throws OWLOntologyStorageException, OWLOntologyCreationException {
