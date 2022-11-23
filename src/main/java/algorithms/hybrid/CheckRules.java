@@ -1,5 +1,6 @@
 package algorithms.hybrid;
 
+import common.Configuration;
 import models.Explanation;
 import openllet.owlapi.OpenlletReasonerFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -64,8 +65,11 @@ public class CheckRules implements ICheckRules {
             for(OWLAxiom obs : loader.getObservation().getAxiomsInMultipleObservations()){
                 OWLAxiom negObs = AxiomManager.getComplementOfOWLAxiom(loader, obs);
                 ontologyManager.addAxiom(ontology, negObs);
-                if(!reasoner.isConsistent()){
+                if(Configuration.STRICT_RELEVANCE && !reasoner.isConsistent()){ //strictly relevant
                     return false;
+                }
+                else if(!Configuration.STRICT_RELEVANCE && reasoner.isConsistent()){ //partially relevant
+                    return true;
                 }
                 ontologyManager.removeAxiom(ontology, negObs);
             }

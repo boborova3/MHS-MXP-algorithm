@@ -116,7 +116,9 @@ public class HybridSolver implements ISolver {
         if(loader.isAxiomBasedAbduciblesOnInput()){
             Set<OWLAxiom> abduciblesWithoutObservation = abducibles.getAxiomBasedAbducibles();
             if (loader.isMultipleObservationOnInput()){
-                abduciblesWithoutObservation.removeAll(loader.getObservation().getAxiomsInMultipleObservations());
+                if (Configuration.STRICT_RELEVANCE) {
+                    abduciblesWithoutObservation.removeAll(loader.getObservation().getAxiomsInMultipleObservations());
+                }
             } else {
                 abduciblesWithoutObservation.remove(loader.getObservation().getOwlAxiom());
             }
@@ -149,8 +151,10 @@ public class HybridSolver implements ISolver {
         }
 
         if (loader.isMultipleObservationOnInput()){
-            assertionsAxioms.removeAll(loader.getObservation().getAxiomsInMultipleObservations());
-            negAssertionsAxioms.removeAll(loader.getObservation().getAxiomsInMultipleObservations());
+            if (Configuration.STRICT_RELEVANCE) {
+                assertionsAxioms.removeAll(loader.getObservation().getAxiomsInMultipleObservations());
+                negAssertionsAxioms.removeAll(loader.getObservation().getAxiomsInMultipleObservations());
+            }
         } else {
             assertionsAxioms.remove(loader.getObservation().getOwlAxiom());
             negAssertionsAxioms.remove(loader.getObservation().getOwlAxiom());
@@ -166,6 +170,7 @@ public class HybridSolver implements ISolver {
         }
 
         abd_literals = new Literals(to_abd);
+        System.out.println(abd_literals);
     }
 
     private void startSolving() throws OWLOntologyStorageException, OWLOntologyCreationException {
@@ -395,8 +400,7 @@ public class HybridSolver implements ISolver {
 
     private boolean isIncorrectPath(ModelNode model, OWLAxiom child){
         if (model.label.contains(AxiomManager.getComplementOfOWLAxiom(loader, child)) ||
-                child.equals(loader.getObservation().getOwlAxiom()) ||
-                (loader.isMultipleObservationOnInput() && loader.getObservation().getAxiomsInMultipleObservations().contains(child))){
+                child.equals(loader.getObservation().getOwlAxiom())){
             return true;
         }
 

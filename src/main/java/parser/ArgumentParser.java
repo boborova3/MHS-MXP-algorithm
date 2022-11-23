@@ -143,6 +143,12 @@ public class ArgumentParser {
                         System.err.println("Wrong roles in explanations allowed value -r" + next + ", allowed values are 'true' and 'false'");
                     }
                     break;
+                case "-sR:":
+                    if (next.equals("true")) {
+                        Configuration.STRICT_RELEVANCE = true;
+                    } else if (!next.equals("false")) {
+                        System.err.println("Wrong strict relevance value -sR" + next + ", allowed values are 'true' and 'false'");
+                }
                 case "-n:":
                     if (next.equals("false")) {
                         Configuration.NEGATION_ALLOWED = false;

@@ -31,6 +31,11 @@ public class Main {
 
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/multiple_obs/tom.in";
 
+        //relevancia
+        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/relevance/input_partially.in";
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/relevance/input_partially2.in";
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/relevance/input_strict.in";
+
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/input_01.in"; //model existuje oprava
 
         //konzistentne vysvetlenia zle odfiltrovane
@@ -49,7 +54,7 @@ public class Main {
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_13.in";
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_14.in"; //pada??
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_14_1.in";
-        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_14_2.in";
+//        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_14_2.in";
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_15.in";
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_15_1.in";
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/input_15_2.in";
@@ -73,6 +78,12 @@ public class Main {
 
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/roles_obs/input_fam.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/roles_obs/jackroleobs.in";
+
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/testing0/mhs-mxp/lubm-0_4_3_noNeg.in";
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/testingFiles/testingFiles0/mhs-mxp/lubm-0_4_0_noNeg.in";
+
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/multiple_obs/tom.in";
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/multiple_obs/family.in";
 
 
 
