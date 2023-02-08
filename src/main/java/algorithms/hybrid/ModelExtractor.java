@@ -117,6 +117,10 @@ public class ModelExtractor {
 
         OWLObjectOneOf individual = ontologyManager.getOWLDataFactory().getOWLObjectOneOf(ind);
 
+//        System.out.println(ind);
+//        System.out.println(individual);
+//        System.out.println();
+
         OWLKnowledgeExplorerReasoner.RootNode rootNode = loader.getReasoner().getRoot(individual);
         Set<OWLClassExpression> foundTypes = loader.getReasoner().getObjectLabel(rootNode,false)
                 .entities()

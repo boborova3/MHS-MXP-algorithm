@@ -3,12 +3,12 @@ package algorithms.hybrid;
 import algorithms.ISolver;
 import com.google.common.collect.Iterables;
 import common.Configuration;
-import common.Printer;
+
 import models.Abducibles;
 import models.Explanation;
 import models.Literals;
-import org.apache.commons.lang3.StringUtils;
 import org.semanticweb.owlapi.model.*;
+
 import reasoner.AxiomManager;
 import reasoner.ILoader;
 import reasoner.IReasonerManager;
@@ -52,16 +52,29 @@ public class HybridSolver implements ISolver {
     private Integer currentDepth;
 
     public HybridSolver(ThreadTimes threadTimes, long currentTimeMillis) {
-        System.out.println("Optimalizacia QXP " + Configuration.CHECKING_MINIMALITY_BY_QXP);
-        System.out.println("Optimalizacia Cached Conflicts - The Longest Conf " + Configuration.CACHED_CONFLICTS_LONGEST_CONFLICT);
-        System.out.println("Optimalizacia Cached Conflicts - Median " + Configuration.CACHED_CONFLICTS_MEDIAN);
-        System.out.println("Roly " + Configuration.ROLES_IN_EXPLANATIONS_ALLOWED);
-        System.out.println("Negation " + Configuration.NEGATION_ALLOWED);
-        System.out.println("MHS MODE " + Configuration.MHS_MODE);
+        System.out.println(String.join("\n", getInfo()));
         System.out.println();
 
         this.threadTimes = threadTimes;
         this.currentTimeMillis = currentTimeMillis;
+    }
+
+    public List<String> getInfo() {
+        String optimizationQXP = "Optimization QXP: " + Configuration.CHECKING_MINIMALITY_BY_QXP;
+        String optimizationLongestConf = "Optimization Cached Conflicts - The Longest Conflict: " + Configuration.CACHED_CONFLICTS_LONGEST_CONFLICT;
+        String optimizationMedian = "Optimization Cached Conflicts - Median: " + Configuration.CACHED_CONFLICTS_MEDIAN;
+        String roles = "Roles: " + Configuration.ROLES_IN_EXPLANATIONS_ALLOWED;
+        String looping = "Looping allowed: " + Configuration.LOOPING_ALLOWED;
+        String negation = "Negation: " +  Configuration.NEGATION_ALLOWED;
+        String mhs_mode = "MHS MODE: " + Configuration.MHS_MODE;
+        String relevance = "Strict relevance: " + Configuration.STRICT_RELEVANCE;
+        String depth = "Depth limit: ";
+        if (Configuration.DEPTH != null) depth += Configuration.DEPTH; else depth += "none";
+        String timeout = "Timeout: ";
+        if (Configuration.TIMEOUT != null) timeout += Configuration.TIMEOUT; else timeout += "none";
+
+        return Arrays.asList(optimizationQXP, optimizationLongestConf, optimizationMedian,
+                roles, looping, negation, mhs_mode, relevance, depth, timeout);
     }
 
     @Override
@@ -87,6 +100,7 @@ public class HybridSolver implements ISolver {
             message = "MESSAGE: no conflicts, consistent with abducibles";
         }
         else {
+//            System.out.println("preslo podmienkami");
             startSolving();
         }
 
@@ -95,7 +109,8 @@ public class HybridSolver implements ISolver {
 //        }
 //        System.out.println(models.size());
 
-        explanationsFilter.showExplanations(message);
+        explanationsFilter.showExplanations();
+        explanationsFilter.showMessages(getInfo(), message);
 
         if (message != null) {
             System.out.println();

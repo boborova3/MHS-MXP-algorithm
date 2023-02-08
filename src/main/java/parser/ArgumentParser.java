@@ -63,6 +63,15 @@ public class ArgumentParser {
                     String observation = String.join(" ", line).replace("-o: ", "");
                     Configuration.OBSERVATION = observation;
                     break;
+                case "-output:":
+                    String path = String.join(" ", line).replace("-output: ", "");
+                    if (path.matches("^[\\w\\\\/]*[\\w]+$")) {
+                        Configuration.OUTPUT_PATH = path;
+                    } else {
+                        System.err.println("Wrong output path -output " + path + "\nOutput path should contain only alphanumeric symbols, _ and separators (\\,/) and cannot end with a separator");
+                        Application.finish(ExitCode.ERROR);
+                    }
+                    break;
 
                     // Note: we work with only JFact reasoner for now
 
@@ -144,9 +153,9 @@ public class ArgumentParser {
                     }
                     break;
                 case "-sR:":
-                    if (next.equals("true")) {
-                        Configuration.STRICT_RELEVANCE = true;
-                    } else if (!next.equals("false")) {
+                    if (next.equals("false")) {
+                        Configuration.STRICT_RELEVANCE = false;
+                    } else if (!next.equals("true")) {
                         System.err.println("Wrong strict relevance value -sR" + next + ", allowed values are 'true' and 'false'");
                 }
                 case "-n:":
@@ -189,7 +198,7 @@ public class ArgumentParser {
     }
 
     private void add_abd(String abd, boolean axiomBasedAbducibles, boolean isConcept, boolean isRole){
-        System.out.println(abd);
+//        System.out.println(abd);
         if (axiomBasedAbducibles)
             Configuration.AXIOM_BASED_ABDUCIBLES.add(abd);
         else if (isConcept)

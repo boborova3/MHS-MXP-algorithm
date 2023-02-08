@@ -9,6 +9,7 @@ public class Configuration {
     public static String OBSERVATION = "";
     public static String INPUT_ONT_FILE = "";
     public static String INPUT_FILE_NAME = "";
+    public static String OUTPUT_PATH = "";
     public static String ABDUCIBLES_FILE_NAME = null;
     public static ReasonerType REASONER = ReasonerType.JFACT;     // we work only with JFact for now
     public static Integer DEPTH;
@@ -22,7 +23,7 @@ public class Configuration {
     public static boolean LOOPING_ALLOWED = true;
     public static boolean MHS_MODE = false;
     public static boolean ROLES_IN_EXPLANATIONS_ALLOWED = true;
-    public static boolean STRICT_RELEVANCE = false;
+    public static boolean STRICT_RELEVANCE = true;
 
     //constants set before run program
     public static boolean REUSE_OF_MODELS = true;
@@ -32,5 +33,4 @@ public class Configuration {
     public static boolean CHECK_RELEVANCE_DURING_BUILDING_TREE_IN_MHS_MXP = false;
 
     //public static boolean RETURN_CACHED_EXPLANATION_IN_QXP = true;
-    public static String version = "_basic"; //TODO: zmenit potom
 }

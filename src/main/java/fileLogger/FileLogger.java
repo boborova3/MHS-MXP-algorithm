@@ -11,6 +11,7 @@ import java.nio.file.StandardOpenOption;
 
 public class FileLogger {
 
+    public static final String HYBRID_INFO_LOG__PREFIX = "info";
     public static final String HYBRID_LOG_FILE__PREFIX = "hybrid";
     public static final String HYBRID_LEVEL_LOG_FILE__PREFIX = "hybrid_level";
     public static final String HYBRID_EXP_TIMES_LOG_FILE__PREFIX = "hybrid_explanation_times";
@@ -23,7 +24,7 @@ public class FileLogger {
         if(Configuration.MHS_MODE){
             FILE_DIRECTORY = "logs_mhs";
         } else {
-            FILE_DIRECTORY = "logs" + Configuration.version;
+            FILE_DIRECTORY = "logs";
         }
         createFileIfNotExists(fileName, currentTimeMillis);
         try {
@@ -45,30 +46,44 @@ public class FileLogger {
     }
 
     private static String getFilePath(String fileName, long currentTimeMillis) {
-        String[] inputFile;
-        try {
-            inputFile = Configuration.INPUT_ONT_FILE.split(File.separator);
-        }
-        catch(Exception e) {
-            inputFile = Configuration.INPUT_ONT_FILE.split("\\\\");
-        }
-        String input = inputFile[inputFile.length - 1];
-        String inputFileName = input;
-        String[] inputFileParts = input.split("\\.");
-        if (inputFileParts.length > 0) {
-            inputFileName = inputFileParts[0];
-        }
-
         String directoryPath;
-        directoryPath = FILE_DIRECTORY.concat(File.separator).concat(Configuration.REASONER.name()).concat(File.separator).concat(inputFileName);
+
+        if (Configuration.OUTPUT_PATH.isEmpty()) {
+            directoryPath = getDefaultOutputPath();
+        }
+        else {
+            directoryPath = FILE_DIRECTORY
+                    .concat(File.separator)
+                    .concat(Configuration.OUTPUT_PATH);
+        }
         File directory = new File(directoryPath);
         if (!directory.exists()) {
             directory.mkdirs();
         }
 
-//        String observation = Configuration.OBSERVATION.replaceAll("\\s+", "_").replaceAll(":", "-");
-//        String observation = observationToFilePath();
         return directoryPath.concat(File.separator).concat("" + currentTimeMillis + "__").concat(Configuration.INPUT_FILE_NAME + "__").concat(fileName).concat(LOG_FILE__POSTFIX);
+    }
+
+    private static String getDefaultOutputPath() {
+        String directoryPath;
+        String[] inputFile;
+
+        inputFile = Configuration.INPUT_ONT_FILE.split("[/\\\\]");
+        if (inputFile.length <= 1) inputFile = Configuration.INPUT_ONT_FILE.split(File.separator);
+
+        String input = inputFile[inputFile.length - 1];
+        String ontologyName = input;
+        String[] inputFileParts = input.split("\\.");
+        if (inputFileParts.length > 0) {
+            ontologyName = inputFileParts[0];
+        }
+
+        directoryPath = FILE_DIRECTORY
+                .concat(File.separator)
+                .concat(ontologyName)
+                .concat(File.separator)
+                .concat(Configuration.INPUT_FILE_NAME);
+        return directoryPath;
     }
 
     private static String observationToFilePath(){
