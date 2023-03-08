@@ -38,6 +38,7 @@ public class ModelExtractor {
             return modelNode;
         }
 
+//        System.out.println("MODEL");
         ArrayList<OWLNamedIndividual> individualArray;
         if(loader.isAxiomBasedAbduciblesOnInput()){
             individualArray = new ArrayList<>(loader.getOntology().getIndividualsInSignature());
@@ -146,11 +147,7 @@ public class ModelExtractor {
         Set<OWLObjectPropertyAssertionAxiom> known = new HashSet<>();
         Set<OWLObjectPropertyAssertionAxiom> knownNot = new HashSet<>();
         dividePropertyAxiomsAccordingOntology(ontologyPropertyAxioms, known, knownNot);
-
-        Set<OWLAxiom> newNot = hybridSolver.assertionsAxioms.stream()
-                .filter(p -> p.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)
-                        && ((OWLObjectPropertyAssertionAxiom)p).getSubject() == ind)
-                .collect(toSet());
+        Set<OWLAxiom> newNot = getAllRolesAssertionWithIndividual(ind);
 
         newNot.removeAll(knownNot);
 
@@ -161,7 +158,6 @@ public class ModelExtractor {
             OWLObjectOneOf i = ontologyManager.getOWLDataFactory().getOWLObjectOneOf(n);
             nodes.add(loader.getReasoner().getRoot(i));
         }
-
         OWLObjectOneOf individual = ontologyManager.getOWLDataFactory().getOWLObjectOneOf(ind);
         OWLKnowledgeExplorerReasoner.RootNode rootNode = loader.getReasoner().getRoot(individual);
 //        System.out.println("IND " + ind);
@@ -176,12 +172,13 @@ public class ModelExtractor {
             if (role.isOWLObjectProperty()) {
                 Collection<OWLKnowledgeExplorerReasoner.RootNode> nodes2 = loader.getReasoner()
                         .getObjectNeighbours(rootNode, role.getNamedProperty());
-
+//                System.out.println("ROLES " + role);
                 for (OWLKnowledgeExplorerReasoner.RootNode r : nodes2) {
                     if (nodes.stream().anyMatch(p -> p.getNode().equals(r.getNode()))) {
                         OWLKnowledgeExplorerReasoner.RootNode n = nodes.stream()
                                 .filter(p -> p.getNode().equals(r.getNode())).findFirst().get();
                         OWLNamedIndividual object = individuals.get(nodes.indexOf(n));
+//                        System.out.println("OBJECT " + object);
                         found.add(dfactory.getOWLObjectPropertyAssertionAxiom(role, ind, object));
                     }
                 }
@@ -190,10 +187,30 @@ public class ModelExtractor {
 
         newNot.removeAll(found);
         found.removeAll(known);
-
+//        System.out.println(known);
+//        System.out.println(found);
         addAxiomsToModelsAccordingTypes(negModelSet, modelSet, found, newNot);
     }
 
+    private Set<OWLAxiom> getAllRolesAssertionWithIndividual(OWLNamedIndividual individual) {
+        Set<OWLAxiom> roleAssertions = hybridSolver.assertionsAxioms.stream()
+                .filter(a -> a.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)
+                        && ((OWLObjectPropertyAssertionAxiom)a).getSubject() == individual)
+                .collect(toSet());
+
+        Set<OWLAxiom> negativeRoleAssertions = hybridSolver.negAssertionsAxioms.stream()
+                .filter(a -> a.isOfType(AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION)
+                        && ((OWLNegativeObjectPropertyAssertionAxiom)a).getSubject() == individual)
+                .collect(toSet());
+
+        for (OWLAxiom axiom : negativeRoleAssertions) {
+            if (axiom.isOfType(AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION)) {
+                roleAssertions.add(AxiomManager.getComplementOfOWLAxiom(loader, axiom));
+            }
+        }
+
+        return roleAssertions;
+    }
 
     public void divideTypesAccordingOntology(Set<OWLClassExpression> ontologyTypes, Set<OWLClassExpression> knownTypes, Set<OWLClassExpression> knownNotTypes){
         for (OWLClassExpression exp : ontologyTypes) {

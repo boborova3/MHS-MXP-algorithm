@@ -53,7 +53,7 @@ public class Loader implements ILoader {
 
     private void loadReasoner(ReasonerType reasonerType) {
         try {
-            ontologyManager = OWLManager.createOWLOntologyManager(); //tu to spadne
+            ontologyManager = OWLManager.createOWLOntologyManager();
             ontology = ontologyManager.loadOntologyFromOntologyDocument(new File(Configuration.INPUT_ONT_FILE));
             originalOntology = OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(new File(Configuration.INPUT_ONT_FILE));
             initialOntology = OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(new File(Configuration.INPUT_ONT_FILE));

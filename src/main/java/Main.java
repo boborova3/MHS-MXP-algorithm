@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-//        String[] x = new String[1];
+        String[] x = new String[1];
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus9_1.in"; //modely problem
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus9_2.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus9.in";
@@ -22,6 +22,7 @@ public class Main {
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6_inconsistent_obs.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6_inconsistent_ont.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6.in";
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6noNeg.in";
 //        x[0] ="C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6_2.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus5.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus4.in";
@@ -102,7 +103,7 @@ public class Main {
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithm/in/complex_obs/familyXcomplex04.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithm/in/complex_obs/familyXcomplex05.in";
 
-//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/roles_obs/input_fam.in";
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/roles_obs/input_fam2.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/roles_obs/jackroleobs.in";
 
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/testing0/mhs-mxp/lubm-0_4_3_noNeg.in";
@@ -121,7 +122,7 @@ public class Main {
         //eval 2
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs-mxp/in_ore_ont_155_1.txt";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs/in_ore_ont_1430_1_mhs.txt";
-//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs/in_ore_ont_1784_1_mhs.txt";
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs-mxp/in_ore_ont_1784_10.txt";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs/in_ore_ont_1931_1_mhs.txt";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs/in_ore_ont_2860_1_mhs.txt";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs/in_ore_ont_3884_1_mhs.txt";
@@ -140,6 +141,10 @@ public class Main {
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs/in_ore_ont_14883_1_mhs.txt";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs/in_ore_ont_15291_1_mhs.txt";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs/in_ore_ont_16814_1_mhs.txt";
+
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2_skuska/in_ore_ont_155_1.txt";
+//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/inputRelationship.in";
+
 
 
 

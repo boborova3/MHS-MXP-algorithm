@@ -12,6 +12,7 @@ import java.nio.file.StandardOpenOption;
 public class FileLogger {
 
     public static final String HYBRID_INFO_LOG__PREFIX = "info";
+    public static final String HYBRID_ERROR_LOG__PREFIX = "error";
     public static final String HYBRID_LOG_FILE__PREFIX = "hybrid";
     public static final String HYBRID_LEVEL_LOG_FILE__PREFIX = "hybrid_level";
     public static final String HYBRID_EXP_TIMES_LOG_FILE__PREFIX = "hybrid_explanation_times";
