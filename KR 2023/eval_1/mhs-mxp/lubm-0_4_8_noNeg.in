@@ -1,0 +1,5 @@
+-f: eval_1/lubm-0.owl
+-o: Prefix: prefix0: <http://swat.cse.lehigh.edu/onto/univ-bench.owl#> Class: prefix0:Organization Class: prefix0:Article Class: prefix0:AdministrativeStaff Class: prefix0:Professor Individual: prefix0:a Types: prefix0:Organization and prefix0:Article and prefix0:AdministrativeStaff and prefix0:Professor
+-t: 14400
+-r: false
+-n: false

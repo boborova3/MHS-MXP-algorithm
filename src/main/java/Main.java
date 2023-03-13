@@ -53,7 +53,7 @@ public class Main {
 
 
         // spravy
-//        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6_inconsistent_obs.in";
+        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6_inconsistent_obs.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6.in";
 //        x[0] ="C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6_2.in";
 
@@ -153,8 +153,8 @@ public class Main {
         BasicConfigurator.configure();
 
         ArgumentParser argumentParser = new ArgumentParser();
-        argumentParser.parse(args);
-//        argumentParser.parse(x); // for testing
+//        argumentParser.parse(args);
+        argumentParser.parse(x); // for testing
 
         ILoader loader = new Loader();
         loader.initialize(Configuration.REASONER);

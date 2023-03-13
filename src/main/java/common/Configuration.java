@@ -22,7 +22,7 @@ public class Configuration {
     public static boolean NEGATION_ALLOWED = true;
     public static boolean LOOPING_ALLOWED = true;
     public static boolean MHS_MODE = false;
-    public static boolean ROLES_IN_EXPLANATIONS_ALLOWED = true;
+    public static boolean ROLES_IN_EXPLANATIONS_ALLOWED = false; // unstable for now
     public static boolean STRICT_RELEVANCE = true;
 
     //constants set before run program
