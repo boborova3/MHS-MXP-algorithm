@@ -73,4 +73,5 @@ Logs of inputs that used MHS have a different location than logs of inputs that 
 * location of MHS-MXP logs: *logs_basic/JFACT/eval_1/lubm-0*
 * location of MHS logs: *logs_mhs/JFACT/eval_1/lubm-0*
 
-TODO a few examples are located there 
+The evaluation produced a large number of log files, so we have not presented them all here. 
+However, we left a couple of log examples at the mentioned locations. Concretely, logs for inputs *eval_1/mhs-mxp/lubm-0_1_0_noNeg.in*, *eval_1/mhs-mxp/lubm-0_1_0.in*, *eval_1/mhs/lubm-0_1_0_noNeg.in* and *eval_1/mhs/lubm-0_1_0.in*.
