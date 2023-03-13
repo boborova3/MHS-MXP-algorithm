@@ -1,0 +1,4 @@
+0;0;1.80;{}
+1;0;43.86;{}
+2;15;3535.79;{{Article(a),GraduateCourse(a)},{Article(a),Research(a)},{Article(a),Course(a)},{Work(a),ConferencePaper(a)},{Work(a),JournalArticle(a)},{Work(a),TechnicalReport(a)},{GraduateCourse(a),ConferencePaper(a)},{GraduateCourse(a),JournalArticle(a)},{GraduateCourse(a),TechnicalReport(a)},{ConferencePaper(a),Research(a)},{ConferencePaper(a),Course(a)},{Research(a),JournalArticle(a)},{Research(a),TechnicalReport(a)},{JournalArticle(a),Course(a)},{Course(a),TechnicalReport(a)}}
+3;0;14400.17-TIMEOUT;{}

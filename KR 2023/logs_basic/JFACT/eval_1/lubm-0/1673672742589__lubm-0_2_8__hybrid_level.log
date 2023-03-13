@@ -1,0 +1,3 @@
+0;4;17.85;{{Course(a),VisitingProfessor(a)},{GraduateCourse(a),Professor(a)},{Lecturer(a),Course(a)},{Lecturer(a),GraduateCourse(a)}}
+1;15;358.00;{{GraduateCourse(a),AssistantProfessor(a)},{GraduateCourse(a),Dean(a)},{GraduateCourse(a),FullProfessor(a)},{GraduateCourse(a),Faculty(a)},{GraduateCourse(a),VisitingProfessor(a)},{GraduateCourse(a),AssociateProfessor(a)},{GraduateCourse(a),PostDoc(a)},{GraduateCourse(a),Chair(a)},{Dean(a),Course(a)},{Course(a),AssistantProfessor(a)},{Course(a),Professor(a)},{Course(a),FullProfessor(a)},{Course(a),AssociateProfessor(a)},{Course(a),PostDoc(a)},{Course(a),Chair(a)}}
+14505.05

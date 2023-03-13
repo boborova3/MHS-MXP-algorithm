@@ -1,0 +1,15 @@
+0.44;{Research(a),ConferencePaper(a)}
+0.57;{TechnicalReport(a),GraduateCourse(a)}
+0.68;{TechnicalReport(a),Research(a)}
+0.97;{Course(a),TechnicalReport(a)}
+2.92;{JournalArticle(a),Course(a)}
+3.95;{Work(a),ConferencePaper(a)}
+3.95;{Work(a),JournalArticle(a)}
+4.75;{Work(a),TechnicalReport(a)}
+6.97;{GraduateCourse(a),Article(a)}
+7.43;{GraduateCourse(a),ConferencePaper(a)}
+8.06;{GraduateCourse(a),JournalArticle(a)}
+10.57;{ConferencePaper(a),Course(a)}
+11.35;{Research(a),Article(a)}
+11.73;{Research(a),JournalArticle(a)}
+12.32;{Course(a),Article(a)}

@@ -1,0 +1,3 @@
+0;4;2.09;{{ClericalStaff(a),UndergraduateStudent(a)},{GraduateStudent(a),ClericalStaff(a)},{GraduateStudent(a),AdministrativeStaff(a)},{GraduateStudent(a),SystemsStaff(a)}}
+1;4;8.14;{{UndergraduateStudent(a),AdministrativeStaff(a)},{UndergraduateStudent(a),SystemsStaff(a)},{SystemsStaff(a),Student(a)},{ClericalStaff(a),Student(a)}}
+10.13

@@ -1,0 +1,4 @@
+0;0;3.22;{}
+1;0;47.26;{}
+2;19;3440.12;{{AssistantProfessor(a),GraduateCourse(a)},{AssistantProfessor(a),Course(a)},{GraduateCourse(a),Professor(a)},{GraduateCourse(a),Dean(a)},{GraduateCourse(a),Lecturer(a)},{GraduateCourse(a),FullProfessor(a)},{GraduateCourse(a),Faculty(a)},{GraduateCourse(a),VisitingProfessor(a)},{GraduateCourse(a),AssociateProfessor(a)},{GraduateCourse(a),PostDoc(a)},{GraduateCourse(a),Chair(a)},{Professor(a),Course(a)},{Dean(a),Course(a)},{Lecturer(a),Course(a)},{Course(a),FullProfessor(a)},{Course(a),VisitingProfessor(a)},{Course(a),AssociateProfessor(a)},{Course(a),PostDoc(a)},{Course(a),Chair(a)}}
+3;0;14400.51-TIMEOUT;{}

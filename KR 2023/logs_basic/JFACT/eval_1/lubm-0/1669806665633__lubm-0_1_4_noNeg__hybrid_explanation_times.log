@@ -1,0 +1,15 @@
+0.77;{AssistantProfessor(a)}
+1.06;{Dean(a)}
+1.06;{AssociateProfessor(a)}
+1.30;{FullProfessor(a)}
+1.59;{ClericalStaff(a)}
+2.19;{PostDoc(a)}
+2.19;{Lecturer(a)}
+2.38;{Director(a)}
+2.62;{Faculty(a)}
+3.51;{Chair(a)}
+4.10;{Professor(a)}
+4.44;{VisitingProfessor(a)}
+5.47;{SystemsStaff(a)}
+5.78;{ResearchAssistant(a)}
+6.12;{AdministrativeStaff(a)}

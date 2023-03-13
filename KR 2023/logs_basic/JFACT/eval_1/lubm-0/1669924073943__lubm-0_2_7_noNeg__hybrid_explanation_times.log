@@ -1,0 +1,8 @@
+0.22;{ClericalStaff(a),UndergraduateStudent(a)}
+0.34;{GraduateStudent(a),ClericalStaff(a)}
+0.52;{GraduateStudent(a),AdministrativeStaff(a)}
+0.74;{GraduateStudent(a),SystemsStaff(a)}
+1.96;{UndergraduateStudent(a),AdministrativeStaff(a)}
+3.35;{UndergraduateStudent(a),SystemsStaff(a)}
+7.38;{SystemsStaff(a),Student(a)}
+9.17;{ClericalStaff(a),Student(a)}

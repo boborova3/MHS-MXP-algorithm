@@ -1,0 +1,4 @@
+0;0;3.22;{}
+1;0;13.82;{}
+2;16;21.06;{{Research(a),ConferencePaper(a)},{TechnicalReport(a),GraduateCourse(a)},{TechnicalReport(a),Research(a)},{Course(a),TechnicalReport(a)},{Article(a),Work(a)},{JournalArticle(a),Course(a)},{Work(a),ConferencePaper(a)},{Work(a),JournalArticle(a)},{Work(a),TechnicalReport(a)},{GraduateCourse(a),Article(a)},{GraduateCourse(a),ConferencePaper(a)},{GraduateCourse(a),JournalArticle(a)},{ConferencePaper(a),Course(a)},{Research(a),Article(a)},{Research(a),JournalArticle(a)},{Course(a),Article(a)}}
+3;4;21.17;{{Article(a),AssistantProfessor(a),GraduateCourse(a)},{ConferencePaper(a),AssistantProfessor(a),GraduateCourse(a)},{JournalArticle(a),AssistantProfessor(a),GraduateCourse(a)},{Course(a),Director(a),ConferencePaper(a)}}

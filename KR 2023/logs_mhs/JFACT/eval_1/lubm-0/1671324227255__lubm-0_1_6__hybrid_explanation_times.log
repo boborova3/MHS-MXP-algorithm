@@ -1,0 +1,9 @@
+0.38;{Article(a)}
+0.62;{Specification(a)}
+0.70;{ConferencePaper(a)}
+0.80;{JournalArticle(a)}
+0.80;{Software(a)}
+0.91;{Manual(a)}
+1.25;{TechnicalReport(a)}
+1.25;{Book(a)}
+2.16;{UnofficialPublication(a)}
