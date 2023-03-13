@@ -34,19 +34,38 @@ This version of the solver has the following switches (for clarity, we list only
 * *-mhs: - \<boolean\>*   using the plain MHS algorithm (default is *false*)
 
 ## Output
-As an output for a given input, the solver produces several log files.
+As an output for a given input, the solver produces several log files. Time in the logs is given in seconds.
 
 MHS-MXP log types:
-* *\<time\>__\<input file name\>__hybrid.log*
-  * **Hybrid log** ...
-* *\<time\>__\<input file name\>__hybrid_explanation_times.log*
-  * **Explanation times log** ...
-* *\<time\>__\<input file name\>__hybrid_level.log*
-  * **Level log** ...
-* *\<time\>__\<input file name\>__hybrid_partial_explanations.log*
-  * **Partial explanations log** ...
-* *\<time\>__\<input file name\>__hybrid_partial_level_explanations.log*
-  * **Partial level explanations log** ...
+#### Hybrid log
+*\<time\>__\<input file name\>__hybrid.log*
+
+* final log which contains desirable explanations of a certain length in each line (except the last)
+  * line form: *\<length n\>;\<number of explanations\>;\<level completion time\>; {\<found explanations of the length n\>}*
+* the last line contains the total running time ??? TODO
+
+#### Explanation times log
+*\<time\>__\<input file name\>__hybrid_explanation_times.log*
+
+* final log which contains desirable explanations and time when they were found
+  * line form: *\<time t\>;\<explanation found in the time t\>*
+
+#### Level log
+*\<time\>__\<input file name\>__hybrid_level.log*
+
+* final log which contains desirable explanations founded in a certain level (except the last)
+  * line form: *\<level l\>;\<number of explanations\>;\<level l completion time\>; {\<explanations found in the level l\>}*
+* the last line contains the total running time ??? TODO
+
+#### Partial explanations log
+*\<time\>__\<input file name\>__hybrid_partial_explanations.log*
+
+TODO
+
+#### Partial level explanations log
+*\<time\>__\<input file name\>__hybrid_partial_level_explanations.log*
+
+TODO
 
 MHS log types are a subset of MHS-MXP types: **hybrid log**, **explanation times log** and **partial explanations log**.
 
