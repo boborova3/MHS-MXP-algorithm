@@ -1,4 +1,0 @@
-0;0;1.40;{}
-1;0;40.28;{}
-2;8;2376.68;{{UndergraduateStudent(a),AdministrativeStaff(a)},{UndergraduateStudent(a),SystemsStaff(a)},{UndergraduateStudent(a),ClericalStaff(a)},{AdministrativeStaff(a),GraduateStudent(a)},{GraduateStudent(a),SystemsStaff(a)},{GraduateStudent(a),ClericalStaff(a)},{SystemsStaff(a),Student(a)},{Student(a),ClericalStaff(a)}}
-3;0;14400.02-TIMEOUT;{}

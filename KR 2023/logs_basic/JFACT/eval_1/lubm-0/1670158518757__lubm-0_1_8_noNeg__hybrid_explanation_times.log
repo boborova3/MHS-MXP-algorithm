@@ -1,9 +1,0 @@
-0.22;{AssistantProfessor(a)}
-0.39;{PostDoc(a)}
-0.62;{Professor(a)}
-0.62;{AssociateProfessor(a)}
-1.00;{Chair(a)}
-1.11;{FullProfessor(a)}
-1.64;{Lecturer(a)}
-1.64;{Dean(a)}
-1.89;{VisitingProfessor(a)}

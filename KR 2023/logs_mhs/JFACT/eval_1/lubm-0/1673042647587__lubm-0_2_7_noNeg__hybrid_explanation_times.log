@@ -1,8 +1,0 @@
-9.53;{UndergraduateStudent(a),AdministrativeStaff(a)}
-11.49;{UndergraduateStudent(a),SystemsStaff(a)}
-12.38;{UndergraduateStudent(a),ClericalStaff(a)}
-15.00;{AdministrativeStaff(a),GraduateStudent(a)}
-16.80;{GraduateStudent(a),SystemsStaff(a)}
-17.20;{GraduateStudent(a),ClericalStaff(a)}
-39.59;{SystemsStaff(a),Student(a)}
-41.35;{Student(a),ClericalStaff(a)}
