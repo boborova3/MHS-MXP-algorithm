@@ -37,37 +37,40 @@ This version of the solver has the following switches (for clarity, we list only
 As an output for a given input, the solver produces several log files. Time in the logs is given in seconds.
 
 MHS-MXP log types:
-#### Hybrid log
+
+**Hybrid log**
 *\<time\>__\<input file name\>__hybrid.log*
 
-* final log which contains desirable explanations of a certain length in each line (except the last)
+* final log which contains desired explanations of a certain length in each line (except the last)
   * line form: *\<length n\>;\<number of explanations\>;\<level completion time\>; {\<found explanations of the length n\>}*
-* the last line contains the total running time ??? TODO
+* the last line contains the total running time
 
-#### Explanation times log
+**Explanation times log**
 *\<time\>__\<input file name\>__hybrid_explanation_times.log*
 
-* final log which contains desirable explanations and time when they were found
+* final log which contains desired explanations and time when they were found
   * line form: *\<time t\>;\<explanation found in the time t\>*
 
-#### Level log
+**Level log**
 *\<time\>__\<input file name\>__hybrid_level.log*
 
-* final log which contains desirable explanations founded in a certain level (except the last)
+* final log which contains desired explanations founded in a certain level in each line (except the last)
   * line form: *\<level l\>;\<number of explanations\>;\<level l completion time\>; {\<explanations found in the level l\>}*
-* the last line contains the total running time ??? TODO
+* the last line contains the total running time
 
-#### Partial explanations log
+**Partial explanations log**
 *\<time\>__\<input file name\>__hybrid_partial_explanations.log*
 
-TODO
+* partial log with the same structure as **hybrid log**
+* may contain also undesired explonations 
 
-#### Partial level explanations log
+**Partial level explanations log**
 *\<time\>__\<input file name\>__hybrid_partial_level_explanations.log*
 
-TODO
+* partial log with the same structure as **level log**
+* may contain also undesired explonations 
 
-MHS log types are a subset of MHS-MXP types: **hybrid log**, **explanation times log** and **partial explanations log**.
+MHS log types are a subset of MHS-MXP types: **hybrid log**, **explanation times log** and **partial explanations log**. Other types would be redundant because the division of explanations according to the length and the levels is identical for MHS.
 
 Logs of inputs that used MHS have a different location than logs of inputs that used the MHS-MXP algorithm.
 * location of MHS-MXP logs: *logs_basic/JFACT/eval_1/lubm-0*
