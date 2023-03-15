@@ -1,5 +1,4 @@
 # MHS-MXP: ABox Abduction Solver
-(Experimental solver for solving ABox abduction problem)
 
 MHS-MXP (combination of MHS and MergeXplain) is a complete algorithm for solving abduction problem.
 
