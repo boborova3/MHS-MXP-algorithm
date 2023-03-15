@@ -1,7 +1,9 @@
-# MHS-MXP-algorithm
-Master thesis
+# MHS-MXP: ABox Abduction Solver
+(Experimental solver for solving ABox abduction problem)
 
-MHS-MXP is complete algorithm for solving abduction problem.
+MHS-MXP (combination of MHS and MergeXplain) is a complete algorithm for solving abduction problem.
+
+READ ME is not actual, in progress.... 
 
 If we launch the algorithm, we have to create the input file with defined structure. It contains one switch in each line. Valid input file requires two switches -f and -o, other switches are optional. The following switches are allowed:
 * -f: - string, path to the file with ontology (complete ontology in any ontology syntax) which is used as the knowledge base
