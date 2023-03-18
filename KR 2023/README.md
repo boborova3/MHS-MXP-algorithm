@@ -1,6 +1,6 @@
 # MHS-MXP: ABox Abduction Solver 
 
-MHS-MXP (combination of MHS and MergeXplain) is a complete algorithm for solving abduction problem.
+MHS-MXP (combination of Minimal Hitting Set and MergeXplain) is a complete algorithm for solving abduction problem.
 
 ## Folder contents
 * executable file of our solver *mhs-mxp.jar*
