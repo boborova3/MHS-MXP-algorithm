@@ -26,12 +26,12 @@ You can run MHS-MXP through the command line (allocation of more memory for Java
 MHS-MXP receives a structured input file as a parameter. The input file contains one switch per line. Mandatory switches are **-f** and **-o**, other switches are optional.
 
 This version of the solver has the following switches (for clarity, we list only the switches relevant to the performed evaluation):
-* **-f: - \<string\>**   a relative path to the ontology file (complete ontology in any ontology syntax) which is used as the knowledge base
-* **-o: - \<ontology\>** observation in a ontology format (complete ontology in any ontology syntax; has to be in one line)
-* *-t: - \<positive integer\>*   the limit of algorithm runtime in the seconds (timeout after which the algorithm terminates; not set by default)
-* *-d: - \<positive integer\>*   maximal depth of the HS-Tree (not set by default) 
-* *-n: - \<boolean\>*   allowing negated assertions in explanations (default is *true*)
-* *-mhs: - \<boolean\>*   using the plain MHS algorithm (default is *false*)
+* **-f: \<string\>**   a relative path to the ontology file (complete ontology in any ontology syntax) which is used as the knowledge base
+* **-o: \<ontology\>** observation in a ontology format (complete ontology in any ontology syntax; has to be in one line)
+* *-t: \<positive integer\>*   the limit of algorithm runtime in the seconds (timeout after which the algorithm terminates; not set by default)
+* *-d: \<positive integer\>*   maximal depth of the HS-Tree (not set by default) 
+* *-n: \<boolean\>*   allowing negated assertions in explanations (default is *true*)
+* *-mhs: \<boolean\>*   using the plain MHS algorithm (default is *false*)
 
 ## Output
 As an output for a given input, the solver produces several log files. Time in the logs is given in seconds.
