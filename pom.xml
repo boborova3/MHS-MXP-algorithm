@@ -75,6 +75,11 @@
             <artifactId>org.semanticweb.hermit</artifactId>
             <version>[1.4.3.517,)</version>
         </dependency>
+       <dependency>
+            <groupId>com.github.Comenius-Abduction-Team</groupId>
+            <artifactId>DL-Abduction-API</artifactId>
+            <version>c55a2d5907</version>
+        </dependency>
     </dependencies>
 
     <build>

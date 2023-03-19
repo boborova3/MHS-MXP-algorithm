@@ -1,19 +1,36 @@
+import abductionapi.manager.AbductionManager;
+import abductionapi.manager.ExplanationWrapper;
 import algorithms.ISolver;
+import algorithms.hybrid.ConsoleExplanationManager;
 import algorithms.hybrid.HybridSolver;
+import apiImplementation.HybridAbductionFactory;
+import fileLogger.FileLogger;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import parser.ArgumentParser;
 import common.Configuration;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import progress.ConsoleProgressManager;
 import reasoner.*;
 import timer.ThreadTimes;
 
+import java.io.File;
+import java.util.Set;
 
 public class Main {
 
+    /** whether the solver is being run from an IDE*/
+    private static final boolean TESTING = false;
+    /** whether the solver is being run from an IDE through the API*/
+    private static final boolean API = true;
+
     public static void main(String[] args) throws Exception {
 
-//        String[] x = new String[1];
+        FileLogger.initializeLogger();
+
+        if (TESTING){
+            args = new String[1];
+            args[0] = "./in/testExtractingModels/pokus9_2.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus9_1.in"; //modely problem
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus9_2.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus9.in";
@@ -26,7 +43,7 @@ public class Main {
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus5.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus4.in";
 //
-        //SKUSANIE OUTPUT PATH
+            //SKUSANIE OUTPUT PATH
 //        x[0] ="C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/logs/pokus1.in";
 //        x[0] ="C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/logs/pokus2.in";
 //        x[0] ="C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/logs/pokus3.in";
@@ -40,23 +57,23 @@ public class Main {
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/multiple_obs/tom.in";
 
 
-        // relevancia
+            // relevancia
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/examples/input_partially.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/examples/input_strict.in";
 
-        // roly
+            // roly
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testingRoles/jack2.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/input_fam.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/input_fam_noloop.in";
 
 
 
-        // spravy
+            // spravy
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6_inconsistent_obs.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6.in";
 //        x[0] ="C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6_2.in";
 
-        // priklad, co bol zle s tymi modelmi
+            // priklad, co bol zle s tymi modelmi
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus9_1.in"; //modely problem
 
 
@@ -64,11 +81,11 @@ public class Main {
 
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/input_01.in"; //model existuje oprava
 
-        //konzistentne vysvetlenia zle odfiltrovane
+            //konzistentne vysvetlenia zle odfiltrovane
 //        x[0] ="C:/Users/2018/Desktop/new/MHS-MXP-algorithmNEW/in/testExtractingModels/pokus6.in";
 //        x[0] ="C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/testExtractingModels/pokus6_2.in";
 
-        //roly + problem indexovy
+            //roly + problem indexovy
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/testExtractingModels/input_19.in";
 //        x[0] = "C:/Users/2018/Desktop/new/MHS-MXP-algorithm/in/input_fam.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/multiple_obs/familyr2.in";
@@ -111,14 +128,14 @@ public class Main {
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/multiple_obs/tom.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/in/multiple_obs/family.in";
 
-        //eval
+            //eval
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_1/mhs/lubm-0_2_2_noNeg.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_1/mhs-mxp/lubm-0_2_2_noNeg.in";
 
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_1/mhs/lubm-0_3_2_noNeg.in";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_1/mhs-mxp/lubm-0_3_2_noNeg.in";
 
-        //eval 2
+            //eval 2
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs-mxp/in_ore_ont_155_1.txt";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs/in_ore_ont_1430_1_mhs.txt";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs/in_ore_ont_1784_1_mhs.txt";
@@ -140,25 +157,47 @@ public class Main {
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs/in_ore_ont_14883_1_mhs.txt";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs/in_ore_ont_15291_1_mhs.txt";
 //        x[0] = "C:/Users/2018/Desktop/MHS-MXP-algorithmNEW/eval_2/mhs/in_ore_ont_16814_1_mhs.txt";
+        }
 
+        else if (API){
 
+            HybridAbductionFactory factory = HybridAbductionFactory.getFactory();
 
+            OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
+            File file = new File("files/testExtractingModel9_2.owl");
+            OWLOntology ont = ontologyManager.loadOntologyFromOntologyDocument(file);
 
-        Logger.getRootLogger().setLevel(Level.OFF);
-        BasicConfigurator.configure();
+            OWLDataFactory dataFactory = ontologyManager.getOWLDataFactory();
+            String prefix = "http://www.co-ode.org/ontologies/ont.owl#";
+            PrefixManager pm = new DefaultPrefixManager(prefix);
+            OWLClass A = dataFactory.getOWLClass(":A", pm);
+            OWLClass C = dataFactory.getOWLClass(":C", pm);
+            OWLClass E = dataFactory.getOWLClass(":E", pm);
+            OWLNamedIndividual a = dataFactory.getOWLNamedIndividual(":a", pm);
+            OWLClassAssertionAxiom classAssertion = dataFactory.getOWLClassAssertionAxiom(
+                    dataFactory.getOWLObjectIntersectionOf(A,C,E), a);
+
+            AbductionManager abductionManager = factory.getAbductionManagerWithInput(ont, classAssertion);
+            abductionManager.setAbducibles(factory.getSymbolAbducibleContainer());
+            Set<ExplanationWrapper> explanations = abductionManager.getExplanations();
+            explanations.forEach(e -> System.out.println(e.getExplanationSet()));
+
+            return;
+
+        }
 
         ArgumentParser argumentParser = new ArgumentParser();
         argumentParser.parse(args);
-//        argumentParser.parse(x); // for testing
-
-        ILoader loader = new Loader();
-        loader.initialize(Configuration.REASONER);
 
         ThreadTimes threadTimes = new ThreadTimes(100);
         threadTimes.start();
 
+        ILoader loader = new ConsoleLoader();
+        loader.initialize(Configuration.REASONER);
+
         IReasonerManager reasonerManager = new ReasonerManager(loader);
-        ISolver solver = createSolver(threadTimes);
+
+        ISolver solver = createSolver(threadTimes, loader, reasonerManager);
 
         if (solver != null) {
             solver.solve(loader, reasonerManager);
@@ -167,8 +206,13 @@ public class Main {
         threadTimes.interrupt();
     }
 
-    private static ISolver createSolver(ThreadTimes threadTimes) {
+    private static ISolver createSolver(ThreadTimes threadTimes, ILoader loader, IReasonerManager reasonerManager) {
+
+        ConsoleExplanationManager explanationManager = new ConsoleExplanationManager(loader, reasonerManager);
+        ConsoleProgressManager progressManager = new ConsoleProgressManager();
+
         long currentTimeMillis = System.currentTimeMillis();
-        return new HybridSolver(threadTimes, currentTimeMillis);
+
+        return new HybridSolver(threadTimes, currentTimeMillis, explanationManager, progressManager);
     }
 }

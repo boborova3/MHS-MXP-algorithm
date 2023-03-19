@@ -2,58 +2,29 @@ package parser;
 
 import application.Application;
 import application.ExitCode;
-import common.Configuration;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 import reasoner.Loader;
+
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ObservationParser implements IObservationParser {
+public abstract class ObservationParser implements IObservationParser {
 
-    private Logger logger = Logger.getLogger(ObservationParser.class.getSimpleName());
-    private Loader loader;
-    private OWLOntology observationOntology;
+    protected Logger logger = Logger.getLogger(ObservationParser.class.getSimpleName());
+    protected Loader loader;
 
     public ObservationParser(Loader loader){
         this.loader = loader;
     }
 
-    @Override
-    public void parse() throws Exception {
-        try{
-            createOntologyFromObservation();
-        } catch (OWLOntologyCreationException e){
-            throw new OWLOntologyCreationException("Invalid format of observation");
-        } catch (OWLOntologyStorageException e){
-            throw e;
-        }
-        logger.log(Level.INFO, "Observation: ".concat(Configuration.OBSERVATION));
-    }
+    protected abstract void createOntologyFromObservation() throws OWLOntologyCreationException, OWLOntologyStorageException;
 
-    private void createOntologyFromObservation() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        observationOntology = manager.loadOntologyFromOntologyDocument(new StringDocumentSource(Configuration.OBSERVATION));
-
-        StringDocumentTarget documentTarget = new StringDocumentTarget();
-        observationOntology.saveOntology(documentTarget);
-
-        //variable "format" - used in PrefixesParser
-        OWLDocumentFormat format = manager.getOntologyFormat(observationOntology);
-        loader.setObservationOntologyFormat(format);
-
-        processAxiomsFromObservation();
-    }
-
-    private void processAxiomsFromObservation(){
+    protected void processAxiomsFromObservation(OWLOntology observationOntology){
         Set<OWLAxiom> set = observationOntology.getAxioms();
         List<OWLAxiom> resultingObservation = new ArrayList<>();
 
         for (OWLAxiom axiom : set){
-            AxiomType type = axiom.getAxiomType();
+            AxiomType<?> type = axiom.getAxiomType();
             if(AxiomType.CLASS_ASSERTION == type || AxiomType.OBJECT_PROPERTY_ASSERTION == type || AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION == type) {
                 resultingObservation.add(axiom);
             }

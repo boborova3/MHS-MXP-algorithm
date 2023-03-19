@@ -6,27 +6,108 @@ import common.Printer;
 import fileLogger.FileLogger;
 import models.Explanation;
 import org.apache.commons.lang3.StringUtils;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import reasoner.ILoader;
 import reasoner.IReasonerManager;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ExplanationsFilter {
+public abstract class ExplanationManager {
 
-    private List<Explanation> minimalExplanations;
-    private HybridSolver hybridSolver;
-    private ILoader loader;
-    private IReasonerManager reasonerManager;
-    private ICheckRules checkRules;
+    protected List<Explanation> possibleExplanations = new ArrayList<>();
+    protected List<OWLAxiom> lengthOneExplanations = new ArrayList<>();
+    protected List<Explanation> finalExplanations;
+    protected HybridSolver solver;
+    private final ILoader loader;
+    private final IReasonerManager reasonerManager;
+    private final ICheckRules checkRules;
 
-    public ExplanationsFilter(ILoader loader, IReasonerManager reasonerManager, HybridSolver hybridSolver){
-        this.hybridSolver = hybridSolver;
+    public ExplanationManager(ILoader loader, IReasonerManager reasonerManager){
         this.loader = loader;
         this.reasonerManager = reasonerManager;
         this.checkRules = new CheckRules(loader, reasonerManager);
+        this.possibleExplanations = new ArrayList<>();
+    }
+
+    public void setSolver(HybridSolver solver) {
+        this.solver = solver;
+    }
+
+    public abstract void addPossibleExplanation(Explanation explanation);
+
+    public void setPossibleExplanations(Collection<Explanation> possibleExplanations) {
+        this.possibleExplanations = new ArrayList<>();
+        possibleExplanations.forEach(this::addPossibleExplanation);
+    }
+
+    public List<Explanation> getPossibleExplanations() {
+        return possibleExplanations;
+    }
+
+    public int getPossibleExplanationsCount(){
+        return possibleExplanations.size();
+    }
+
+    public void addLengthOneExplanation(OWLAxiom explanation){
+        lengthOneExplanations.add(explanation);
+    }
+
+    public void setLengthOneExplanations(Collection<OWLAxiom> lengthOneExplanations) {
+        this.lengthOneExplanations = new ArrayList<>(lengthOneExplanations);
+    }
+
+    public List<OWLAxiom> getLengthOneExplanations() {
+        return lengthOneExplanations;
+    }
+
+    public int getLengthOneExplanationsCount(){
+        return lengthOneExplanations.size();
+    }
+
+    public abstract void processExplanations(String message) throws OWLOntologyCreationException, OWLOntologyStorageException;
+
+    public void showExplanations(boolean print) throws OWLOntologyStorageException, OWLOntologyCreationException {
+        List<Explanation> filteredExplanations;
+        if(Configuration.MHS_MODE){
+            filteredExplanations = possibleExplanations;
+        } else {
+            filteredExplanations = getConsistentExplanations();
+        }
+
+        solver.path.clear();
+        finalExplanations = new LinkedList<>();
+
+        StringBuilder result = showExplanationsAccordingToLength(filteredExplanations, print);
+        FileLogger.appendToFile(FileLogger.HYBRID_LOG_FILE__PREFIX, solver.currentTimeMillis, result.toString());
+
+        log_explanations_times(finalExplanations);
+
+        if(!Configuration.MHS_MODE){
+            StringBuilder resultLevel = showExplanationsAccordingToLevel(new ArrayList<>(finalExplanations));
+            FileLogger.appendToFile(FileLogger.HYBRID_LEVEL_LOG_FILE__PREFIX, solver.currentTimeMillis, resultLevel.toString());
+        }
+    }
+
+    private List<Explanation> getConsistentExplanations() throws OWLOntologyStorageException {
+        reasonerManager.resetOntology(loader.getInitialOntology().axioms());
+
+        List<Explanation> filteredExplanations = new ArrayList<>();
+        for (Explanation explanation : possibleExplanations) {
+            if (isExplanation(explanation)) {
+                if (reasonerManager.isOntologyWithLiteralsConsistent(explanation.getOwlAxioms(), loader.getInitialOntology())) {
+                    filteredExplanations.add(explanation);
+                }
+            }
+        }
+
+        reasonerManager.resetOntology(loader.getOriginalOntology().axioms());
+        return filteredExplanations;
     }
 
     public void showMessages(List<String> info, String message) {
@@ -37,32 +118,11 @@ public class ExplanationsFilter {
             result.append("\n\n").append(message);
         }
 
-        FileLogger.appendToFile(FileLogger.HYBRID_INFO_LOG__PREFIX, hybridSolver.currentTimeMillis, result.toString());
+        FileLogger.appendToFile(FileLogger.HYBRID_INFO_LOG__PREFIX, solver.currentTimeMillis, result.toString());
     }
 
-    public void showExplanations() throws OWLOntologyStorageException, OWLOntologyCreationException {
-        List<Explanation> filteredExplanations = new ArrayList<>();
-        if(Configuration.MHS_MODE){
-            filteredExplanations.addAll(hybridSolver.possibleExplanations);
-        } else {
-            filteredExplanations = getConsistentExplanations();
-        }
 
-        hybridSolver.path.clear();
-        minimalExplanations = new LinkedList<>();
-
-        StringBuilder result = showExplanationsAccordingToLength(filteredExplanations);
-        FileLogger.appendToFile(FileLogger.HYBRID_LOG_FILE__PREFIX, hybridSolver.currentTimeMillis, result.toString());
-
-        log_explanations_times(minimalExplanations);
-
-        if(!Configuration.MHS_MODE){
-            StringBuilder resultLevel = showExplanationsAccordingToLevel(new ArrayList<>(minimalExplanations));
-            FileLogger.appendToFile(FileLogger.HYBRID_LEVEL_LOG_FILE__PREFIX, hybridSolver.currentTimeMillis, resultLevel.toString());
-        }
-    }
-
-    private StringBuilder showExplanationsAccordingToLength(List<Explanation> filteredExplanations) throws OWLOntologyCreationException {
+    private StringBuilder showExplanationsAccordingToLength(List<Explanation> filteredExplanations, boolean print) throws OWLOntologyCreationException {
         StringBuilder result = new StringBuilder();
         int depth = 1;
         while (filteredExplanations.size() > 0) {
@@ -77,19 +137,21 @@ public class ExplanationsFilter {
                 depth++;
                 continue;
             }
-            if (!hybridSolver.level_times.containsKey(depth)){
-                hybridSolver.level_times.put(depth, find_level_time(currentExplanations));
+            if (!solver.level_times.containsKey(depth)){
+                solver.level_times.put(depth, find_level_time(currentExplanations));
             }
-            minimalExplanations.addAll(currentExplanations);
+            finalExplanations.addAll(currentExplanations);
             String currentExplanationsFormat = StringUtils.join(currentExplanations, ",");
-            String line = String.format("%d;%d;%.2f;{%s}\n", depth, currentExplanations.size(), hybridSolver.level_times.get(depth), currentExplanationsFormat);
-            System.out.print(line);
+            String line = String.format("%d;%d;%.2f;{%s}\n", depth, currentExplanations.size(), solver.level_times.get(depth), currentExplanationsFormat);
+            if (print)
+                System.out.print(line);
             result.append(line);
             depth++;
         }
 
-        String line = String.format("%.2f\n", hybridSolver.threadTimes.getTotalUserTimeInSec());
-        System.out.print(line);
+        String line = String.format("%.2f\n", solver.threadTimes.getTotalUserTimeInSec());
+        if (print)
+            System.out.print(line);
         result.append(line);
 
         return result;
@@ -100,15 +162,15 @@ public class ExplanationsFilter {
         int level = 0;
         while (filteredExplanations.size() > 0) {
             List<Explanation> currentExplanations = removeExplanationsWithLevel(filteredExplanations, level);
-            if (!hybridSolver.level_times.containsKey(level)){
-                hybridSolver.level_times.put(level, find_level_time(currentExplanations));
+            if (!solver.level_times.containsKey(level)){
+                solver.level_times.put(level, find_level_time(currentExplanations));
             }
             String currentExplanationsFormat = StringUtils.join(currentExplanations, ",");
-            String line = String.format("%d;%d;%.2f;{%s}\n", level, currentExplanations.size(), hybridSolver.level_times.get(level), currentExplanationsFormat);
+            String line = String.format("%d;%d;%.2f;{%s}\n", level, currentExplanations.size(), solver.level_times.get(level), currentExplanationsFormat);
             result.append(line);
             level++;
         }
-        String line = String.format("%.2f\n", hybridSolver.threadTimes.getTotalUserTimeInSec());
+        String line = String.format("%.2f\n", solver.threadTimes.getTotalUserTimeInSec());
         result.append(line);
         return result;
     }
@@ -116,7 +178,7 @@ public class ExplanationsFilter {
     private void filterIfNotMinimal(List<Explanation> explanations){
         List<Explanation> notMinimalExplanations = new LinkedList<>();
         for (Explanation e: explanations){
-            for (Explanation m: minimalExplanations){
+            for (Explanation m: finalExplanations){
                 if (e.getOwlAxioms().containsAll(m.getOwlAxioms())){
                     notMinimalExplanations.add(e);
                 }
@@ -163,28 +225,14 @@ public class ExplanationsFilter {
             String line = String.format("%.2f;%s\n", exp.getAcquireTime(), exp);
             result.append(line);
         }
-        FileLogger.appendToFile(FileLogger.HYBRID_EXP_TIMES_LOG_FILE__PREFIX, hybridSolver.currentTimeMillis, result.toString());
+        FileLogger.appendToFile(FileLogger.HYBRID_EXP_TIMES_LOG_FILE__PREFIX, solver.currentTimeMillis, result.toString());
     }
 
-    private List<Explanation> getConsistentExplanations() throws OWLOntologyStorageException {
-        reasonerManager.resetOntology(loader.getInitialOntology().axioms());
 
-        List<Explanation> filteredExplanations = new ArrayList<>();
-        for (Explanation explanation : hybridSolver.possibleExplanations) {
-            if (isExplanation(explanation)) {
-                if (reasonerManager.isOntologyWithLiteralsConsistent(explanation.getOwlAxioms(), loader.getInitialOntology())) {
-                    filteredExplanations.add(explanation);
-                }
-            }
-        }
-
-        reasonerManager.resetOntology(loader.getOriginalOntology().axioms());
-        return filteredExplanations;
-    }
 
     private boolean isExplanation(Explanation explanation) {
 
-        /**ROLY - bude to containsNegation fungovat??**/
+        //ROLY - bude to containsNegation fungovat???
 
         if (explanation.getOwlAxioms().size() == 1) {
             return true;
@@ -224,20 +272,18 @@ public class ExplanationsFilter {
         return name.contains(DLSyntax.DISPLAY_NEGATION);
     }
 
-    public void showExplanationsWithDepth(Integer depth, boolean timeout, Double time) {
-        List<Explanation> currentExplanations = hybridSolver.possibleExplanations.stream().filter(explanation -> explanation.getDepth().equals(depth)).collect(Collectors.toList());
+    protected void showExplanationsWithDepth(Integer depth, boolean timeout, Double time) {
+        List<Explanation> currentExplanations = possibleExplanations.stream().filter(explanation -> explanation.getDepth().equals(depth)).collect(Collectors.toList());
         String currentExplanationsFormat = StringUtils.join(currentExplanations, ",");
         String line = String.format("%d;%d;%.2f%s;{%s}\n", depth, currentExplanations.size(), time, timeout ? "-TIMEOUT" : "", currentExplanationsFormat);
-        System.out.print(line);
-        FileLogger.appendToFile(FileLogger.HYBRID_PARTIAL_EXPLANATIONS_LOG_FILE__PREFIX, hybridSolver.currentTimeMillis, line);
+        FileLogger.appendToFile(FileLogger.HYBRID_PARTIAL_EXPLANATIONS_LOG_FILE__PREFIX, solver.currentTimeMillis, line);
     }
 
-    public void showExplanationsWithLevel(Integer level, boolean timeout, Double time){
-        List<Explanation> currentExplanations = hybridSolver.possibleExplanations.stream().filter(explanation -> explanation.getLevel().equals(level)).collect(Collectors.toList());
+    protected void showExplanationsWithLevel(Integer level, boolean timeout, Double time){
+        List<Explanation> currentExplanations = possibleExplanations.stream().filter(explanation -> explanation.getLevel().equals(level)).collect(Collectors.toList());
         String currentExplanationsFormat = StringUtils.join(currentExplanations, ",");
         String line = String.format("%d;%d;%.2f%s;{%s}\n", level, currentExplanations.size(), time, timeout ? "-TIMEOUT" : "", currentExplanationsFormat);
-        //System.out.print(line);
-        FileLogger.appendToFile(FileLogger.HYBRID_PARTIAL_EXPLANATIONS_ACCORDING_TO_LEVELS_LOG_FILE__PREFIX, hybridSolver.currentTimeMillis, line);
+        FileLogger.appendToFile(FileLogger.HYBRID_PARTIAL_EXPLANATIONS_ACCORDING_TO_LEVELS_LOG_FILE__PREFIX, solver.currentTimeMillis, line);
     }
 
 }

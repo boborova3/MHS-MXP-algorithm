@@ -2,6 +2,9 @@ package fileLogger;
 
 import common.Configuration;
 import common.DLSyntax;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +23,11 @@ public class FileLogger {
     public static final String LOG_FILE__POSTFIX = ".log";
     private static String FILE_DIRECTORY = "";
 
+    public static void initializeLogger(){
+        Logger.getRootLogger().setLevel(Level.OFF);
+        BasicConfigurator.configure();
+    }
+
     public static void appendToFile(String fileName, long currentTimeMillis, String log) {
         if(Configuration.MHS_MODE){
             FILE_DIRECTORY = "logs_mhs";
@@ -29,7 +37,7 @@ public class FileLogger {
         createFileIfNotExists(fileName, currentTimeMillis);
         try {
             String file_path = getFilePath(fileName, currentTimeMillis);
-            System.out.println(Paths.get(file_path));
+            //System.out.println(Paths.get(file_path));
             Files.write(Paths.get(file_path), log.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException exception) {
             exception.printStackTrace();
@@ -69,7 +77,7 @@ public class FileLogger {
         String[] inputFile;
 
         inputFile = Configuration.INPUT_ONT_FILE.split("[/\\\\]");
-        if (inputFile.length <= 1) inputFile = Configuration.INPUT_ONT_FILE.split(File.separator);
+        //if (inputFile.length <= 1) inputFile = Configuration.INPUT_ONT_FILE.split(File.separator);
 
         String input = inputFile[inputFile.length - 1];
         String ontologyName = input;

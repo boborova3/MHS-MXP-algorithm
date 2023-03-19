@@ -1,5 +1,6 @@
 package models;
 
+import abductionapi.manager.ExplanationWrapper;
 import common.Printer;
 import org.apache.commons.lang3.StringUtils;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -89,5 +90,9 @@ public class Explanation {
         }
 
         return false;
+    }
+
+    public ExplanationWrapper createExplanationWrapper(){
+        return new ExplanationWrapper(new HashSet<>(owlAxioms));
     }
 }

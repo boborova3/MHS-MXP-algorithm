@@ -1,14 +1,11 @@
 package models;
 
 import common.Configuration;
-import common.Printer;
-import openllet.owlapi.OWL;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import reasoner.ILoader;
-import reasoner.Loader;
 
 import java.util.HashSet;
 import java.util.List;

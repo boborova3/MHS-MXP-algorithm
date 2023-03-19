@@ -9,20 +9,19 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
-import reasoner.Loader;
+import reasoner.ConsoleLoader;
 
 import java.io.File;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
 public class AbduciblesParser {
 
     private Logger logger = Logger.getLogger(ObservationParser.class.getSimpleName());
-    private Loader loader;
+    private ConsoleLoader loader;
 
-    public AbduciblesParser(Loader loader) {
+    public AbduciblesParser(ConsoleLoader loader) {
         this.loader = loader;
     }
 

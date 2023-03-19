@@ -1,7 +1,6 @@
 package reasoner;
 
-import application.Application;
-import application.ExitCode;
+import common.Configuration;
 import common.LogMessage;
 import models.Abducibles;
 import models.Individuals;
@@ -10,56 +9,29 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.knowledgeexploration.OWLKnowledgeExplorerReasoner;
+import parser.*;
 import uk.ac.manchester.cs.jfact.JFactFactory;
 
+import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public abstract class Loader implements ILoader {
+public class ConsoleLoader extends Loader {
 
-    protected Logger logger = Logger.getLogger(Loader.class.getSimpleName());
-
-    protected OWLOntologyManager ontologyManager;
-    protected OWLReasonerFactory reasonerFactory;
-    protected OWLOntology ontology;
-    protected OWLKnowledgeExplorerReasoner reasoner;
-
-    protected Observation observation;
-    protected Observation negObservation;
-    protected String ontologyIRI;
-    protected Individuals namedIndividuals;
-    protected OWLOntology originalOntology;
-    protected OWLOntology initialOntology; // initial ontology without negated observation
-    protected Abducibles abducibles;
-
-    protected OWLDocumentFormat observationOntologyFormat;
-    protected boolean isMultipleObservationOnInput = false;
-    protected boolean isAxiomBasedAbduciblesOnInput = false;
-
-    protected void loadReasoner(ReasonerType reasonerType) {
-        try {
-            ontologyManager = OWLManager.createOWLOntologyManager();
-            setupOntology();
-            changeReasoner(reasonerType);
-            initializeReasoner();
-
-            if (reasoner.isConsistent()) {
-                logger.log(Level.INFO, LogMessage.INFO_ONTOLOGY_CONSISTENCY);
-            } else {
-                logger.log(Level.WARNING, LogMessage.ERROR_ONTOLOGY_CONSISTENCY);
-                reasoner.dispose();
-
-                Application.finish(ExitCode.ERROR);
-            }
-
-        } catch (OWLOntologyCreationException exception) {
-            logger.log(Level.WARNING, LogMessage.ERROR_CREATING_ONTOLOGY, exception);
-            Application.finish(ExitCode.ERROR);
-        }
+    @Override
+    public void initialize(ReasonerType reasonerType) throws Exception {
+        loadReasoner(reasonerType);
+        loadObservation();
+        loadPrefixes();
+        loadAbducibles();
     }
 
-    protected abstract void setupOntology() throws OWLOntologyCreationException;
+    @Override
+    protected void setupOntology() throws OWLOntologyCreationException {
+        ontology = ontologyManager.loadOntologyFromOntologyDocument(new File(Configuration.INPUT_ONT_FILE));
+        originalOntology = OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(new File(Configuration.INPUT_ONT_FILE));
+        initialOntology = OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(new File(Configuration.INPUT_ONT_FILE));
+    }
 
     @Override
     public void changeReasoner(ReasonerType reasonerType) {
@@ -89,11 +61,25 @@ public abstract class Loader implements ILoader {
         reasoner.flush();
     }
 
-    protected abstract void loadObservation() throws Exception;
+    @Override
+    protected void loadObservation() throws Exception {
+        namedIndividuals = new Individuals();
 
-    protected abstract void loadAbducibles();
+        IObservationParser observationParser = new ConsoleObservationParser(this);
+        observationParser.parse();
+    }
 
-    protected abstract void loadPrefixes();
+    @Override
+    protected void loadPrefixes(){
+        PrefixesParser prefixesParser = new PrefixesParser(observationOntologyFormat);
+        prefixesParser.parse();
+    }
+
+    @Override
+    protected void loadAbducibles(){
+        AbduciblesParser abduciblesParser = new AbduciblesParser(this);
+        abducibles = abduciblesParser.parse();
+    }
 
     public Abducibles getAbducibles(){
         return abducibles;

@@ -10,7 +10,7 @@ import java.util.*;
 
 public class SetDivider {
 
-    HybridSolver hybridSolver;
+    ExplanationManager explanationManager;
     private Map<AxiomPair, Integer> tableOfAxiomPairOccurance;
     private List<Integer> numberOfAxiomPairOccurance;
     private double median = 0;
@@ -18,7 +18,7 @@ public class SetDivider {
     private int lastUsedIndex;
 
     public SetDivider(HybridSolver hybridSolver){
-        this.hybridSolver = hybridSolver;
+        this.explanationManager = hybridSolver.getExplanationManager();
         tableOfAxiomPairOccurance = new HashMap<>();
         numberOfAxiomPairOccurance = new ArrayList<>();
         notUsedExplanations = new HashSet<>();
@@ -53,9 +53,9 @@ public class SetDivider {
     }
 
     public List<Literals> divideIntoSets(Literals literals) {
-        if(Configuration.CACHED_CONFLICTS_LONGEST_CONFLICT && hybridSolver.possibleExplanations.size() > 0 && lastUsedIndex != -1){
+        if(Configuration.CACHED_CONFLICTS_LONGEST_CONFLICT && explanationManager.getPossibleExplanationsCount() > 0 && lastUsedIndex != -1){
             return divideIntoSetsAccordingTheLongestConflict(literals);
-        } else if (Configuration.CACHED_CONFLICTS_MEDIAN && hybridSolver.possibleExplanations.size() > 0){
+        } else if (Configuration.CACHED_CONFLICTS_MEDIAN && explanationManager.getPossibleExplanationsCount() > 0){
             return divideIntoSetsAccordingTableOfLiteralsPairOccurrence(literals);
         }
         return divideIntoSetsWithoutCondition(literals);
@@ -77,7 +77,7 @@ public class SetDivider {
     }
 
     private List<Literals> divideIntoSetsAccordingTheLongestConflict(Literals literals){
-        Explanation theLongestExplanation = hybridSolver.possibleExplanations.get(lastUsedIndex);
+        Explanation theLongestExplanation = explanationManager.getPossibleExplanations().get(lastUsedIndex);
         Set<OWLAxiom> axiomsFromExplanation = new HashSet<>(theLongestExplanation.getOwlAxioms());
 
         List<Literals> dividedLiterals = new ArrayList<>();
@@ -106,7 +106,7 @@ public class SetDivider {
         int length = 0;
 
         for(Integer i : notUsedExplanations){
-            if(hybridSolver.possibleExplanations.get(i).getDepth() > length){
+            if(explanationManager.getPossibleExplanations().get(i).getDepth() > length){
                 indexOfLongestExp = i;
             }
         }
