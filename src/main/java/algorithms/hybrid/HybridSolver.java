@@ -119,13 +119,16 @@ public class HybridSolver implements ISolver {
         String message = null;
         if (!reasonerManager.isOntologyConsistent()) {
             message = "MESSAGE: nothing to explain";
+            explanationManager.processExplanations(message);
         }
  /*       else if (reasonerManager.isOntologyWithLiteralsConsistent(abd_literals.getOwlAxioms(), ontology)) {
+            //tato pociatocna podmienka v MHS-MXP algoritme nevystupuje
             message = "MESSAGE: no conflicts, consistent with abducibles";
+            makeFinalLog(message);
         }*/
         else {
 //            System.out.println("preslo podmienkami");
-            startSolving();
+            trySolve();
         }
 
 //        for(ModelNode m : models){
@@ -134,6 +137,29 @@ public class HybridSolver implements ISolver {
 //        System.out.println(models.size());
 
         explanationManager.processExplanations(message);
+    }
+
+    private void trySolve() throws OWLOntologyStorageException, OWLOntologyCreationException {
+        try {
+            startSolving();
+        } catch (Throwable e) {
+            makeErrorAndPartialLog(e);
+            throw e;
+        } finally {
+            explanationManager.processExplanations(null);
+        }
+    }
+
+    private void makeErrorAndPartialLog(Throwable e) {
+        explanationManager.showError(e);
+
+        Double time = threadTimes.getTotalUserTimeInSec();
+        level_times.put(currentDepth, time);
+        explanationManager.showExplanationsWithDepth(currentDepth, false, true, time);
+        if(!Configuration.MHS_MODE){
+            explanationManager.showExplanationsWithDepth(currentDepth + 1, false, true, time);
+            explanationManager.showExplanationsWithLevel(currentDepth, false, true, time);
+        }
     }
 
     private void initialize() {

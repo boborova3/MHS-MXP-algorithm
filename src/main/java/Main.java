@@ -20,7 +20,7 @@ import java.util.Set;
 public class Main {
 
     /** whether the solver is being run from an IDE*/
-    private static final boolean TESTING = false;
+    private static final boolean TESTING = true;
     /** whether the solver is being run from an IDE through the API*/
     private static final boolean API = true;
 

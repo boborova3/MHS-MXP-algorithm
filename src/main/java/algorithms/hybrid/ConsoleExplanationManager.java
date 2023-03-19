@@ -28,4 +28,5 @@ public class ConsoleExplanationManager extends ExplanationManager {
             System.out.println(message);
         }
     }
+
 }

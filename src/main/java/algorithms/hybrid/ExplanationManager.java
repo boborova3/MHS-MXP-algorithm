@@ -12,6 +12,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import reasoner.ILoader;
 import reasoner.IReasonerManager;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -108,6 +110,14 @@ public abstract class ExplanationManager {
 
         reasonerManager.resetOntology(loader.getOriginalOntology().axioms());
         return filteredExplanations;
+    }
+
+    public void showError(Throwable e) {
+        StringWriter result = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(result);
+        e.printStackTrace(printWriter);
+
+        FileLogger.appendToFile(FileLogger.HYBRID_ERROR_LOG__PREFIX, solver.currentTimeMillis, result.toString());
     }
 
     public void showMessages(List<String> info, String message) {
@@ -272,17 +282,17 @@ public abstract class ExplanationManager {
         return name.contains(DLSyntax.DISPLAY_NEGATION);
     }
 
-    protected void showExplanationsWithDepth(Integer depth, boolean timeout, Double time) {
+    protected void showExplanationsWithDepth(Integer depth, boolean timeout, boolean error, Double time) {
         List<Explanation> currentExplanations = possibleExplanations.stream().filter(explanation -> explanation.getDepth().equals(depth)).collect(Collectors.toList());
         String currentExplanationsFormat = StringUtils.join(currentExplanations, ",");
-        String line = String.format("%d;%d;%.2f%s;{%s}\n", depth, currentExplanations.size(), time, timeout ? "-TIMEOUT" : "", currentExplanationsFormat);
+        String line = String.format("%d;%d;%.2f%s%s;{%s}\n", depth, currentExplanations.size(), time, timeout ? "-TIMEOUT" : "", error ? "-ERROR" : "", currentExplanationsFormat);
         FileLogger.appendToFile(FileLogger.HYBRID_PARTIAL_EXPLANATIONS_LOG_FILE__PREFIX, solver.currentTimeMillis, line);
     }
 
-    protected void showExplanationsWithLevel(Integer level, boolean timeout, Double time){
+    protected void showExplanationsWithLevel(Integer level, boolean timeout, boolean error, Double time){
         List<Explanation> currentExplanations = possibleExplanations.stream().filter(explanation -> explanation.getLevel().equals(level)).collect(Collectors.toList());
         String currentExplanationsFormat = StringUtils.join(currentExplanations, ",");
-        String line = String.format("%d;%d;%.2f%s;{%s}\n", level, currentExplanations.size(), time, timeout ? "-TIMEOUT" : "", currentExplanationsFormat);
+        String line = String.format("%d;%d;%.2f%s%s;{%s}\n", level, currentExplanations.size(), time, timeout ? "-TIMEOUT" : "", error ? "-ERROR" : "", currentExplanationsFormat);
         FileLogger.appendToFile(FileLogger.HYBRID_PARTIAL_EXPLANATIONS_ACCORDING_TO_LEVELS_LOG_FILE__PREFIX, solver.currentTimeMillis, line);
     }
 
