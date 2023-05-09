@@ -1,0 +1,5 @@
+-f: files/testExtractingModel9_1.owl
+-o: Prefix: prefix1: <http://www.co-ode.org/ontologies/ont.owl#> Class: prefix1:A Class: prefix1:C Class: prefix1:E Individual: prefix1:a Types: prefix1:A and prefix1:C and prefix1:E
+-t: 14400
+-output: skusim
+

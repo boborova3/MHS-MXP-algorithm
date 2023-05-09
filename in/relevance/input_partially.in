@@ -1,0 +1,3 @@
+-f: files/rel.owl
+-o: Prefix: prefix: <http://www.semanticweb.org/2018/ontologies/2022/10/untitled-ontology-4#> Class: prefix:A Class: prefix:C Individual: prefix:a Types: prefix:A  Types: prefix:C 
+-sR: false

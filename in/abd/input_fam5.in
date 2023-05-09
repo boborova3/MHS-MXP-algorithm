@@ -1,0 +1,9 @@
+-f: files/familyX.owl
+-o: Prefix: fam: <http://www.semanticweb.org/julia/ontologies/2017/8/family#> Prefix: dai: <http://dai.fmph.uniba.sk/RDF#> Class: fam:Father Individual: fam:jack Types: fam:Father
+-n: false
+-abd: {
+Individual: fam:jack Types: not fam:Father
+Individual: fam:jack Types: fam:Male
+Individual: fam:jack Types: fam:Parent
+}
+

@@ -1,0 +1,5 @@
+-f: files/jackR2.owl
+-o: Prefix: prefix1: <http://www.semanticweb.org/2018/ontologies/2022/4/untitled-ontology-31#> Class: prefix1:Sad Individual: prefix1:jack Types: prefix1:Sad
+-t: 14400
+-n: false
+-r: true

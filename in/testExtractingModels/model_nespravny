@@ -1,6 +1,0 @@
-Model
-
-[
-ClassAssertion(<http://www.co-ode.org/ontologies/ont.owl#E> <http://www.co-ode.org/ontologies/ont.owl#a>), ClassAssertion(ObjectComplementOf(<http://www.co-ode.org/ontologies/ont.owl#A>) <http://www.co-ode.org/ontologies/ont.owl#a>), ClassAssertion(<http://www.co-ode.org/ontologies/ont.owl#D> <http://www.co-ode.org/ontologies/ont.owl#a>), ClassAssertion(ObjectComplementOf(<http://www.co-ode.org/ontologies/ont.owl#B>) <http://www.co-ode.org/ontologies/ont.owl#a>), ClassAssertion(ObjectComplementOf(<http://www.co-ode.org/ontologies/ont.owl#C>) <http://www.co-ode.org/ontologies/ont.owl#a>), ClassAssertion(ObjectComplementOf(<http://www.co-ode.org/ontologies/ont.owl#F>) <http://www.co-ode.org/ontologies/ont.owl#a>)]
-
-E, -A, D, -B, -C, -F

@@ -1,0 +1,3 @@
+-f: files/family2.owl
+-o: Prefix: prefix1: <http://www.semanticweb.org/chrumka/ontologies/2020/4/untitled-ontology-13#> Class: prefix1:Father Class: prefix1:Mother Individual: prefix1:jack Types: prefix1:Father Individual: prefix1:jane Types: prefix1:Mother
+-n: false

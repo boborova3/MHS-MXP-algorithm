@@ -1,0 +1,4 @@
+-f: files/familyX.owl
+-o: Prefix: prefix1: <http://www.semanticweb.org/julia/ontologies/2017/8/family#> Class: prefix1:Father Class: prefix1:Mother Individual: prefix1:jack Types: prefix1:Father or prefix1:Mother
+-t: 14400
+-n: false

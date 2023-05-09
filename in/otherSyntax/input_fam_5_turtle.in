@@ -1,5 +1,0 @@
--f: files/family.owl
--o: @prefix fam: <http://www.semanticweb.org/julia/ontologies/2017/8/family#> . fam:jack rdf:type fam:Father.
--r: jfact
--n: false
-

@@ -146,9 +146,9 @@ public class ArgumentParser {
                     }
                     break;
                 case "-r:":
-                    if (next.equals("false")) {
-                        Configuration.ROLES_IN_EXPLANATIONS_ALLOWED = false;
-                    } else if (!next.equals("true")) {
+                    if (next.equals("true")) {
+                        Configuration.ROLES_IN_EXPLANATIONS_ALLOWED = true;
+                    } else if (!next.equals("false")) {
                         System.err.println("Wrong roles in explanations allowed value -r" + next + ", allowed values are 'true' and 'false'");
                     }
                     break;
