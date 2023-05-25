@@ -98,12 +98,8 @@ public class HybridSolver implements ISolver {
         if (!reasonerManager.isOntologyConsistent()) {
             message = "MESSAGE: nothing to explain";
             makeFinalLog(message);
-        }
-//        else if (reasonerManager.isOntologyWithLiteralsConsistent(abd_literals.getOwlAxioms(), ontology)) { //tato pociatocna podmienka v MHS-MXP algoritme nevystupuje
-//            message = "MESSAGE: no conflicts, consistent with abducibles";
-//            makeFinalLog(message);
-//        }
-        else {
+        } else {
+            reasonerManager.isOntologyWithLiteralsConsistent(abd_literals.getOwlAxioms(), ontology); //zazracny riadok, bez ktoreho to nejde
             trySolve();
         }
     }
