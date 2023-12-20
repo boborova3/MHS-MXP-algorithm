@@ -3,7 +3,7 @@
 MHS-MXP (combination of MHS and MergeXplain) is a complete algorithm for solving abduction problem.
 
 ## Folder contents
-* **KR2023** is a repository for *International Conference on Principles of Knowledge Representation and Reasoning*
+* **experiment** is a repository for *KR2023* and *DL2023*
 * **files** contains input ontologies
 * **in** contains input examples
 * **old_versions** contains JAR files of the previous version
